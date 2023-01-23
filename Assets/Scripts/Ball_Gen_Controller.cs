@@ -27,6 +27,8 @@ public class Ball_Gen_Controller : MonoBehaviour
 
     private void Start()
     {
+        spriteRenderer.color = new Color(1f, 1f, 1f, 0);
+
         timer = 0.0f;
         waitingTime = 0.05f;
         ballNum = maxBallNum;
@@ -34,6 +36,8 @@ public class Ball_Gen_Controller : MonoBehaviour
         lr = GetComponent<LineRenderer>();
         lr.enabled = false;
         lr.positionCount = linePoints.Length;
+
+
     }
 
     private void FixedUpdate()
