@@ -36,7 +36,7 @@ public class Ball_Gen_Controller : MonoBehaviour
         lr.positionCount = linePoints.Length;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Vector2 mousePos;
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -58,7 +58,7 @@ public class Ball_Gen_Controller : MonoBehaviour
                 ballNum = maxBallNum;
                 onFire = false;
                 canMouseDown = true;
-                
+
             }
         }
     }
