@@ -7,11 +7,9 @@ public class Ball_Controller : MonoBehaviour
 {
     Rigidbody2D rigid;
 
-    public float ball_speed;
+    public float ball_speed = 15;
     public Vector3 first_Dir;
     public Vector3 first_Pos;
-
-    public float maxVelocityX, maxVelocityY;
 
     public int life_count = 5;
     bool ball_first_move;
@@ -30,7 +28,7 @@ public class Ball_Controller : MonoBehaviour
         if (ball_first_move)
         {
 
-            rigid.AddForce(first_Dir * 15 * ball_speed *Time.fixedDeltaTime);
+            rigid.AddForce(first_Dir * 2000 * ball_speed *Time.fixedDeltaTime);
             ball_first_move = false;
         }
 
@@ -39,7 +37,6 @@ public class Ball_Controller : MonoBehaviour
             life_count = 5;
             gameObject.SetActive(false);
         }
-        //limitMoveSpeed();
 }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -50,24 +47,5 @@ public class Ball_Controller : MonoBehaviour
         }
     }
 
-    void limitMoveSpeed()
-    {
-        if (rigid.velocity.x > maxVelocityX)
-        {
-            rigid.velocity = new Vector2(maxVelocityX, rigid.velocity.y);
-        }
-        if (rigid.velocity.x < (maxVelocityX * -1))
-        {
-            rigid.velocity = new Vector2((maxVelocityX * -1), rigid.velocity.y);
-        }
-
-        if (rigid.velocity.y > maxVelocityY)
-        {
-            rigid.velocity = new Vector2(rigid.velocity.x, maxVelocityY);
-        }
-        if (rigid.velocity.y < (maxVelocityY * -1))
-        {
-            rigid.velocity = new Vector2(rigid.velocity.x, (maxVelocityY * -1));
-        }
-    }
+    
 }
