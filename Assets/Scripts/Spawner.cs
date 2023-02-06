@@ -44,7 +44,7 @@ public class Spawner : MonoBehaviour
             float x = points[i].transform.position.x;
             float y = points[i].transform.position.y;
 
-            if (GameObject.Find("PoolManager").transform.Find("(" + x + "," + y + ")") != null) { Debug.Log("con"); continue; }
+            if (GameObject.Find("PoolManager").transform.Find("(" + x + "," + y + ")") != null) { continue; }
             if ((x > -4 && x < 4) && (y > -2 && y < 2)) { continue; }
 
             gameOb = GameManager.instance.poolManager.Get(0);
