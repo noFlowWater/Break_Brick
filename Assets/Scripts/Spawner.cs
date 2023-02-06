@@ -4,13 +4,53 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    public GameObject pointObject;
 
-    // Update is called once per frame
-    void Update()
+    GameObject[] points;
+    int xSize, ySize, size;
+
+    // 중앙을 기준으로 (-xSize,-ySize) ~ (xSize,ySize)까지 스폰 포인트를 생성해서 블록을 생성한다.
+    // 가로 xSize * 2개, 세로 ySize * 4개 총 ((2 * xSize) + 1) * ((4 * ySize) + 1)개를 최대 생성할 수 있다.
+    private void Awake()
     {
-        if (Input.GetButtonDown("Jump"))
+        GameObject point;
+        xSize = 8;
+        ySize = 6;
+        size = ((2 * xSize) + 1) * ((4 * ySize) + 1);
+        float x, y = -ySize - 0.5f;
+
+        // 스폰 포인트를 각 위치에 생성 및 위치시킴.
+        points = new GameObject[size];
+        for(int i = 0; i < size; ++i)
         {
-            GameManager.instance.poolManager.Get(0);
+            point = Instantiate(pointObject, transform);
+            points[i] = point;
+            x = (i % ((2 * xSize) + 1)) - xSize;
+            if (x == -xSize) { y += 0.5f; }
+            point.transform.position = new Vector3(x, y, 0);
+            point.transform.name = "Point(" + x + "," + y + ")";
+            
+        }
+
+        Spawn();
+        
+    }
+   
+    public void Spawn()
+    {
+        GameObject gameOb;
+        for(int i = 0; i< size; ++i)
+        {
+            float x = points[i].transform.position.x;
+            float y = points[i].transform.position.y;
+
+            if (GameObject.Find("PoolManager").transform.Find("(" + x + "," + y + ")") != null) { Debug.Log("con"); continue; }
+            if ((x > -4 && x < 4) && (y > -2 && y < 2)) { continue; }
+
+            gameOb = GameManager.instance.poolManager.Get(0);
+
+            gameOb.transform.position = new Vector3(x, y, 0);
+            gameOb.transform.name = "(" + x + "," + y + ")";
         }
     }
 }

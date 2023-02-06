@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!156049354 &264772278
 Grid:
   m_ObjectHideFlags: 0
@@ -169,7 +169,7 @@ Transform:
   - {fileID: 1739981707}
   - {fileID: 1913203180}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &419948895
 GameObject:
@@ -257,12 +257,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 640832780}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.049440596, y: -0.066527374, z: -0.14219958}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &792350043
 GameObject:
@@ -288,13 +288,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 792350043}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1573385516}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &792350045
 MonoBehaviour:
@@ -308,6 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eee60482b1acd40b1b5d33a87b0c1401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointObject: {fileID: 4587671933447066896, guid: 7cac7c17124c442eabd6f7e65754932b, type: 3}
 --- !u!1 &1344015163
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,17 +363,7 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 1344015167}
-    m_ColliderPaths:
-    - - X: 200000000
-        Y: 140000000
-      - X: -200000000
-        Y: 140000000
-      - X: -200000000
-        Y: -140000000
-      - X: 200000000
-        Y: -140000000
+  m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
     - - {x: 19.999971, y: -14}
@@ -11823,8 +11814,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 792350044}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11874,6 +11864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   touchPos: {x: 0, y: 0, z: 0}
+  spawner: {fileID: 792350045}
 --- !u!1 &1739981706
 GameObject:
   m_ObjectHideFlags: 0
@@ -11940,17 +11931,7 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 1739981711}
-    m_ColliderPaths:
-    - - X: 200000000
-        Y: 140000000
-      - X: -200000000
-        Y: 140000000
-      - X: -200000000
-        Y: -140000000
-      - X: 200000000
-        Y: -140000000
+  m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
     - - {x: 19.999971, y: -14}
@@ -23373,17 +23354,7 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 1913203184}
-    m_ColliderPaths:
-    - - X: 200000000
-        Y: 140000000
-      - X: -200000000
-        Y: 140000000
-      - X: -200000000
-        Y: -140000000
-      - X: 200000000
-        Y: -140000000
+  m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
     - - {x: 19.999971, y: -14}
@@ -34806,17 +34777,7 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 2059440754}
-    m_ColliderPaths:
-    - - X: 200000000
-        Y: 140000000
-      - X: -200000000
-        Y: 140000000
-      - X: -200000000
-        Y: -140000000
-      - X: 200000000
-        Y: -140000000
+  m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
     - - {x: 19.999971, y: -14}

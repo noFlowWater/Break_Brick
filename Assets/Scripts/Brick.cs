@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
+
+    // 블록들은 가로 1, 세로 0.5의 길이를 가짐
     public int life;
 
     private void Awake()
