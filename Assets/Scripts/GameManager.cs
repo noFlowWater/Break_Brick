@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+<<<<<<< HEAD
     public MainCamera mainCamera;
     public PoolManager poolManager;
 
@@ -26,3 +27,12 @@ public class GameManager : MonoBehaviour
 
     
 }
+=======
+    public Pool_Manager pool;
+
+    void Awake()
+    {
+        instance = this;
+    }
+}
+>>>>>>> origin/noh
