@@ -8,12 +8,20 @@ public class GameManager : MonoBehaviour
     public MainCamera mainCamera;
     public PoolManager poolManager;
 
-    public int level;
+    public float level;
+    public int ballNumber;
+    public int life;
+    public int durability;
+    public int score;
 
     private void Awake()
     {
         instance = this;
         level = 1;
+        ballNumber = 1;
+        life = 1;
+        durability = 1;
+        score = 0;
     }
 
     

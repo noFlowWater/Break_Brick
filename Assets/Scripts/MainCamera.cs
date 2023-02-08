@@ -20,6 +20,8 @@ public class MainCamera : MonoBehaviour
         else if(Input.GetMouseButtonUp(0))
         {
             transform.position = touchPos;
+            // 한번 턴이 지날때마다 조금씩 level이 증가
+            GameManager.instance.level += 0.1f;
             RepositionSpawner(transform.position.x, transform.position.y);
         }
     }

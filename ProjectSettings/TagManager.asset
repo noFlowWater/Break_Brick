@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Background
   - Area
+  - Ball
   layers:
   - Default
   - TransparentFX
@@ -48,4 +49,7 @@ TagManager:
     locked: 0
   - name: Text
     uniqueID: 502199275
+    locked: 0
+  - name: Ball
+    uniqueID: 3757216973
     locked: 0

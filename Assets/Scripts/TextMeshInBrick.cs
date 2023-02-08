@@ -7,7 +7,7 @@ public class TextMeshInBrick : MonoBehaviour
 {
     public string sortingLayerName;
     public int sortingOrder;
-    public NormalBrick nBrick;
+    public Brick brickObj;
 
     TextMeshPro tmp;
 
@@ -22,6 +22,6 @@ public class TextMeshInBrick : MonoBehaviour
 
     private void Update()
     {
-        tmp.text = nBrick.life.ToString();
+        tmp.text = brickObj.life.ToString();
     }
 }

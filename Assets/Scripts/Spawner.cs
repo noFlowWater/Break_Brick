@@ -47,7 +47,30 @@ public class Spawner : MonoBehaviour
             if (GameObject.Find("PoolManager").transform.Find("(" + x + "," + y + ")") != null) { continue; }
             if ((x > -4 && x < 4) && (y > -2 && y < 2)) { continue; }
 
-            gameOb = GameManager.instance.poolManager.Get(0);
+            float randCreate = Random.Range(0, 10000)/100;
+            float probability = 5;
+            switch (randCreate)
+            {
+                case float f when (f < probability):
+                    gameOb = GameManager.instance.poolManager.Get(1);
+                    break;
+
+                case float f when (f >= probability && f < 2*probability ):
+                    gameOb = GameManager.instance.poolManager.Get(2);
+                    break;
+
+                case float f when (f >= 2*probability && f < 3*probability):
+                    gameOb = GameManager.instance.poolManager.Get(3);
+                    break;
+
+                default:
+                    gameOb = GameManager.instance.poolManager.Get(0);
+                    break;
+            }
+
+
+
+            
 
             gameOb.transform.position = new Vector3(x, y, 0);
             gameOb.transform.name = "(" + x + "," + y + ")";
