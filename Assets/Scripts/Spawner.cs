@@ -21,7 +21,7 @@ public class Spawner : MonoBehaviour
 
         // 스폰 포인트를 각 위치에 생성 및 위치시킴.
         points = new GameObject[size];
-        for(int i = 0; i < size; ++i)
+        for (int i = 0; i < size; ++i)
         {
             point = Instantiate(pointObject, transform);
             points[i] = point;
@@ -29,17 +29,17 @@ public class Spawner : MonoBehaviour
             if (x == -xSize) { y += 0.5f; }
             point.transform.position = new Vector3(x, y, 0);
             point.transform.name = "Point(" + x + "," + y + ")";
-            
+
         }
 
         Spawn();
-        
+
     }
-   
+
     public void Spawn()
     {
         GameObject gameOb;
-        for(int i = 0; i< size; ++i)
+        for (int i = 0; i < size; ++i)
         {
             float x = points[i].transform.position.x;
             float y = points[i].transform.position.y;
@@ -47,30 +47,30 @@ public class Spawner : MonoBehaviour
             if (GameObject.Find("PoolManager").transform.Find("(" + x + "," + y + ")") != null) { continue; }
             if ((x > -4 && x < 4) && (y > -2 && y < 2)) { continue; }
 
-            float randCreate = Random.Range(0, 10000)/100;
+            float randCreate = Random.Range(0, 10000) / 100;
             float probability = 5;
             switch (randCreate)
             {
                 case float f when (f < probability):
-                    gameOb = GameManager.instance.poolManager.Get(1);
+                    gameOb = GameManager.instance.poolManager.Get(4);
                     break;
 
-                case float f when (f >= probability && f < 2*probability ):
+                case float f when (f >= probability && f < 2 * probability):
                     gameOb = GameManager.instance.poolManager.Get(2);
                     break;
 
-                case float f when (f >= 2*probability && f < 3*probability):
+                case float f when (f >= 2 * probability && f < 3 * probability):
                     gameOb = GameManager.instance.poolManager.Get(3);
                     break;
 
                 default:
-                    gameOb = GameManager.instance.poolManager.Get(0);
+                    gameOb = GameManager.instance.poolManager.Get(1);
                     break;
             }
 
 
 
-            
+
 
             gameOb.transform.position = new Vector3(x, y, 0);
             gameOb.transform.name = "(" + x + "," + y + ")";

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4742639770440114747}
   m_Layer: 0
   m_Name: LifeBrick
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2018110409
-  m_SortingLayer: 1
+  m_SortingLayerID: -1517794115
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 34b4feabcead741c4804b2e61bbb5f81, type: 3}
   m_Color: {r: 0.6839622, g: 0.9968412, b: 1, a: 1}

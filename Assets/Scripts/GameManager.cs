@@ -5,34 +5,23 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-<<<<<<< HEAD
     public MainCamera mainCamera;
     public PoolManager poolManager;
 
     public float level;
+    public int score;
     public int ballNumber;
     public int life;
     public int durability;
-    public int score;
+
+    public float ballSpeed;
 
     private void Awake()
     {
         instance = this;
         level = 1;
-        ballNumber = 1;
-        life = 1;
-        durability = 1;
         score = 0;
     }
 
-    
-}
-=======
-    public Pool_Manager pool;
 
-    void Awake()
-    {
-        instance = this;
-    }
 }
->>>>>>> origin/noh

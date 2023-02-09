@@ -55,7 +55,7 @@ public class Reposition : MonoBehaviour
         float diffY = cameraPos.y - myPos.y;
 
         if (diffX < -40) { transform.Translate(Vector2.left * 80); }
-        else if(diffX > 40) { transform.Translate(Vector2.right * 80); }
+        else if (diffX > 40) { transform.Translate(Vector2.right * 80); }
         if (diffY < -28) { transform.Translate(Vector3.down * 56); }
         else if (diffY > 28) { transform.Translate(Vector3.up * 56); }
     }

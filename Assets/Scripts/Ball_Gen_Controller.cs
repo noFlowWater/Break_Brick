@@ -22,7 +22,7 @@ public class Ball_Gen_Controller : MonoBehaviour
     public bool isMouseDragFirst = false;
     public bool canMouseDown = true;
 
-    int maxBallNum = 20;
+    // int maxBallNum = 20;
     int ballNum;
 
     private void Start()
@@ -31,7 +31,7 @@ public class Ball_Gen_Controller : MonoBehaviour
 
         timer = 0.0f;
         waitingTime = 0.05f;
-        ballNum = maxBallNum;
+        ballNum = GameManager.instance.ballNumber;
 
         lr = GetComponent<LineRenderer>();
         lr.enabled = false;
@@ -47,6 +47,8 @@ public class Ball_Gen_Controller : MonoBehaviour
 
         transform.position = new Vector2(mousePos.x, mousePos.y);
 
+        if (!onFire) { ballNum = GameManager.instance.ballNumber; }
+
         if (onFire)
         {
             timer += Time.deltaTime;
@@ -59,7 +61,7 @@ public class Ball_Gen_Controller : MonoBehaviour
 
             if (ballNum == 0)
             {
-                ballNum = maxBallNum;
+                ballNum = GameManager.instance.ballNumber;
                 onFire = false;
                 canMouseDown = true;
 
@@ -136,12 +138,13 @@ public class Ball_Gen_Controller : MonoBehaviour
     void Fire()
     {
         onFire = true;
+        --GameManager.instance.life;
         Debug.Log("Fire?");
     }
 
     void CreatBall(Vector3 dirc, Vector3 position)
     {
-        GameObject ball = GameManager.instance.pool.Get(0);
+        GameObject ball = GameManager.instance.poolManager.Get(0);
         ball.transform.position = position;
         ball.GetComponent<Ball_Controller>().first_Dir = dirc;
         ballNum--;

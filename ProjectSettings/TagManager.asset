@@ -4,13 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-<<<<<<< HEAD
-  - Background
-  - Area
   - Ball
-=======
+  - Background
   - Wall
->>>>>>> origin/noh
   layers:
   - Default
   - TransparentFX
@@ -19,7 +15,7 @@ TagManager:
   - Water
   - UI
   - 
-  - BALL
+  - 
   - 
   - 
   - 
@@ -48,12 +44,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3161117509
+    locked: 0
   - name: Brick
-    uniqueID: 2018110409
+    uniqueID: 2777173181
     locked: 0
   - name: Text
-    uniqueID: 502199275
+    uniqueID: 767814147
     locked: 0
   - name: Ball
-    uniqueID: 3757216973
+    uniqueID: 3147710909
+    locked: 0
+  - name: UI
+    uniqueID: 411253381
     locked: 0

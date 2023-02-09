@@ -5,18 +5,28 @@ using UnityEngine.UIElements;
 
 public class Ball_Controller : MonoBehaviour
 {
+
+    public string sortingLayerName;
+    public int sortingOrder;
+
     Rigidbody2D rigid;
 
-    public float ball_speed = 15;
     public Vector3 first_Dir;
     public Vector3 first_Pos;
 
-    public int life_count = 5;
+    public int life_count;
     bool ball_first_move;
 
     void Awake()
     {
+        SpriteRenderer spr = GetComponent<SpriteRenderer>();
+        spr.sortingLayerName = sortingLayerName;
+        spr.sortingOrder = sortingOrder;
+        life_count = GameManager.instance.durability;
+
         rigid = GetComponent<Rigidbody2D>();
+
+
     }
 
     void OnEnable()
@@ -28,16 +38,16 @@ public class Ball_Controller : MonoBehaviour
         if (ball_first_move)
         {
 
-            rigid.AddForce(first_Dir * 2000 * ball_speed *Time.fixedDeltaTime);
+            rigid.AddForce(first_Dir * 2000 * GameManager.instance.ballSpeed * Time.fixedDeltaTime);
             ball_first_move = false;
         }
 
         if (life_count <= 0)
         {
-            life_count = 5;
+            life_count = GameManager.instance.durability;
             gameObject.SetActive(false);
         }
-}
+    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -47,5 +57,5 @@ public class Ball_Controller : MonoBehaviour
         }
     }
 
-    
+
 }

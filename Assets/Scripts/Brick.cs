@@ -17,7 +17,7 @@ public class Brick : MonoBehaviour
 
     //private void Update()
     //{
-        
+
     //    float dist = Vector3.Distance(transform.position, GameManager.instance.mainCamera.transform.position);
     //    Debug.Log(dist);
     //}
