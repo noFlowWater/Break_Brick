@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public MainCamera mainCamera;
     public PoolManager poolManager;
+    public GameObject[] VerticalChecker;
+    public GameObject[] HorizontalChecker;
 
     public float level;
     public int score;
@@ -25,11 +27,9 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void Update()
+    void LineBreakCheck()
     {
-        GameObject ball = null;
-        ball = GameObject.FindWithTag("Ball");
-        isPlayerTurn = ball == null ? true : false;
+
     }
 
 }

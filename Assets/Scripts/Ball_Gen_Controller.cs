@@ -47,7 +47,16 @@ public class Ball_Gen_Controller : MonoBehaviour
 
         transform.position = new Vector2(mousePos.x, mousePos.y);
 
-        if (!onFire) { ballNum = GameManager.instance.ballNumber; }
+        if (!onFire)
+        {
+            ballNum = GameManager.instance.ballNumber;
+            GameObject ball = null;
+            ball = GameObject.FindWithTag("Ball");
+            if (ball == null && !onFire)
+            {
+                GameManager.instance.isPlayerTurn = true;
+            }
+        }
 
         if (onFire)
         {
@@ -130,8 +139,8 @@ public class Ball_Gen_Controller : MonoBehaviour
     void Fire()
     {
         onFire = true;
+        GameManager.instance.isPlayerTurn = false;
         --GameManager.instance.life;
-        Debug.Log("Fire?");
     }
 
     void CreatBall(Vector3 dirc, Vector3 position)
