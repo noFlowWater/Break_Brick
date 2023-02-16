@@ -37,7 +37,6 @@ public class Ball_Controller : MonoBehaviour
     {
         if (ball_first_move)
         {
-
             rigid.AddForce(first_Dir * 2000 * GameManager.instance.ballSpeed * Time.fixedDeltaTime);
             ball_first_move = false;
         }

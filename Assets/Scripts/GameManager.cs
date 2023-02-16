@@ -16,12 +16,20 @@ public class GameManager : MonoBehaviour
 
     public float ballSpeed;
 
+    public bool isPlayerTurn;
+
     private void Awake()
     {
         instance = this;
-        level = 1;
         score = 0;
     }
 
+
+    private void Update()
+    {
+        GameObject ball = null;
+        ball = GameObject.FindWithTag("Ball");
+        isPlayerTurn = ball == null ? true : false;
+    }
 
 }

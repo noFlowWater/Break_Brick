@@ -20,7 +20,7 @@ public class Ball_Gen_Controller : MonoBehaviour
     public bool onFire;
     public bool isMouseDownFirst;
     public bool isMouseDragFirst = false;
-    public bool canMouseDown = true;
+
 
     // int maxBallNum = 20;
     int ballNum;
@@ -63,20 +63,16 @@ public class Ball_Gen_Controller : MonoBehaviour
             {
                 ballNum = GameManager.instance.ballNumber;
                 onFire = false;
-                canMouseDown = true;
-
             }
         }
     }
 
     private void OnMouseDown()
     {
-        if (!onFire && canMouseDown)
+        if (!onFire && GameManager.instance.isPlayerTurn && !isMouseDownFirst)
         {
 
             Debug.Log(" -- Mouse DOWN -- ");
-
-            canMouseDown = false;
             isMouseDownFirst = true;
             spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
 
@@ -127,10 +123,6 @@ public class Ball_Gen_Controller : MonoBehaviour
             if (dirc != Vector3.zero)
             {
                 Fire();
-            }
-            else
-            {
-                canMouseDown = true;
             }
         }
     }
