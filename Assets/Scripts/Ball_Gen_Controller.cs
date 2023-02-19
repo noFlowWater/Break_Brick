@@ -20,7 +20,7 @@ public class Ball_Gen_Controller : MonoBehaviour
     public bool onFire;
     public bool isMouseDownFirst;
     public bool isMouseDragFirst = false;
-
+    bool inFireArea;
 
     // int maxBallNum = 20;
     int ballNum;
@@ -37,7 +37,7 @@ public class Ball_Gen_Controller : MonoBehaviour
         lr.enabled = false;
         lr.positionCount = linePoints.Length;
 
-
+        inFireArea = false;
     }
 
     private void FixedUpdate()
@@ -79,7 +79,15 @@ public class Ball_Gen_Controller : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!onFire && GameManager.instance.isPlayerTurn && !isMouseDownFirst)
+        if (Mathf.Abs(transform.position.x) < Mathf.Abs(GameManager.instance.playerPlayPointX) && Mathf.Abs(transform.position.y) < Mathf.Abs(GameManager.instance.playerPlayPointY))
+        {
+            inFireArea = true;
+        }
+        else
+        {
+            inFireArea = false;
+        }
+        if (!onFire && GameManager.instance.isPlayerTurn && !isMouseDownFirst && inFireArea)
         {
 
             // Debug.Log(" -- Mouse DOWN -- ");
@@ -135,6 +143,7 @@ public class Ball_Gen_Controller : MonoBehaviour
                 Fire();
             }
         }
+
     }
 
     void Fire()

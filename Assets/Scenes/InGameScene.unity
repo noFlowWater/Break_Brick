@@ -1030,17 +1030,17 @@ MonoBehaviour:
   spawner: {fileID: 792350045}
   level: 1
   score: 0
-  ballNumber: 1
+  ballNumber: 11
   life: 5
-  durability: 3
-  ballSpeed: 20
+  durability: 15
+  ballSpeed: 8
   isPlayerTurn: 0
   playerPlayPointX: 2.5
   playerPlayPointY: 1.5
   delayRate: 0.5
   delay: 0
-  brickSpeed: 0.8
-  timeScale: 1
+  brickSpeed: 0.2
+  timeScale: 22
   funcCount: 0
 --- !u!4 &419948897
 Transform:
