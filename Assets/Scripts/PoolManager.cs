@@ -52,7 +52,7 @@ public class PoolManager : MonoBehaviour
                 // 발견하면 select 변수에 할당
                 select = item;
                 select.SetActive(true);
-                Debug.Log(select.name);
+                // Debug.Log(select.name);
                 break;
             }
         }

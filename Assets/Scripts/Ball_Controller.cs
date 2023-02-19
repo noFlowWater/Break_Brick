@@ -42,7 +42,16 @@ public class Ball_Controller : MonoBehaviour
             rigid.AddForce(first_Dir * 2000 * GameManager.instance.ballSpeed * Time.fixedDeltaTime);
 
             ball_first_move = false;
+
+
         }
+        // rigid.AddForce(rigid.velocity * 100 * GameManager.instance.ballSpeed * Time.fixedDeltaTime);
+        rigid.velocity = rigid.velocity.normalized * GameManager.instance.ballSpeed;
+        Debug.Log(rigid.velocity.magnitude);
+        // else if (rigid.velocity != Vector2.zero)
+        // {
+        //     rigid.velocity = rigid.velocity.normalized * 2000 * GameManager.instance.ballSpeed * Time.fixedDeltaTime;
+        // }
 
         if (life_count <= 0)
         {

@@ -52,8 +52,9 @@ public class Ball_Gen_Controller : MonoBehaviour
             ballNum = GameManager.instance.ballNumber;
             GameObject ball = null;
             ball = GameObject.FindWithTag("Ball");
-            if (ball == null && !onFire)
+            if (ball == null && !onFire && GameManager.instance.isPlayerTurn != true)
             {
+                GameManager.instance.LineBreakCheck();
                 GameManager.instance.isPlayerTurn = true;
             }
         }
@@ -81,7 +82,7 @@ public class Ball_Gen_Controller : MonoBehaviour
         if (!onFire && GameManager.instance.isPlayerTurn && !isMouseDownFirst)
         {
 
-            Debug.Log(" -- Mouse DOWN -- ");
+            // Debug.Log(" -- Mouse DOWN -- ");
             isMouseDownFirst = true;
             spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
 
@@ -99,7 +100,7 @@ public class Ball_Gen_Controller : MonoBehaviour
                 isMouseDragFirst = true;
             }
 
-            Debug.Log(" -- Mouse DRAG -- ");
+            // Debug.Log(" -- Mouse DRAG -- ");
 
             Vector3 myPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             Vector3 dirc = (myPos - start_Pos).normalized; ;
@@ -118,7 +119,7 @@ public class Ball_Gen_Controller : MonoBehaviour
         if (!onFire && isMouseDragFirst)
         {
 
-            Debug.Log(" -- Mouse UP -- ");
+            // Debug.Log(" -- Mouse UP -- ");
 
             isMouseDragFirst = false;
             isMouseDownFirst = false;
@@ -129,7 +130,7 @@ public class Ball_Gen_Controller : MonoBehaviour
             end_Pos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             dirc = (end_Pos - start_Pos).normalized;
 
-            if (dirc != Vector3.zero)
+            if (dirc != Vector3.zero && GameManager.instance.funcCount == 0)
             {
                 Fire();
             }

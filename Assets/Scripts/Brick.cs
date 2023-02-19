@@ -9,24 +9,30 @@ public class Brick : MonoBehaviour
     public int life;
     public bool isBroken;
 
+    public float posX;
+    public float posY;
+
+    Vector3 velo = Vector3.zero;
+    Vector3 target;
     private void Awake()
     {
         life = (int)GameManager.instance.level;
         isBroken = false;
     }
 
-    //private void Update()
-    //{
+    void Update()
+    {
+        target = new Vector3(posX, posY, 0);
 
-    //    float dist = Vector3.Distance(transform.position, GameManager.instance.mainCamera.transform.position);
-    //    Debug.Log(dist);
-    //}
+        transform.position = Vector3.SmoothDamp(transform.position, target, ref velo, GameManager.instance.ballSpeed * Time.smoothDeltaTime);
+
+        // if (GameManager.instance.isPlayerTurn && GameManager.instance.funcCount == 0) { transform.name = "(" + transform.position.x + ", " + transform.position.y + ")"; }
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
-            Debug.Log(1);
             OnDamaged();
         }
     }
@@ -46,6 +52,7 @@ public class Brick : MonoBehaviour
         isBroken = true;
         ++GameManager.instance.score;
 
-        gameObject.SetActive(false);
+        // gameObject.SetActive(false);
+        Destroy(this.gameObject);
     }
 }
