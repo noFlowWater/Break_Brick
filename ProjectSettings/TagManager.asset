@@ -4,16 +4,18 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Ball
+  - Background
   - Wall
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - BrickBorder
   - Water
   - UI
   - 
-  - BALL
+  - 
   - 
   - 
   - 
@@ -41,4 +43,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3161117509
+    locked: 0
+  - name: Brick
+    uniqueID: 2777173181
+    locked: 0
+  - name: Text
+    uniqueID: 767814147
+    locked: 0
+  - name: Ball
+    uniqueID: 3147710909
+    locked: 0
+  - name: UI
+    uniqueID: 411253381
     locked: 0

@@ -20,9 +20,9 @@ public class Ball_Gen_Controller : MonoBehaviour
     public bool onFire;
     public bool isMouseDownFirst;
     public bool isMouseDragFirst = false;
-    public bool canMouseDown = true;
+    bool inFireArea;
 
-    int maxBallNum = 20;
+    // int maxBallNum = 20;
     int ballNum;
 
     private void Start()
@@ -31,13 +31,13 @@ public class Ball_Gen_Controller : MonoBehaviour
 
         timer = 0.0f;
         waitingTime = 0.05f;
-        ballNum = maxBallNum;
+        ballNum = GameManager.instance.ballNumber;
 
         lr = GetComponent<LineRenderer>();
         lr.enabled = false;
         lr.positionCount = linePoints.Length;
 
-
+        inFireArea = false;
     }
 
     private void FixedUpdate()
@@ -46,6 +46,18 @@ public class Ball_Gen_Controller : MonoBehaviour
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         transform.position = new Vector2(mousePos.x, mousePos.y);
+
+        if (!onFire)
+        {
+            ballNum = GameManager.instance.ballNumber;
+            GameObject ball = null;
+            ball = GameObject.FindWithTag("Ball");
+            if (ball == null && !onFire && GameManager.instance.isPlayerTurn != true)
+            {
+                GameManager.instance.LineBreakCheck();
+                GameManager.instance.isPlayerTurn = true;
+            }
+        }
 
         if (onFire)
         {
@@ -59,22 +71,26 @@ public class Ball_Gen_Controller : MonoBehaviour
 
             if (ballNum == 0)
             {
-                ballNum = maxBallNum;
+                ballNum = GameManager.instance.ballNumber;
                 onFire = false;
-                canMouseDown = true;
-
             }
         }
     }
 
     private void OnMouseDown()
     {
-        if (!onFire && canMouseDown)
+        if (Mathf.Abs(transform.position.x) < Mathf.Abs(GameManager.instance.playerPlayPointX) && Mathf.Abs(transform.position.y) < Mathf.Abs(GameManager.instance.playerPlayPointY))
+        {
+            inFireArea = true;
+        }
+        else
+        {
+            inFireArea = false;
+        }
+        if (!onFire && GameManager.instance.isPlayerTurn && !isMouseDownFirst && inFireArea)
         {
 
-            Debug.Log(" -- Mouse DOWN -- ");
-
-            canMouseDown = false;
+            // Debug.Log(" -- Mouse DOWN -- ");
             isMouseDownFirst = true;
             spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
 
@@ -92,7 +108,7 @@ public class Ball_Gen_Controller : MonoBehaviour
                 isMouseDragFirst = true;
             }
 
-            Debug.Log(" -- Mouse DRAG -- ");
+            // Debug.Log(" -- Mouse DRAG -- ");
 
             Vector3 myPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             Vector3 dirc = (myPos - start_Pos).normalized; ;
@@ -111,7 +127,7 @@ public class Ball_Gen_Controller : MonoBehaviour
         if (!onFire && isMouseDragFirst)
         {
 
-            Debug.Log(" -- Mouse UP -- ");
+            // Debug.Log(" -- Mouse UP -- ");
 
             isMouseDragFirst = false;
             isMouseDownFirst = false;
@@ -122,26 +138,24 @@ public class Ball_Gen_Controller : MonoBehaviour
             end_Pos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             dirc = (end_Pos - start_Pos).normalized;
 
-            if (dirc != Vector3.zero)
+            if (dirc != Vector3.zero && GameManager.instance.funcCount == 0)
             {
                 Fire();
             }
-            else
-            {
-                canMouseDown = true;
-            }
         }
+
     }
 
     void Fire()
     {
         onFire = true;
-        Debug.Log("Fire?");
+        GameManager.instance.isPlayerTurn = false;
+        --GameManager.instance.life;
     }
 
     void CreatBall(Vector3 dirc, Vector3 position)
     {
-        GameObject ball = GameManager.instance.pool.Get(0);
+        GameObject ball = GameManager.instance.poolManager.Get(0);
         ball.transform.position = position;
         ball.GetComponent<Ball_Controller>().first_Dir = dirc;
         ballNum--;
