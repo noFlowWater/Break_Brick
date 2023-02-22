@@ -32,7 +32,8 @@ public class GameManager : MonoBehaviour
 
     public float timeScale;
     public int funcCount;
-    bool isHSpawn;
+    bool isHUSpawn;
+    bool isHDSpawn;
 
     private void Awake()
     {
@@ -51,14 +52,15 @@ public class GameManager : MonoBehaviour
 
     public void LineBreakCheck()
     {
-        isHSpawn = false;
+        isHUSpawn = false;
+        isHDSpawn = false;
         delay = -delayRate;
         HorizontalLineBreakCheck(1);
-        delay = -delayRate;
+        // delay = -delayRate;
         HorizontalLineBreakCheck(-1);
-        delay = -delayRate;
+        // delay = -delayRate;
         VerticalLineBreakCheck(1);
-        delay = -delayRate;
+        // delay = -delayRate;
         VerticalLineBreakCheck(-1);
 
     }
@@ -126,8 +128,14 @@ public class GameManager : MonoBehaviour
                 return;
             }
         }
-        isHSpawn = true;
-
+        if (dir == 1)
+        {
+            isHUSpawn = true;
+        }
+        else
+        {
+            isHDSpawn = true;
+        }
         // 옮길 수 있는 라인을 찾음.
         while (brick == null)
         {
@@ -210,17 +218,23 @@ public class GameManager : MonoBehaviour
     {
         float startYPos;
         float endYPos;
-        if (!isHSpawn)
+        if (!isHUSpawn)
         {
             startYPos = spawner.rightPoint[spawner.rightPoint.Length - 1].transform.position.y;
-            endYPos = spawner.rightPoint[0].transform.position.y;
             // Debug.Log(false);
         }
         else
         {
             startYPos = -playerPlayPointY;
-            endYPos = playerPlayPointY;
             // Debug.Log(true);
+        }
+        if (!isHDSpawn)
+        {
+            endYPos = spawner.rightPoint[0].transform.position.y;
+        }
+        else
+        {
+            endYPos = playerPlayPointY;
         }
         // Debug.Log(startYPos);
         // Debug.Log(endYPos);
