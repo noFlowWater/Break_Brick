@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Brick : MonoBehaviour
 {
@@ -9,9 +10,10 @@ public class Brick : MonoBehaviour
     public int life;
     public bool isBroken;
 
+
     private void Awake()
     {
-        life = (int)GameManager.instance.level;
+        life = GameManager.instance.level;
         isBroken = false;
     }
 
@@ -26,8 +28,10 @@ public class Brick : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
-            Debug.Log(1);
+            GameObject effect = GameManager.instance.poolManager.Get(5);
+            effect.transform.position = transform.position;
             OnDamaged();
+            
         }
     }
 

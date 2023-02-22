@@ -127,6 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   life: 1
   isBroken: 0
+  effectPrefap: {fileID: 2419720900493962227, guid: 1e461d4abb4634ebfbcea2c5c39608e4, type: 3}
 --- !u!1 &1023161148290299269
 GameObject:
   m_ObjectHideFlags: 0

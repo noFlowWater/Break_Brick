@@ -53,9 +53,9 @@ public class Ball_Controller : MonoBehaviour
     {
         if (collision.gameObject.tag == "Wall")
         {
+            Debug.Log(collision.GetContact(0).normal);
             life_count--;
+            
         }
     }
-
-
 }

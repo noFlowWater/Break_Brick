@@ -30,7 +30,7 @@ public class Ball_Gen_Controller : MonoBehaviour
         spriteRenderer.color = new Color(1f, 1f, 1f, 0);
 
         timer = 0.0f;
-        waitingTime = 0.05f;
+        waitingTime = GameManager.instance.fireTime;
         ballNum = GameManager.instance.ballNumber;
 
         lr = GetComponent<LineRenderer>();
