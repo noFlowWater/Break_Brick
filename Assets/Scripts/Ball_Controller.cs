@@ -17,17 +17,22 @@ public class Ball_Controller : MonoBehaviour
     public int life_count;
     bool ball_first_move;
 
+
+
     void Awake()
     {
         SpriteRenderer spr = GetComponent<SpriteRenderer>();
+        TrailRenderer trail = GetComponent<TrailRenderer>();
         spr.sortingLayerName = sortingLayerName;
         spr.sortingOrder = sortingOrder;
         life_count = GameManager.instance.durability;
 
         rigid = GetComponent<Rigidbody2D>();
 
+        trail.material.color = spr.color;
 
     }
+
 
     void OnEnable()
     {
@@ -38,6 +43,7 @@ public class Ball_Controller : MonoBehaviour
 
         if (ball_first_move)
         {
+            ++GameManager.instance.ballNum;
 
             rigid.AddForce(first_Dir * 2000 * GameManager.instance.ballSpeed * Time.fixedDeltaTime);
 
@@ -48,7 +54,7 @@ public class Ball_Controller : MonoBehaviour
         // rigid.AddForce(rigid.velocity * 100 * GameManager.instance.ballSpeed * Time.fixedDeltaTime);
         if (rigid.velocity.magnitude < GameManager.instance.ballSpeed)
         {
-            Debug.Log(rigid.velocity.magnitude);
+            // Debug.Log(rigid.velocity.magnitude);
             rigid.velocity = rigid.velocity.normalized * GameManager.instance.ballSpeed;
         }
         // else if (rigid.velocity != Vector2.zero)
@@ -59,6 +65,7 @@ public class Ball_Controller : MonoBehaviour
         if (life_count <= 0)
         {
             life_count = GameManager.instance.durability;
+            --GameManager.instance.ballNum;
             gameObject.SetActive(false);
         }
     }
@@ -70,6 +77,8 @@ public class Ball_Controller : MonoBehaviour
             life_count--;
         }
     }
+
+
 
 
 }

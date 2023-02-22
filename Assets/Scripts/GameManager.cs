@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     // public GameObject[] VerticalChecker;
     // public GameObject[] HorizontalChecker;
     public Spawner spawner;
+    public Ball_Gen_Controller bgc;
 
 
     public float level;
@@ -33,6 +34,10 @@ public class GameManager : MonoBehaviour
     public float timeScale;
     public int funcCount;
 
+    public int ballNum;
+
+
+
 
     private void Awake()
     {
@@ -45,7 +50,21 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        Time.timeScale = timeScale;
+
+        if (ballNum == 0)
+        {
+            Time.timeScale = timeScale;
+        }
+        // else if (ballNum < ballNumber * 0.2 && ballNumber > 10 && !bgc.onFire) { Time.timeScale = timeScale * 2; }
+        else if (!bgc.onFire)
+        {
+            // Time.timeScale = (timeScale * 2) + (timeScale * 3 * (1 - (ballNum / ballNumber)));
+            Time.timeScale = timeScale * (3f - 2f * ((float)(ballNum) / (float)(ballNumber)));
+            // Time.timeScale = timeScale * (1 + Mathf.Log(ballNum / ballNumber, ballNumber));
+            // Time.timeScale = timeScale * Mathf.Pow(2.5f, 1 - ((float)ballNum / (float)ballNumber));
+
+        }
+        Debug.Log(Time.timeScale);
     }
 
 
@@ -95,10 +114,10 @@ public class GameManager : MonoBehaviour
 
         GameObject brick = null;
 
-        Debug.Log("startXPos: " + startXPos);
-        Debug.Log("endXPos: " + endXPos);
-        Debug.Log("endYPos: " + endYPos);
-        Debug.Log("needY: " + needY);
+        // Debug.Log("startXPos: " + startXPos);
+        // Debug.Log("endXPos: " + endXPos);
+        // Debug.Log("endYPos: " + endYPos);
+        // Debug.Log("needY: " + needY);
 
 
         for (y = needY; dir * y < dir * endYPos; y += dir)
@@ -116,7 +135,7 @@ public class GameManager : MonoBehaviour
             }
             if (!next) { break; }
         }
-        Debug.Log("y: " + y);
+
         // delay += delayRate;
         for (x = startXPos; dir * x <= dir * endXPos; x += dir)
         {

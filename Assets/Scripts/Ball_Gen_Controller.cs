@@ -30,7 +30,7 @@ public class Ball_Gen_Controller : MonoBehaviour
         spriteRenderer.color = new Color(1f, 1f, 1f, 0);
 
         timer = 0.0f;
-        waitingTime = 0.05f;
+        waitingTime = 0.025f;
         ballNum = GameManager.instance.ballNumber;
 
         lr = GetComponent<LineRenderer>();
@@ -79,7 +79,8 @@ public class Ball_Gen_Controller : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (Mathf.Abs(transform.position.x) < Mathf.Abs(GameManager.instance.playerPlayPointX) && Mathf.Abs(transform.position.y) < Mathf.Abs(GameManager.instance.playerPlayPointY))
+        if (Mathf.Abs(transform.position.x) < Mathf.Abs(GameManager.instance.playerPlayPointX + 0.5f) &&
+            Mathf.Abs(transform.position.y) < Mathf.Abs(GameManager.instance.playerPlayPointY + 0.5f))
         {
             inFireArea = true;
         }
