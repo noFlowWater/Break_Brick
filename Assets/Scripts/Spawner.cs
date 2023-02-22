@@ -6,45 +6,23 @@ public class Spawner : MonoBehaviour
 {
 
     // 생성 포인트
-    public GameObject[] leftPoint;
-    public GameObject[] rightPoint;
     public GameObject[] upPoint;
+    public GameObject[] rightPoint;
     public GameObject[] downPoint;
+    public GameObject[] leftPoint;
 
 
-    int xSize;
-    int ySize;
+    public int xSize;
+    public int ySize;
 
     private void Awake()
     {
-        xSize = 20;
-        ySize = 12;
+
         InitSpawn();
     }
 
     private void InitSpawn()
     {
-        GameObject brick;
-
-        float x = -(xSize / 2) - 0.5f; ;
-        float y = -(ySize / 2) - 0.5f;
-
-
-        // (-9.5, -5.5) ~ (9.5, 5.5) 에 블록 생성
-        for (int i = 0; i < xSize * ySize; ++i)
-        {
-            if (x == 9.5) { x = -x; }
-            else { ++x; }
-            if (x == -9.5f) { y += 1; }
-            // (-2.5, -1.5) ~ (2.5, 1.5)는 시작스폰시 제외
-            if ((x >= -GameManager.instance.playerPlayPointX && x <= GameManager.instance.playerPlayPointX) && (y >= -GameManager.instance.playerPlayPointY && y <= GameManager.instance.playerPlayPointY)) { continue; }
-            brick = GameManager.instance.poolManager.Get(-1);
-            brick.GetComponent<Brick>().posX = x;
-            brick.GetComponent<Brick>().posY = y;
-            brick.transform.position = new Vector3(x, y, 0);
-            brick.name = "(" + x + ", " + y + ")";
-
-        }
         for (int i = 0; i < 4; ++i)
         {
             Spawn(i);

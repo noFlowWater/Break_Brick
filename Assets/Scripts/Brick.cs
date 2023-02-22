@@ -13,6 +13,8 @@ public class Brick : MonoBehaviour
     public float posX;
     public float posY;
 
+    public bool isMove;
+
     Vector3 velo = Vector3.zero;
     Vector3 target;
     private void Awake()
@@ -24,10 +26,14 @@ public class Brick : MonoBehaviour
     void Update()
     {
         target = new Vector3(posX, posY, 0);
+        transform.position = Vector3.SmoothDamp(transform.position, target, ref velo, GameManager.instance.brickSpeed);
 
-        transform.position = Vector3.SmoothDamp(transform.position, target, ref velo, GameManager.instance.ballSpeed * Time.smoothDeltaTime);
-
-        // if (GameManager.instance.isPlayerTurn && GameManager.instance.funcCount == 0) { transform.name = "(" + transform.position.x + ", " + transform.position.y + ")"; }
+        // Debug.Log(transform.name + "/" + "(" + transform.position.x + ", " + transform.position.y + ")");
+        // if (transform.name == "(" + transform.position.x + ", " + transform.position.y + ")" && isMove)
+        // {
+        //     --GameManager.instance.funcCount;
+        //     isMove = false;
+        // }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -55,8 +61,6 @@ public class Brick : MonoBehaviour
     {
         isBroken = true;
         ++GameManager.instance.score;
-
-        // gameObject.SetActive(false);
         Destroy(this.gameObject);
     }
 }
