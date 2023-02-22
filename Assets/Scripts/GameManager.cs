@@ -71,10 +71,10 @@ public class GameManager : MonoBehaviour
         float endYPos = dir * spawner.upPoint[0].transform.position.y;
 
         // canCheck = true;
-        // Debug.Log("startXPos: " + startXPos);
-        // Debug.Log("endXPos: " + endXPos);
-        // Debug.Log("startYPos: " + startYPos);
-        // Debug.Log("endYPos: " + endYPos);
+        Debug.Log("startXPos: " + startXPos);
+        Debug.Log("endXPos: " + endXPos);
+        Debug.Log("startYPos: " + startYPos);
+        Debug.Log("endYPos: " + endYPos);
         // Debug.Log("dir: " + dir + "hor: " + endYPos);
 
         // 수평라인의 블록이 모두 사라졌는지를 체크한다. 플레이어 화면에 존재하는 블록만 체크한다.
@@ -90,89 +90,18 @@ public class GameManager : MonoBehaviour
             for (; x <= endXPos; ++x)
             {
                 GameObject brick = GameObject.Find("(" + x + ", " + y + ")");
-                if (brick == null) { brick = GameObject.Find("(" + x + ", " + y + ")Move"); }
+                // if (brick == null) { brick = GameObject.Find("(" + x + ", " + y + ")Move"); }
                 if (brick != null) { needFill = false; break; }
                 // Debug.Log(x + "," + y);
             }
             if (needFill)
             {
                 Debug.Log("테트리스!");
-
+                isHSpawn = true;
                 HorizontalLineMove(dir, y);
             };
 
         }
-
-    }
-    void HorizontalLineMove(int dir, float needY)
-    {
-        float startXPos = spawner.upPoint[spawner.upPoint.Length - 1].transform.position.x;
-        float endXPos = spawner.upPoint[0].transform.position.x;
-        float endYPos = dir * spawner.upPoint[0].transform.position.y;
-        float x;
-        float y = needY;
-
-        GameObject brick = null;
-        // Debug.Log(y);
-
-        // 안전장치?
-        for (x = startXPos * dir; Mathf.Abs(x) <= Mathf.Abs(endXPos); x += dir)
-        {
-            brick = GameObject.Find("(" + x + ", " + needY + ")");
-            if (brick == null) { brick = GameObject.Find("(" + x + ", " + needY + ")Move"); }
-            if (brick != null)
-            {
-                Debug.Log("gaesibal");
-                return;
-            }
-        }
-        isHSpawn = true;
-
-        // 옮길 수 있는 라인을 찾음.
-        while (brick == null)
-        {
-            // Debug.Log(1);
-            x = startXPos;
-            bool next = true;
-            for (; x <= endXPos; ++x)
-            {
-                brick = GameObject.Find("(" + x + ", " + y + ")");
-                if (brick == null) { brick = GameObject.Find("(" + x + ", " + y + ")Move"); }
-                if (brick != null)
-                {
-                    next = false;
-                    break;
-                }
-
-            }
-            if (!next) { break; }
-            else { y += dir; }
-            if ((Mathf.Abs(y) > Mathf.Abs(endYPos)))
-            {
-                Debug.Log("1. 무한루프");
-                break;
-            }
-        }
-        // delay += delayRate;
-        // 하나하나 옮긴다.
-        for (x = startXPos * dir; Mathf.Abs(x) <= Mathf.Abs(endXPos); x += dir)
-        {
-            brick = GameObject.Find("(" + x + ", " + y + ")");
-            if (brick == null) { brick = GameObject.Find("(" + x + ", " + y + ")Move"); }
-            if (brick != null)
-            {
-                brick.transform.name = "(" + x + ", " + needY + ")Move";
-                delay += delayRate;
-                StartCoroutine(MoveBrick(brick, x, needY));
-            }
-        }
-        if (y == endYPos)
-        {
-            if (dir == 1) { spawner.Spawn(0); }
-            else { spawner.Spawn(1); }
-        }
-
-
 
     }
     void VerticalLineBreakCheck(int dir)
@@ -206,42 +135,82 @@ public class GameManager : MonoBehaviour
 
         }
     }
+
+    void HorizontalLineMove(int dir, float needY)
+    {
+        float startXPos = spawner.upPoint[spawner.upPoint.Length - 1].transform.position.x;
+        float endXPos = spawner.upPoint[0].transform.position.x;
+        float endYPos = dir * spawner.upPoint[0].transform.position.y;
+        float x;
+        float y = needY;
+
+        GameObject brick = null;
+        // Debug.Log(y);
+
+        // 옮길 수 있는 라인을 찾음.
+        while (brick == null && (Mathf.Abs(y) <= Mathf.Abs(endYPos)))
+        {
+            // Debug.Log(1);
+            x = startXPos;
+            bool next = true;
+            for (; x <= endXPos; ++x)
+            {
+                brick = GameObject.Find("(" + x + ", " + y + ")");
+                // if (brick == null) { brick = GameObject.Find("(" + x + ", " + y + ")Move"); }
+                if (brick != null)
+                {
+                    next = false;
+                    break;
+                }
+
+            }
+            if (!next) { break; }
+            else { y += dir; }
+        }
+        // delay += delayRate;
+        // 하나하나 옮긴다.
+        for (x = startXPos * dir; Mathf.Abs(x) <= Mathf.Abs(endXPos); x += dir)
+        {
+            brick = GameObject.Find("(" + x + ", " + y + ")");
+            if (brick != null)
+            {
+                brick.transform.name = "(" + x + ", " + needY + ")";
+                delay += delayRate;
+                StartCoroutine(MoveBrick(brick, x, needY));
+
+
+            }
+        }
+        if (y == endYPos)
+        {
+            if (dir == 1) { spawner.Spawn(0); }
+            else { spawner.Spawn(1); }
+        }
+
+
+
+    }
     void VerticalLineMove(int dir, float needX)
     {
         float startYPos;
         float endYPos;
-        if (!isHSpawn)
-        {
-            startYPos = spawner.rightPoint[spawner.rightPoint.Length - 1].transform.position.y;
-            endYPos = spawner.rightPoint[0].transform.position.y;
-            // Debug.Log(false);
-        }
-        else
-        {
-            startYPos = -playerPlayPointY;
-            endYPos = playerPlayPointY;
-            // Debug.Log(true);
-        }
-        // Debug.Log(startYPos);
-        // Debug.Log(endYPos);
-        // startYPos = spawner.rightPoint[spawner.rightPoint.Length - 1].transform.position.y;
-        // endYPos = spawner.rightPoint[0].transform.position.y;
+        // if (!isHSpawn)
+        // {
+        //     startYPos = spawner.rightPoint[spawner.rightPoint.Length - 1].transform.position.y;
+        //     endYPos = spawner.rightPoint[0].transform.position.y;
+        // }
+        // else
+        // {
+        //     startYPos = -playerPlayPointY;
+        //     endYPos = playerPlayPointY;
+        // }
+        startYPos = spawner.rightPoint[spawner.rightPoint.Length - 1].transform.position.y;
+        endYPos = spawner.rightPoint[0].transform.position.y;
         float endXPos = dir * spawner.rightPoint[0].transform.position.x;
         float x = needX;
         float y;
 
         GameObject brick = null;
-        // 안전장치?
-        for (y = startYPos * dir; Mathf.Abs(y) <= Mathf.Abs(endYPos); y += dir)
-        {
-            brick = GameObject.Find("(" + needX + ", " + y + ")");
-            if (brick != null)
-            {
-                Debug.Log("gaesibal2");
-                return;
-            }
-        }
-
         // Debug.Log(y);
         while (brick == null && (Mathf.Abs(x) <= Mathf.Abs(endXPos)))
         {

@@ -26,10 +26,7 @@ public class Brick : MonoBehaviour
         target = new Vector3(posX, posY, 0);
 
         transform.position = Vector3.SmoothDamp(transform.position, target, ref velo, GameManager.instance.ballSpeed * Time.smoothDeltaTime);
-        if (GameManager.instance.isPlayerTurn && GameManager.instance.funcCount == 0)
-        {
-            transform.name = "(" + posX + ", " + posY + ")";
-        }
+
         // if (GameManager.instance.isPlayerTurn && GameManager.instance.funcCount == 0) { transform.name = "(" + transform.position.x + ", " + transform.position.y + ")"; }
     }
 
