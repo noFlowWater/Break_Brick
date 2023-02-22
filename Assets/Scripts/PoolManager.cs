@@ -25,6 +25,25 @@ public class PoolManager : MonoBehaviour
     {
         GameObject select = null;
 
+        // index == -1 경우, 랜덤으로 블록을 생성.
+        if (index == -1)
+        {
+            index = Random.Range(1, 100);
+            if (index < 90)
+            {
+                select = Instantiate(prefabs[1], transform);
+                pools[1].Add(select);
+            }
+            else
+            {
+                index = Random.Range(2, prefabs.Length);
+                select = Instantiate(prefabs[index], transform);
+                pools[index].Add(select);
+            }
+
+            return select;
+        }
+
         // 선택한 풀의 놀고 있는 게임 오브젝트 접근
         foreach (GameObject item in pools[index])
         {
@@ -33,7 +52,7 @@ public class PoolManager : MonoBehaviour
                 // 발견하면 select 변수에 할당
                 select = item;
                 select.SetActive(true);
-                Debug.Log(select.name);
+                // Debug.Log(select.name);
                 break;
             }
         }

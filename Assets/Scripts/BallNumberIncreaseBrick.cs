@@ -13,7 +13,7 @@ public class BallNumberIncreaseBrick : Brick
         GameManager.instance.level += 1;
         GameManager.instance.ballNumber += 1;
         base.Break();
-        Debug.Log("Break");
+        // Debug.Log("Break");
     }
 
 }
