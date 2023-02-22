@@ -79,7 +79,8 @@ public class Ball_Gen_Controller : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (Mathf.Abs(transform.position.x) < Mathf.Abs(GameManager.instance.playerPlayPointX) && Mathf.Abs(transform.position.y) < Mathf.Abs(GameManager.instance.playerPlayPointY))
+        if (Mathf.Abs(transform.position.x) < Mathf.Abs(GameManager.instance.playerPlayPointX + 0.5f) &&
+            Mathf.Abs(transform.position.y) < Mathf.Abs(GameManager.instance.playerPlayPointY + 0.5f))
         {
             inFireArea = true;
         }

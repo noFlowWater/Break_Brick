@@ -12,6 +12,10 @@ public class Brick : MonoBehaviour
     public float posX;
     public float posY;
 
+    public float shakeTime = 0.1f;
+    public float shakeSpeed = 2.0f;
+    public float shakeAmount = 1.0f;
+
     public bool isMove;
 
     Vector3 velo = Vector3.zero;
@@ -51,6 +55,7 @@ public class Brick : MonoBehaviour
         {
             Break();
         }
+        StartCoroutine(Shake());
     }
 
     protected virtual void Break()
@@ -58,5 +63,22 @@ public class Brick : MonoBehaviour
         isBroken = true;
         ++GameManager.instance.score;
         Destroy(this.gameObject);
+    }
+
+    IEnumerator Shake()
+    {
+        float elapsedTime = 0.0f;
+
+        while (elapsedTime < shakeTime)
+        {
+            Vector3 randomPoint = Vector3.zero + Random.insideUnitSphere * shakeAmount;
+            transform.GetChild(0).localPosition = Vector3.Lerp(transform.GetChild(0).localPosition, randomPoint, Time.deltaTime * shakeSpeed);
+
+            yield return null;
+
+            elapsedTime += Time.deltaTime;
+        }
+
+        transform.GetChild(0).localPosition = Vector3.zero;
     }
 }
