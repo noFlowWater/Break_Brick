@@ -23,7 +23,7 @@ public class Ball_Gen_Controller : MonoBehaviour
     bool inFireArea;
 
     // int maxBallNum = 20;
-    int ballNum;
+    public int ballNum;
 
     private void Start()
     {
@@ -160,6 +160,7 @@ public class Ball_Gen_Controller : MonoBehaviour
         ball.transform.position = position;
         ball.GetComponent<Ball_Controller>().first_Dir = dirc;
         ballNum--;
+
     }
 
     public static float GetAngle(Vector3 vStart, Vector3 vEnd)

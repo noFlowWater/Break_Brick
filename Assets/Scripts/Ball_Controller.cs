@@ -16,27 +16,41 @@ public class Ball_Controller : MonoBehaviour
 
     public int life_count;
     bool ball_first_move;
+    SpriteRenderer spr;
+
 
 
 
     void Awake()
     {
-        SpriteRenderer spr = GetComponent<SpriteRenderer>();
-        TrailRenderer trail = GetComponent<TrailRenderer>();
+        spr = GetComponent<SpriteRenderer>();
+
         spr.sortingLayerName = sortingLayerName;
         spr.sortingOrder = sortingOrder;
+
         life_count = GameManager.instance.durability;
 
         rigid = GetComponent<Rigidbody2D>();
 
-        trail.material.color = spr.color;
 
     }
 
 
     void OnEnable()
     {
+        TrailRenderer trail = GetComponent<TrailRenderer>();
         ball_first_move = true;
+
+        if (GameManager.instance.color == 0)
+        {
+            spr.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
+        }
+        else
+        {
+            spr.color = new Color(255 / 255f, 180 / 255f, 180 / 255f);
+        }
+        // trail.material.color = spr.color;
+        trail.startColor = spr.color;
     }
     void Update()
     {

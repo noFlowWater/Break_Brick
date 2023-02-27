@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     public int ballNum;
 
-
+    public int color;
 
 
     private void Awake()
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
         score = 0;
         Time.timeScale = timeScale;
         // LineBreakCheck();
-
+        color = 0;
     }
 
     void Update()
@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
         VerticalLineBreakCheck(1);
         delay = -delayRate;
         VerticalLineBreakCheck(-1);
+        color = (color + 1) % 2;
     }
 
     void HorizontalLineBreakCheck(int dir)
