@@ -50,7 +50,8 @@ public class Ball_Controller : MonoBehaviour
             spr.color = new Color(255 / 255f, 180 / 255f, 180 / 255f);
         }
         // trail.material.color = spr.color;
-        trail.startColor = spr.color;
+
+        trail.startColor = new Color(spr.color.r, spr.color.g, spr.color.b, 100 / 255f);
     }
     void Update()
     {
