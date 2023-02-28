@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class Ball_Gen_Controller : MonoBehaviour
 {
     [SerializeField] SpriteRenderer spriteRenderer;
@@ -11,7 +12,7 @@ public class Ball_Gen_Controller : MonoBehaviour
     Vector3 start_Pos, end_Pos, dirc;
 
     //private float lineWidth = 0.01f;
-    private LineRenderer lr;
+    // private LineRenderer lr;
     private Vector3[] linePoints = new Vector3[2];
 
     float timer;
@@ -33,9 +34,9 @@ public class Ball_Gen_Controller : MonoBehaviour
         waitingTime = 0.025f;
         ballNum = GameManager.instance.ballNumber;
 
-        lr = GetComponent<LineRenderer>();
-        lr.enabled = false;
-        lr.positionCount = linePoints.Length;
+        // lr = GetComponent<LineRenderer>();
+        // lr.enabled = false;
+        // lr.positionCount = linePoints.Length;
 
         inFireArea = false;
     }
@@ -93,7 +94,15 @@ public class Ball_Gen_Controller : MonoBehaviour
 
             // Debug.Log(" -- Mouse DOWN -- ");
             isMouseDownFirst = true;
-            spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+            // spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+            if (GameManager.instance.color == 0)
+            {
+                spriteRenderer.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
+            }
+            else
+            {
+                spriteRenderer.color = new Color(255 / 255f, 180 / 255f, 180 / 255f);
+            }
 
             start_Pos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         }
@@ -102,7 +111,7 @@ public class Ball_Gen_Controller : MonoBehaviour
     private void OnMouseDrag()
     {
         //start_Pos 과 mousePos 를 이용하여 화살표를 표현하고싶...!
-        if (!onFire && isMouseDownFirst)
+        if (!onFire && GameManager.instance.isPlayerTurn)
         {
             if (!isMouseDragFirst)
             {
@@ -114,10 +123,11 @@ public class Ball_Gen_Controller : MonoBehaviour
             Vector3 myPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             Vector3 dirc = (myPos - start_Pos).normalized; ;
 
-            lr.enabled = true;
             linePoints[0] = start_Pos;
             linePoints[1] = myPos;
-            lr.SetPositions(linePoints);
+            // lr.enabled = true;
+            // lr.SetPositions(linePoints);
+            DottedLine.Instance.DrawDottedLine(start_Pos, myPos);
 
             transform.rotation = Quaternion.Euler(0, 0, 2 * GetAngle(new Vector3(1, 0, 0), dirc));
         }
@@ -133,7 +143,7 @@ public class Ball_Gen_Controller : MonoBehaviour
             isMouseDragFirst = false;
             isMouseDownFirst = false;
 
-            lr.enabled = false;
+            // lr.enabled = false;
             spriteRenderer.color = new Color(1f, 1f, 1f, 0);
 
             end_Pos = new Vector3(transform.position.x, transform.position.y, transform.position.z);

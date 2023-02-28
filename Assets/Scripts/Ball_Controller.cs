@@ -17,6 +17,7 @@ public class Ball_Controller : MonoBehaviour
     public int life_count;
     bool ball_first_move;
     SpriteRenderer spr;
+    AudioSource audioSource;
 
 
 
@@ -24,6 +25,7 @@ public class Ball_Controller : MonoBehaviour
     void Awake()
     {
         spr = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
 
         spr.sortingLayerName = sortingLayerName;
         spr.sortingOrder = sortingOrder;
@@ -90,6 +92,7 @@ public class Ball_Controller : MonoBehaviour
         if (collision.gameObject.tag == "Wall")
         {
             life_count--;
+            audioSource.Play();
         }
     }
 
