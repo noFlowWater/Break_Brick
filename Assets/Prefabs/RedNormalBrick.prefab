@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 2644026209455633020}
   - component: {fileID: 2644026209455633021}
   - component: {fileID: 246366762354717913}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RedNormalBrick
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -242,6 +242,11 @@ MonoBehaviour:
   shakeSpeed: 2
   shakeAmount: 1
   isMove: 0
+  sprites:
+  - {fileID: 21300000, guid: c4ed44fb54e9f41fcada01dfc24be7da, type: 3}
+  - {fileID: 21300000, guid: f6a2318ee91e84869a2a16fe9b803865, type: 3}
+  - {fileID: 21300000, guid: 41f5b0d15b4344b33b47271e2399fa81, type: 3}
+  - {fileID: 21300000, guid: dc55dcf132415407dbfb7eeabb12658c, type: 3}
 --- !u!61 &246366762354717913
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -266,7 +271,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.1, y: 1.1}
   m_EdgeRadius: 0
 --- !u!1 &4964600974120618921
 GameObject:

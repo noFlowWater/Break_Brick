@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
-
-    // 블록들은 가로 1, 세로 0.5의 길이를 가짐
     public int life;
+
     public bool isBroken;
 
     public float posX;
@@ -20,10 +19,13 @@ public class Brick : MonoBehaviour
 
     Vector3 velo = Vector3.zero;
     Vector3 target;
-    private void Awake()
+    Color color = Color.white;
+    protected virtual void Awake()
     {
         life = (int)GameManager.instance.level;
         isBroken = false;
+        if (transform.gameObject.layer == 6) { color = new Color(255 / 255f, 180 / 255f, 180 / 255f); }
+        else if (transform.gameObject.layer == 7) { color = new Color(180 / 255f, 225 / 255f, 255 / 255f); }
     }
 
     void Update()
@@ -43,14 +45,21 @@ public class Brick : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
-            OnDamaged();
+            // 색깔 다를 때,
+            if ((collision.gameObject.layer - this.gameObject.layer) != 2) {
+                Debug.Log("다름!");
+                OnDamaged(2); }
+            else {
+                Debug.Log("같음,,!");
+                OnDamaged(1); }// 같을 때
         }
     }
 
 
-    protected virtual void OnDamaged()
+    protected virtual void OnDamaged(int damage)
     {
-        --life;
+        life = life - damage;
+
         if (life <= 0 && !isBroken)
         {
             Break();
@@ -62,6 +71,7 @@ public class Brick : MonoBehaviour
     {
         isBroken = true;
         ++GameManager.instance.score;
+        GameManager.CreateParticleEffect(2, transform.position, transform.localRotation, color);
         Destroy(this.gameObject);
     }
 

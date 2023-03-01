@@ -11,6 +11,9 @@ public class Spawner : MonoBehaviour
     public GameObject[] downPoint;
     public GameObject[] leftPoint;
 
+    public GameObject[] bluePrefabs;
+    public GameObject[] redPrefabs;
+
 
     public int xSize;
     public int ySize;
@@ -32,9 +35,9 @@ public class Spawner : MonoBehaviour
                 { continue; }
                 if (upPoint[0].transform.position.x <= x && x <= upPoint[upPoint.Length - 1].transform.position.x && (GameManager.instance.playerPlayPointY + 1) <= y && y <= (upPoint[0].transform.position.y - 2)
                 || upPoint[0].transform.position.x <= -x && -x <= upPoint[upPoint.Length - 1].transform.position.x && (GameManager.instance.playerPlayPointY + 1) <= -y && -y <= (upPoint[0].transform.position.y - 2))
-                { brick = GameManager.instance.poolManager.GetMold(0); }
+                { brick = GetMold(0); }
                 else
-                { brick = GameManager.instance.poolManager.GetMold(1); }
+                { brick = GetMold(1); }
                 brick.transform.position = new Vector3(x, y, 0);
                 brick.transform.name = "(" + x + ", " + y + ")Mold";
             }
@@ -90,7 +93,7 @@ public class Spawner : MonoBehaviour
             float y = points[i].transform.position.y;
             brick = GameObject.Find("(" + x + ", " + y + ")");
             if (brick != null) { continue; }
-            brick = GameManager.instance.poolManager.Get(-1, color);
+            brick = Get_(color);
             brick.GetComponent<Brick>().posX = x;
             brick.GetComponent<Brick>().posY = y;
             brick.transform.position = new Vector3(x, y, 0);
@@ -98,5 +101,47 @@ public class Spawner : MonoBehaviour
         }
 
     }
+    public GameObject GetMold(int color)
+    {
+        GameObject mold = null;
 
+        if (color == 0)
+        {
+            mold = Instantiate(bluePrefabs[0], transform);
+        }
+        else
+        {
+            mold = Instantiate(redPrefabs[0], transform);
+        }
+        return mold;
+    }
+    public GameObject Get_(int color = -1)
+    {
+        GameObject select = null;
+        GameObject[] prefabs;
+        int index;
+
+        if (color == 0)
+        {
+            prefabs = bluePrefabs;
+        }
+        else
+        {
+            prefabs = redPrefabs;
+        }
+
+        // index == -1 경우, 랜덤으로 블록을 생성.
+        
+        index = Random.Range(1, 100);
+        if (index < 90)
+        {
+            select = Instantiate(prefabs[1], transform);
+        }
+        else
+        {
+            index = Random.Range(2, prefabs.Length);
+            select = Instantiate(prefabs[index], transform);
+        }
+        return select;
+    }
 }
