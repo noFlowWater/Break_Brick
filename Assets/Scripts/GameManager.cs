@@ -38,7 +38,6 @@ public class GameManager : MonoBehaviour
 
     public int color;
 
-
     private void Awake()
     {
         instance = this;
@@ -46,6 +45,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = timeScale;
         // LineBreakCheck();
         color = 0;
+
     }
 
     void Update()

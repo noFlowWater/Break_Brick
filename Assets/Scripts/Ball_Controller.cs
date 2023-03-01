@@ -92,7 +92,8 @@ public class Ball_Controller : MonoBehaviour
         if (collision.gameObject.tag == "Wall")
         {
             life_count--;
-            audioSource.Play();
+            // audioSource.Play();
+            GameManager.instance.bgc.HitSoundPlay();
         }
     }
 

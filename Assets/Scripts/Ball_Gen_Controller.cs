@@ -16,7 +16,7 @@ public class Ball_Gen_Controller : MonoBehaviour
     private Vector3[] linePoints = new Vector3[2];
 
     float timer;
-    float waitingTime;
+    public float waitingTime;
 
     public bool onFire;
     public bool isMouseDownFirst;
@@ -26,12 +26,29 @@ public class Ball_Gen_Controller : MonoBehaviour
     // int maxBallNum = 20;
     public int ballNum;
 
+    public int audioNum;
+    AudioSource[] hitSoundSources;
+    public AudioClip hitSoundClip;
+    [Range(0, 1)]
+    public float soudVolume;
+    [Range(-3, 3)]
+    public float pitch;
+
+    void Awake()
+    {
+        hitSoundSources = new AudioSource[audioNum];
+        for (int i = 0; i < audioNum; ++i)
+        {
+            hitSoundSources[i] = gameObject.AddComponent<AudioSource>();
+        }
+    }
+
     private void Start()
     {
         spriteRenderer.color = new Color(1f, 1f, 1f, 0);
 
         timer = 0.0f;
-        waitingTime = 0.025f;
+        // waitingTime = 0.025f;
         ballNum = GameManager.instance.ballNumber;
 
         // lr = GetComponent<LineRenderer>();
@@ -178,6 +195,25 @@ public class Ball_Gen_Controller : MonoBehaviour
         Vector3 v = vEnd - vStart;
 
         return Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+    }
+
+    public void HitSoundPlay()
+    {
+        for (int i = 0; i < audioNum; ++i)
+        {
+            hitSoundSources[i].volume = soudVolume;
+            hitSoundSources[i].pitch = pitch;
+            hitSoundSources[i].PlayOneShot(hitSoundClip);
+            return;
+            // if (!hitSoundSources[i].isPlaying)
+            // {
+            //     hitSoundSources[i].volume = soudVolume;
+            //     hitSoundSources[i].pitch = pitch;
+            //     hitSoundSources[i].PlayOneShot(hitSoundClip);
+            //     return;
+            // }
+        }
+
     }
 
 }
