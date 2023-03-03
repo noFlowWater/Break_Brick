@@ -101,7 +101,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 234
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 2644026209455633020}
   - component: {fileID: 2644026209455633021}
   - component: {fileID: 246366762354717913}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BlueNormalBrick
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -242,6 +242,11 @@ MonoBehaviour:
   shakeSpeed: 2
   shakeAmount: 1
   isMove: 0
+  sprites:
+  - {fileID: 21300000, guid: ca411ab4e684249d4af508eb5d7b4c62, type: 3}
+  - {fileID: 21300000, guid: 9ad2f7639abec4108afcbb80eef4380e, type: 3}
+  - {fileID: 21300000, guid: 9d4346ba2b47d407f8b4a0311f9added, type: 3}
+  - {fileID: 21300000, guid: b4f950f8d8f294eeb878f8c70be9d715, type: 3}
 --- !u!61 &246366762354717913
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -266,7 +271,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.1, y: 1.1}
   m_EdgeRadius: 0
 --- !u!1 &4964600974120618921
 GameObject:

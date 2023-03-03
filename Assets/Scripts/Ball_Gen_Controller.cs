@@ -26,8 +26,8 @@ public class Ball_Gen_Controller : MonoBehaviour
     // int maxBallNum = 20;
     public int ballNum;
 
-    public int audioNum;
-    AudioSource[] hitSoundSources;
+
+    AudioSource hitSoundSources;
     public AudioClip hitSoundClip;
     [Range(0, 1)]
     public float soudVolume;
@@ -36,11 +36,7 @@ public class Ball_Gen_Controller : MonoBehaviour
 
     void Awake()
     {
-        hitSoundSources = new AudioSource[audioNum];
-        for (int i = 0; i < audioNum; ++i)
-        {
-            hitSoundSources[i] = gameObject.AddComponent<AudioSource>();
-        }
+        hitSoundSources = gameObject.AddComponent<AudioSource>();
     }
 
     private void Start()
@@ -112,7 +108,7 @@ public class Ball_Gen_Controller : MonoBehaviour
             // Debug.Log(" -- Mouse DOWN -- ");
             isMouseDownFirst = true;
             // spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
-            if (GameManager.instance.color == 0)
+            if (GameManager.instance.color == 1)
             {
                 spriteRenderer.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
             }
@@ -199,20 +195,21 @@ public class Ball_Gen_Controller : MonoBehaviour
 
     public void HitSoundPlay()
     {
-        for (int i = 0; i < audioNum; ++i)
-        {
-            hitSoundSources[i].volume = soudVolume;
-            hitSoundSources[i].pitch = pitch;
-            hitSoundSources[i].PlayOneShot(hitSoundClip);
-            return;
-            // if (!hitSoundSources[i].isPlaying)
-            // {
-            //     hitSoundSources[i].volume = soudVolume;
-            //     hitSoundSources[i].pitch = pitch;
-            //     hitSoundSources[i].PlayOneShot(hitSoundClip);
-            //     return;
-            // }
-        }
+        hitSoundSources.volume = soudVolume;
+        hitSoundSources.pitch = pitch;
+        hitSoundSources.PlayOneShot(hitSoundClip);
+        return;
+        // for (int i = 0; i < audioNum; ++i)
+        // {
+
+        // if (!hitSoundSources[i].isPlaying)
+        // {
+        //     hitSoundSources[i].volume = soudVolume;
+        //     hitSoundSources[i].pitch = pitch;
+        //     hitSoundSources[i].PlayOneShot(hitSoundClip);
+        //     return;
+        // }
+        // }
 
     }
 
