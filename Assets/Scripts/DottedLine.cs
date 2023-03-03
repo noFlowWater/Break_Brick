@@ -68,7 +68,7 @@ public class DottedLine : MonoBehaviour
         var sr = gameObject.AddComponent<SpriteRenderer>();
         sr.sprite = Dot;
         // sr.color = new Color(r / 255, g / 255, b / 255, alpha);
-        if (GameManager.instance.color == 0)
+        if (GameManager.instance.color == 1)
         {
             sr.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
         }

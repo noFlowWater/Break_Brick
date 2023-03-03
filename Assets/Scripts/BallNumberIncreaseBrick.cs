@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class BallNumberIncreaseBrick : Brick
 {
-    protected override void OnDamaged()
+    void Start()
     {
-        base.OnDamaged();
+        life = 1;
+    }
+
+    protected override void OnDamaged(int damage)
+    {
+        base.OnDamaged(damage);
     }
     protected override void Break()
     {

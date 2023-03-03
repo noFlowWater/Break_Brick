@@ -243,4 +243,29 @@ public class GameManager : MonoBehaviour
         --funcCount;
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+
+    public static void CreateParticleEffect(int index, Vector3 position, Quaternion rotation, Color tempColor)
+    {
+        GameObject particle = GameManager.instance.poolManager.Get(index);
+        particle.transform.position = position;
+        particle.transform.localRotation = rotation;
+        PlayParticle(particle, tempColor);
+    }
+
+    static void PlayParticle(GameObject particle, Color tempColor)
+    {
+        ParticleSystem ps = particle.GetComponent<ParticleSystem>();
+        //ps.GetComponent<Renderer>().material.color = tempColor;
+        float duration = ps.main.duration + ps.main.startLifetime.constant;
+        ps.GetComponent<Renderer>().material.color = tempColor;
+        GameManager.instance.StartCoroutine(DeactivateAfterDuration(particle, duration));
+    }
+
+    private static IEnumerator DeactivateAfterDuration(GameObject particle, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        particle.SetActive(false);
+    }
 }
