@@ -1,0 +1,522 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!28 &-2061107104741584164
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: neodgm SDF Atlas
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 2
+  m_Width: 64
+  m_Height: 64
+  m_CompleteImageSize: 4096
+  m_MipsStripped: 0
+  m_TextureFormat: 1
+  m_MipCount: 1
+  m_IsReadable: 0
+  m_IsPreProcessed: 0
+  m_IgnoreMasterTextureLimit: 0
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 0
+    m_WrapV: 0
+    m_WrapW: 0
+  m_LightmapFormat: 0
+  m_ColorSpace: 0
+  m_PlatformBlob: 
+  image data: 4096
+  _typelessdata: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000040e14161c191d12100a0100000000000711171919191d12100a010000000000040e14161c191d12100a01000000000000010d171c1f14120c020000000000081621282b312f3227251d13050000000a19242c2f2f2f3227251d1305000000081621282b312f3227251d13050000000001111f2a313429271f1406000000041626333d404644483c3930231301000719293640444444483c393023130100041626333d404644483c39302313010000000d1f2f3d46493e3b3224140200000e21334451565c595d524d41301d0a0011243647545959595d524d41301d0a000e21334451565c595d524d41301d0a000003172a3d4d5a5e544f42321f0c000014283d51626b716e72675f4d39251000172c4054656e6e6e72675f4d3925100014283d51626b716e72675f4d3925100000081c31465a6b7469614f3b27120000162b40566b808583877d67523c271200192f44596e838483877c67523c271200162b40566b808583877d67523c27120000001f34495e74897e69543e2914000020354a60758a7d6e8186715c46311c00172c4054656e6e6e8186715c46311c0020354a60758a7d6e8186715c46311c00000b1b29495e74897e69543e2914000020354a60758a8a7a8185715c46311c000c21364a5b636c6c8185715c46311c0020354a60758a7d6c8186715c46311c000417293a465e74897e69543e2914000020354a60758a82878586715c46311c000e24394e63798181867e69533e29140020354a60758a8481867e69533e2914000a1f3346586174897e69543e2914000020354a60758a7d7c8986715c46311c000b21364b6075787882846f5a452f1a0020354a60758a7f787873604b35200b000c21364c6176798a7e69543e2914000020354a60758a7d6e8185715c46311c00172c4054656e6e6e8186715c46311c0020354a60758a7d6e6e615947341f0b000e23384e637986937e69543e2914000013283e53687e8583867b654f3a251000192f44596e838483867b654f3a25100013283e53687e85838477614c37220c000c2135495b6378877e68533d2813000011263a4e6068706e71655d4b37230e00172c4054656e6e6e71655d4b37230e0011263a4e6068706e6e615947341f0b00061a2c3d495a627168604e3a251100000b1f31424e535b595b4f4b3f2e1c080011243647545959595b4f4b3f2e1c08000b1f31424e535b59594c473b2a180400000f1f2c3c484d5c534e42311e0b0000021424313a3e4544463a372e211100000719293640444444463a372e21110000021424313a3e45444437342a1d0c000000010f1e2b3538473d3a3123130100000006141f2628302f3125231c11030000000a19242c2f2f2f3125231c110300000006141f2628302f2f221f180c0000000000000e1920223228251e13050000000000020b11131b191c100e080000000000000711171919191c100e08000000000000020b11131b19190c0b040000000000000000050b0d1c13110b0100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006121b20201c191917140e0500000000000711171919191d12100a010000000000040e14161c191d12100a01000000000000000000000000000000000000000616242f3535312f2f2c292216080000000a19242c2f2f2f3227251d1305000000081621282b312f3227251d1305000000000000000000000000000000000000122434424a4a464444413e34261605000719293640444444483c393023130100041626333d404644483c393023130100000000000000000000000000000000001b2f42525e605c595956514434220e0011243647545959595d524d41301d0a000e21334451565c595d524d41301d0a000000000000000000000000000000000020354a5e7075716e6e6c62513e291400172c4054656e6e6e72675f4d3925100014283d51626b716e72675f4d392510000000000000000000000000000000000020354a60758a858384816c56412c1700192f44596e838483877c67523c271200162b40566b808583877d67523c2712000000000000000000000000000000000020354a60758a7d6e6e6c62513e291400172c4054656e6e6e8186715c46311c0020354a60758a7d6e8186715c46311c000000000000000000000000000000000020354a60758a7d6c6c615847331f0a0014293e51626c6c6c8185715c46311c0020354a60758a7d6c8186715c46311c0000000000000000000000000000000000182d42576d8284818176614c37210c00172c41566c818181867e69533e291400182d42576d818481867e69533e291400000000000000000000000000000000000b21364b6075787882836f5a452f1a0020354a60758a7f787874604b35200b001e33495e73887f7882846f5a452f1a0000000000000000000000000000000000172c4054656e6e6e8185715c46311c0020354a60758a7d6e6e6c62513e29140020354a60758a7d6e8186715c46311c0000000000000000000000000000000000192f44596e838483867b654f3a2510001d33485d7287848384816c56412c170013283e53687e8583867a654f3a25100000000000000000000000000000000000172c4054656e6e6e71655d4b37230e001b3044586972706e6e6c62513e29140011263a4e6068706e71655d4b37230e000000000000000000000000000000000011243647545959595b4f4b3f2e1c080015283a4b585d5b595956514434220e000b1f31424e535b595b4f4b3f2e1c0800000000000000000000000000000000000719293640444444463a372e211100000b1d2d3a4448454444413e3426160500021424313a3e4544463a372e2111000000000000000000000000000000000000000a19242c2f2f2f3125231c11030000000f1d283033302f2f2c2922160800000006141f2628302f3125231c110300000000000000000000000000000000000000000711171919191c100e080000000000000b151b1d1b191917140e050000000000020b11131b191c100e080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080e10200d0b0600000000000000061016181b1812080000000000000000070d0f19191d12100a010000000000000000000000000000000000000000000003111c2325352320190e00000000000917232b2d302d251a0c000000000002101b22242f2f3227251d130500000000000000000000000000000000000000000011212e373a4a4a352b1e0e000000061727353f424541372a1a080000000010202e373a4444483c393023130100000000000000000000000000000000000003111c2e3f4b50605e483c2b190600001023354552585a5548372512000000071b2e3e4b4f59595d524d41301d0a00000000000000000000000000000000000011212e374b5d6575705a4835200b0001162b3f52646d706655412d0c0000000d22374b5c646e6e72675f4d3925100000000000000000000000000000000000081c2e3f4b50657b8a78624d38230d0003182d42586d8284705a452a1c0c00000f243a4f647a8483877d67523c271200000000000000000000000000000000000e23374b5d65657a8d78624d38230d0003182d42586d8285705a473a2a1704000d22374b5c646e6e8186715c46311c000000000000000000000000000000000010253a50657a7a7e907b66513b26110003182d42586d828570615847331f0a000c21364a5b636c6c8186715c46311c000000000000000000000000000000000020354a60758a8281937e69533e2914000010263b50657c878176614c37210c000e24394e637981818686715c46311c000000000000000000000000000000000020354a60758a7d7a8d78624d38230d0011243647545e657882846f5a452f1a001e33495e73887f788285715c46311c0000000000000000000000000000000000192e43586e82837c8d78624d38230d00172c4054656e6e6e8186715c46311c0020354a60758a7d6e8185715c46311c00000000000000000000000000000000000c21364c617682858777624d37220d00192f44596e83848385836f5a442f1a0013283e53687e8583867a654f3a251000000000000000000000000000000000000a1f334658616d707262594834200b00172c4054656e6e6e716f6554412c180011263a4e6068706e71655d4b37230e00000000000000000000000000000000000417293a464c585a5d4d483b2b19050011243647545959595b5a5447372511000b1f31424e535b595b4f4b3f2e1c080000000000000000000000000000000000000b1b29333642454837342b1d0d000007192936404444444644413729190700021424313a3e4544463a372e211100000000000000000000000000000000000000000b171f212d30332220190d000000000a19242c2f2f2f312f2c25190b00000006141f2628302f3125231c1103000000000000000000000000000000000000000000040a0c181b1d0d0b050000000000000711171919191c1a1811070000000000020b11131b191c100e080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
+  m_Name: neodgm SDF
+  m_EditorClassIdentifier: 
+  hashCode: -1956403589
+  material: {fileID: 7125880631197605494}
+  materialHashCode: 80123131
+  m_Version: 1.1.0
+  m_SourceFontFileGUID: acd93cc3115924e0c87dbf2ce6ed86d8
+  m_SourceFontFile_EditorRef: {fileID: 12800000, guid: acd93cc3115924e0c87dbf2ce6ed86d8, type: 3}
+  m_SourceFontFile: {fileID: 0}
+  m_AtlasPopulationMode: 0
+  m_FaceInfo:
+    m_FaceIndex: 0
+    m_FamilyName: NeoDunggeunmo
+    m_StyleName: Regular
+    m_PointSize: 11
+    m_Scale: 1
+    m_UnitsPerEM: 16
+    m_LineHeight: 11
+    m_AscentLine: 8.25
+    m_CapLine: 7
+    m_MeanLine: 5
+    m_Baseline: 0
+    m_DescentLine: -2.75
+    m_SuperscriptOffset: 8.25
+    m_SuperscriptSize: 0.5
+    m_SubscriptOffset: -2.75
+    m_SubscriptSize: 0.5
+    m_UnderlineOffset: -1.375
+    m_UnderlineThickness: 0.6875
+    m_StrikethroughOffset: 2
+    m_StrikethroughThickness: 0.6875
+    m_TabWidth: 6
+  m_GlyphTable:
+  - m_Index: 18
+    m_Metrics:
+      m_Width: 4.8125
+      m_Height: 6.875
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 6.875
+      m_HorizontalAdvance: 5.5
+    m_GlyphRect:
+      m_X: 6
+      m_Y: 6
+      m_Width: 5
+      m_Height: 7
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+  - m_Index: 19
+    m_Metrics:
+      m_Width: 2.75
+      m_Height: 6.875
+      m_HorizontalBearingX: 0.6875
+      m_HorizontalBearingY: 6.875
+      m_HorizontalAdvance: 5.5
+    m_GlyphRect:
+      m_X: 54
+      m_Y: 6
+      m_Width: 4
+      m_Height: 7
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+  - m_Index: 20
+    m_Metrics:
+      m_Width: 4.8125
+      m_Height: 6.875
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 6.875
+      m_HorizontalAdvance: 5.5
+    m_GlyphRect:
+      m_X: 6
+      m_Y: 24
+      m_Width: 5
+      m_Height: 7
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+  - m_Index: 21
+    m_Metrics:
+      m_Width: 4.8125
+      m_Height: 6.875
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 6.875
+      m_HorizontalAdvance: 5.5
+    m_GlyphRect:
+      m_X: 22
+      m_Y: 6
+      m_Width: 5
+      m_Height: 7
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+  - m_Index: 22
+    m_Metrics:
+      m_Width: 4.8125
+      m_Height: 6.875
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 6.875
+      m_HorizontalAdvance: 5.5
+    m_GlyphRect:
+      m_X: 6
+      m_Y: 42
+      m_Width: 5
+      m_Height: 7
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+  - m_Index: 23
+    m_Metrics:
+      m_Width: 4.8125
+      m_Height: 6.875
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 6.875
+      m_HorizontalAdvance: 5.5
+    m_GlyphRect:
+      m_X: 22
+      m_Y: 24
+      m_Width: 5
+      m_Height: 7
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+  - m_Index: 24
+    m_Metrics:
+      m_Width: 4.8125
+      m_Height: 6.875
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 6.875
+      m_HorizontalAdvance: 5.5
+    m_GlyphRect:
+      m_X: 38
+      m_Y: 6
+      m_Width: 5
+      m_Height: 7
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+  - m_Index: 25
+    m_Metrics:
+      m_Width: 4.8125
+      m_Height: 6.875
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 6.875
+      m_HorizontalAdvance: 5.5
+    m_GlyphRect:
+      m_X: 22
+      m_Y: 42
+      m_Width: 5
+      m_Height: 7
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+  - m_Index: 26
+    m_Metrics:
+      m_Width: 4.8125
+      m_Height: 6.875
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 6.875
+      m_HorizontalAdvance: 5.5
+    m_GlyphRect:
+      m_X: 38
+      m_Y: 24
+      m_Width: 5
+      m_Height: 7
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+  - m_Index: 27
+    m_Metrics:
+      m_Width: 4.8125
+      m_Height: 6.875
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 6.875
+      m_HorizontalAdvance: 5.5
+    m_GlyphRect:
+      m_X: 38
+      m_Y: 42
+      m_Width: 5
+      m_Height: 7
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+  m_CharacterTable:
+  - m_ElementType: 1
+    m_Unicode: 48
+    m_GlyphIndex: 18
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 49
+    m_GlyphIndex: 19
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 50
+    m_GlyphIndex: 20
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 51
+    m_GlyphIndex: 21
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 52
+    m_GlyphIndex: 22
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 53
+    m_GlyphIndex: 23
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 54
+    m_GlyphIndex: 24
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 55
+    m_GlyphIndex: 25
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 56
+    m_GlyphIndex: 26
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 57
+    m_GlyphIndex: 27
+    m_Scale: 1
+  m_AtlasTextures:
+  - {fileID: -2061107104741584164}
+  m_AtlasTextureIndex: 0
+  m_IsMultiAtlasTexturesEnabled: 0
+  m_ClearDynamicDataOnBuild: 0
+  m_UsedGlyphRects:
+  - m_X: 0
+    m_Y: 0
+    m_Width: 16
+    m_Height: 18
+  - m_X: 0
+    m_Y: 18
+    m_Width: 16
+    m_Height: 18
+  - m_X: 16
+    m_Y: 0
+    m_Width: 16
+    m_Height: 18
+  - m_X: 0
+    m_Y: 36
+    m_Width: 16
+    m_Height: 18
+  - m_X: 16
+    m_Y: 18
+    m_Width: 16
+    m_Height: 18
+  - m_X: 32
+    m_Y: 0
+    m_Width: 16
+    m_Height: 18
+  - m_X: 48
+    m_Y: 0
+    m_Width: 15
+    m_Height: 18
+  - m_X: 16
+    m_Y: 36
+    m_Width: 16
+    m_Height: 18
+  - m_X: 32
+    m_Y: 18
+    m_Width: 16
+    m_Height: 18
+  - m_X: 32
+    m_Y: 36
+    m_Width: 16
+    m_Height: 18
+  m_FreeGlyphRects:
+  - m_X: 0
+    m_Y: 54
+    m_Width: 63
+    m_Height: 9
+  - m_X: 48
+    m_Y: 18
+    m_Width: 15
+    m_Height: 45
+  m_fontInfo:
+    Name: 
+    PointSize: 0
+    Scale: 0
+    CharacterCount: 0
+    LineHeight: 0
+    Baseline: 0
+    Ascender: 0
+    CapHeight: 0
+    Descender: 0
+    CenterLine: 0
+    SuperscriptOffset: 0
+    SubscriptOffset: 0
+    SubSize: 0
+    Underline: 0
+    UnderlineThickness: 0
+    strikethrough: 0
+    strikethroughThickness: 0
+    TabWidth: 0
+    Padding: 0
+    AtlasWidth: 0
+    AtlasHeight: 0
+  atlas: {fileID: 0}
+  m_AtlasWidth: 64
+  m_AtlasHeight: 64
+  m_AtlasPadding: 5
+  m_AtlasRenderMode: 4165
+  m_glyphInfoList: []
+  m_KerningTable:
+    kerningPairs: []
+  m_FontFeatureTable:
+    m_GlyphPairAdjustmentRecords: []
+  fallbackFontAssets: []
+  m_FallbackFontAssetTable: []
+  m_CreationSettings:
+    sourceFontFileName: 
+    sourceFontFileGUID: acd93cc3115924e0c87dbf2ce6ed86d8
+    pointSizeSamplingMode: 0
+    pointSize: 11
+    padding: 5
+    packingMode: 4
+    atlasWidth: 64
+    atlasHeight: 64
+    characterSetSelectionMode: 5
+    characterSequence: 48-57
+    referencedFontAssetGUID: 
+    referencedTextAssetGUID: 
+    fontStyle: 0
+    fontStyleModifier: 0
+    renderMode: 4165
+    includeFontFeatures: 0
+  m_FontWeightTable:
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  fontWeights: []
+  normalStyle: 0
+  normalSpacingOffset: 0
+  boldStyle: 0.75
+  boldSpacing: 7
+  italicStyle: 35
+  tabSize: 10
+--- !u!21 &7125880631197605494
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: neodgm SDF Material
+  m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Cube:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FaceTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: -2061107104741584164}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Ambient: 0.5
+    - _Bevel: 0.5
+    - _BevelClamp: 0
+    - _BevelOffset: 0
+    - _BevelRoundness: 0
+    - _BevelWidth: 0
+    - _BumpFace: 0
+    - _BumpOutline: 0
+    - _ColorMask: 15
+    - _CullMode: 0
+    - _Diffuse: 0.5
+    - _FaceDilate: 0
+    - _FaceUVSpeedX: 0
+    - _FaceUVSpeedY: 0
+    - _GlowInner: 0.05
+    - _GlowOffset: 0
+    - _GlowOuter: 0.05
+    - _GlowPower: 0.75
+    - _GradientScale: 6
+    - _LightAngle: 3.1416
+    - _MaskSoftnessX: 0
+    - _MaskSoftnessY: 0
+    - _OutlineSoftness: 0
+    - _OutlineUVSpeedX: 0
+    - _OutlineUVSpeedY: 0
+    - _OutlineWidth: 0
+    - _PerspectiveFilter: 0.875
+    - _Reflectivity: 10
+    - _ScaleRatioA: 0.8333333
+    - _ScaleRatioB: 0.6770833
+    - _ScaleRatioC: 0.6770833
+    - _ScaleX: 1
+    - _ScaleY: 1
+    - _ShaderFlags: 0
+    - _Sharpness: 0
+    - _SpecularPower: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _TextureHeight: 64
+    - _TextureWidth: 64
+    - _UnderlayDilate: 0
+    - _UnderlayOffsetX: 0
+    - _UnderlayOffsetY: 0
+    - _UnderlaySoftness: 0
+    - _VertexOffsetX: 0
+    - _VertexOffsetY: 0
+    - _WeightBold: 0.75
+    - _WeightNormal: 0
+    m_Colors:
+    - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
+    - _EnvMatrixRotation: {r: 0, g: 0, b: 0, a: 0}
+    - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GlowColor: {r: 0, g: 1, b: 0, a: 0.5}
+    - _MaskCoord: {r: 0, g: 0, b: 32767, a: 32767}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_BuildTextureStacks: []

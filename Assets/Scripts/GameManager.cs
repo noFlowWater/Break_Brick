@@ -11,14 +11,15 @@ public class GameManager : MonoBehaviour
     // public GameObject[] VerticalChecker;
     // public GameObject[] HorizontalChecker;
     public Spawner spawner;
+    public Ball_Gen_Controller bgc;
 
 
-    public int level;
+    public float level;
     public int score;
     public int ballNumber;
     public int life;
     public int durability;
-    public float fireTime;
+
     public float ballSpeed;
 
     public bool isPlayerTurn;
@@ -33,6 +34,9 @@ public class GameManager : MonoBehaviour
     public float timeScale;
     public int funcCount;
 
+    public int ballNum;
+
+    public int color;
 
     private void Awake()
     {
@@ -40,12 +44,27 @@ public class GameManager : MonoBehaviour
         score = 0;
         Time.timeScale = timeScale;
         // LineBreakCheck();
+        color = 0;
 
     }
 
     void Update()
     {
-        Time.timeScale = timeScale;
+
+        if (ballNum == 0)
+        {
+            Time.timeScale = timeScale;
+        }
+        // else if (ballNum < ballNumber * 0.2 && ballNumber > 10 && !bgc.onFire) { Time.timeScale = timeScale * 2; }
+        else if (!bgc.onFire)
+        {
+            // Time.timeScale = (timeScale * 2) + (timeScale * 3 * (1 - (ballNum / ballNumber)));
+            Time.timeScale = timeScale * (3f - 2f * ((float)(ballNum) / (float)(ballNumber)));
+            // Time.timeScale = timeScale * (1 + Mathf.Log(ballNum / ballNumber, ballNumber));
+            // Time.timeScale = timeScale * Mathf.Pow(2.5f, 1 - ((float)ballNum / (float)ballNumber));
+
+        }
+        Debug.Log(Time.timeScale);
     }
 
 
@@ -60,6 +79,7 @@ public class GameManager : MonoBehaviour
         VerticalLineBreakCheck(1);
         delay = -delayRate;
         VerticalLineBreakCheck(-1);
+        color = (color + 1) % 2;
     }
 
     void HorizontalLineBreakCheck(int dir)
@@ -95,10 +115,10 @@ public class GameManager : MonoBehaviour
 
         GameObject brick = null;
 
-        Debug.Log("startXPos: " + startXPos);
-        Debug.Log("endXPos: " + endXPos);
-        Debug.Log("endYPos: " + endYPos);
-        Debug.Log("needY: " + needY);
+        // Debug.Log("startXPos: " + startXPos);
+        // Debug.Log("endXPos: " + endXPos);
+        // Debug.Log("endYPos: " + endYPos);
+        // Debug.Log("needY: " + needY);
 
 
         for (y = needY; dir * y < dir * endYPos; y += dir)
@@ -116,7 +136,7 @@ public class GameManager : MonoBehaviour
             }
             if (!next) { break; }
         }
-        Debug.Log("y: " + y);
+
         // delay += delayRate;
         for (x = startXPos; dir * x <= dir * endXPos; x += dir)
         {
@@ -158,61 +178,6 @@ public class GameManager : MonoBehaviour
                 VerticalLineMove(dir, x);
             }
         }
-    }
-
-    void HorizontalLineMove(int dir, float needY)
-    {
-        float startXPos = spawner.upPoint[spawner.upPoint.Length - 1].transform.position.x;
-        float endXPos = spawner.upPoint[0].transform.position.x;
-        float endYPos = dir * spawner.upPoint[0].transform.position.y;
-        float x;
-        float y = needY;
-
-        GameObject brick = null;
-        // Debug.Log(y);
-
-        // 옮길 수 있는 라인을 찾음.
-        while (brick == null && (Mathf.Abs(y) <= Mathf.Abs(endYPos)))
-        {
-            // Debug.Log(1);
-            x = startXPos;
-            bool next = true;
-            for (; x <= endXPos; ++x)
-            {
-                brick = GameObject.Find("(" + x + ", " + y + ")");
-                // if (brick == null) { brick = GameObject.Find("(" + x + ", " + y + ")Move"); }
-                if (brick != null)
-                {
-                    next = false;
-                    break;
-                }
-
-            }
-            if (!next) { break; }
-            else { y += dir; }
-        }
-        // delay += delayRate;
-        // 하나하나 옮긴다.
-        for (x = startXPos * dir; Mathf.Abs(x) <= Mathf.Abs(endXPos); x += dir)
-        {
-            brick = GameObject.Find("(" + x + ", " + y + ")");
-            if (brick != null)
-            {
-                brick.transform.name = "(" + x + ", " + needY + ")";
-                delay += delayRate;
-                StartCoroutine(MoveBrick(brick, x, needY));
-
-
-            }
-        }
-        if (y == endYPos)
-        {
-            if (dir == 1) { spawner.Spawn(0); }
-            else { spawner.Spawn(1); }
-        }
-
-
-
     }
     void VerticalLineMove(int dir, float needX)
     {

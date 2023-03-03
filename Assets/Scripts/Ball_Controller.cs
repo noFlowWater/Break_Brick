@@ -16,12 +16,20 @@ public class Ball_Controller : MonoBehaviour
 
     public int life_count;
     bool ball_first_move;
+    SpriteRenderer spr;
+    AudioSource audioSource;
+
+
+
 
     void Awake()
     {
-        SpriteRenderer spr = GetComponent<SpriteRenderer>();
+        spr = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
+
         spr.sortingLayerName = sortingLayerName;
         spr.sortingOrder = sortingOrder;
+
         life_count = GameManager.instance.durability;
 
         rigid = GetComponent<Rigidbody2D>();
@@ -29,15 +37,30 @@ public class Ball_Controller : MonoBehaviour
 
     }
 
+
     void OnEnable()
     {
+        TrailRenderer trail = GetComponent<TrailRenderer>();
         ball_first_move = true;
+
+        if (GameManager.instance.color == 0)
+        {
+            spr.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
+        }
+        else
+        {
+            spr.color = new Color(255 / 255f, 180 / 255f, 180 / 255f);
+        }
+        // trail.material.color = spr.color;
+
+        trail.startColor = new Color(spr.color.r, spr.color.g, spr.color.b, 100 / 255f);
     }
     void Update()
     {
 
         if (ball_first_move)
         {
+            ++GameManager.instance.ballNum;
 
             rigid.AddForce(first_Dir * 2000 * GameManager.instance.ballSpeed * Time.fixedDeltaTime);
 
@@ -48,7 +71,7 @@ public class Ball_Controller : MonoBehaviour
         // rigid.AddForce(rigid.velocity * 100 * GameManager.instance.ballSpeed * Time.fixedDeltaTime);
         if (rigid.velocity.magnitude < GameManager.instance.ballSpeed)
         {
-            Debug.Log(rigid.velocity.magnitude);
+            // Debug.Log(rigid.velocity.magnitude);
             rigid.velocity = rigid.velocity.normalized * GameManager.instance.ballSpeed;
         }
         // else if (rigid.velocity != Vector2.zero)
@@ -59,6 +82,7 @@ public class Ball_Controller : MonoBehaviour
         if (life_count <= 0)
         {
             life_count = GameManager.instance.durability;
+            --GameManager.instance.ballNum;
             gameObject.SetActive(false);
         }
     }
@@ -67,9 +91,13 @@ public class Ball_Controller : MonoBehaviour
     {
         if (collision.gameObject.tag == "Wall")
         {
-            Debug.Log(collision.GetContact(0).normal);
             life_count--;
-            
+            // audioSource.Play();
+            GameManager.instance.bgc.HitSoundPlay();
         }
     }
+
+
+
+
 }
