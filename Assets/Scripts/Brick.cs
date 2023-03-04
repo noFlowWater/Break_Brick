@@ -46,12 +46,16 @@ public class Brick : MonoBehaviour
         if (collision.gameObject.CompareTag("Ball"))
         {
             // 색깔 다를 때,
-            if ((collision.gameObject.layer - this.gameObject.layer) != 2) {
-                Debug.Log("다름!");
-                OnDamaged(2); }
-            else {
-                Debug.Log("같음,,!");
-                OnDamaged(1); }// 같을 때
+            if ((collision.gameObject.layer - this.gameObject.layer) != 2)
+            {
+                // Debug.Log("다름!");
+                OnDamaged(2);
+            }
+            else
+            {
+                // Debug.Log("같음,,!");
+                OnDamaged(1);
+            }// 같을 때
         }
     }
 

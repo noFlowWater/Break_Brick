@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4716009658375219234}
   - component: {fileID: 1155020746563637159}
+  - component: {fileID: -714759806777598159}
   m_Layer: 0
   m_Name: BlueMold
   m_TagString: Untagged
@@ -84,3 +85,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-714759806777598159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109431959267786189}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05c6bbe64c1e2404d84bef969770d7d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  needReturn: 0
+  spr: {fileID: 0}

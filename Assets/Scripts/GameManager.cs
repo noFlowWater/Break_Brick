@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     public int ballNum;
 
     public int color;
+    public bool startGame;
 
     private void Awake()
     {
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = timeScale;
         // LineBreakCheck();
         color = 0;
-
+        startGame = true;
     }
 
     void Update()
@@ -64,13 +65,13 @@ public class GameManager : MonoBehaviour
             // Time.timeScale = timeScale * Mathf.Pow(2.5f, 1 - ((float)ballNum / (float)ballNumber));
 
         }
-        Debug.Log(Time.timeScale);
+        // Debug.Log(Time.timeScale);
     }
 
 
     public void LineBreakCheck()
     {
-
+        Debug.Log("sibal");
         delay = -delayRate;
         HorizontalLineBreakCheck(1);
         delay = -delayRate;
@@ -96,11 +97,14 @@ public class GameManager : MonoBehaviour
             {
 
                 GameObject brick = GameObject.Find("(" + x + ", " + y + ")");
-                if (brick != null) { needFill = false; break; }
+                if (brick != null) { needFill = false; continue; }
+                brick = GameObject.Find("(" + x + ", " + y + ")Mold");
+                // if (brick.GetComponent<Mold>().spr.color != Color.white && !startGame)
+                // { StartCoroutine(brick.GetComponent<Mold>().LineEffect(delay)); }
             }
             if (needFill)
             {
-                Debug.Log("테트리스!H");
+                // Debug.Log("테트리스!H");
                 HorizontalLineMove(dir, y);
             }
         }
@@ -170,7 +174,10 @@ public class GameManager : MonoBehaviour
             {
 
                 GameObject brick = GameObject.Find("(" + x + ", " + y + ")");
-                if (brick != null) { needFill = false; break; }
+                if (brick != null) { needFill = false; }
+                brick = GameObject.Find("(" + x + ", " + y + ")Mold");
+                // if (brick.GetComponent<Mold>().spr.color != Color.white && !startGame)
+                // { StartCoroutine(brick.GetComponent<Mold>().LineEffect(delay)); }
             }
             if (needFill)
             {
@@ -239,6 +246,9 @@ public class GameManager : MonoBehaviour
         brick.GetComponent<Brick>().isMove = true;
         brick.GetComponent<Brick>().posX = x;
         brick.GetComponent<Brick>().posY = y;
+
+        // GameObject mold = GameObject.Find("(" + x + ", " + y + ")Mold");
+        // mold.GetComponent<Mold>().needReturn = true;
 
         --funcCount;
     }
