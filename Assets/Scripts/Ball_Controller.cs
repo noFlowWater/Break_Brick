@@ -20,7 +20,6 @@ public class Ball_Controller : MonoBehaviour
     SpriteRenderer spr;
 
 
-
     void Awake()
     {
         spr = GetComponent<SpriteRenderer>();
@@ -40,6 +39,7 @@ public class Ball_Controller : MonoBehaviour
     {
         TrailRenderer trail = GetComponent<TrailRenderer>();
         ball_first_move = true;
+        transform.name = "Ball";
 
         if (GameManager.instance.color == 0)
         {// BLUE

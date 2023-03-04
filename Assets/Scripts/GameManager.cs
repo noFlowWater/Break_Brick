@@ -1,6 +1,13 @@
+using TMPro;
+using System;
+using System.IO;
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 
 
 public class GameManager : MonoBehaviour
@@ -12,13 +19,21 @@ public class GameManager : MonoBehaviour
     // public GameObject[] HorizontalChecker;
     public Spawner spawner;
     public Ball_Gen_Controller bgc;
+    public UserData data;
 
 
     public float level;
+    
     public int score;
+    public TextMeshProUGUI scoreTxt;
+    public int bestScore;
+    public TextMeshProUGUI bestScoreTxt;
     public int ballNumber;
+    public TextMeshProUGUI ballNumberTxt;
     public int life;
+    public TextMeshProUGUI lifeTxt;
     public int durability;
+    public TextMeshProUGUI durabilityTxt;
 
     public float ballSpeed;
 
@@ -36,7 +51,9 @@ public class GameManager : MonoBehaviour
 
     public int ballNum;
 
+
     public int color;
+    public bool startGame;
 
     private void Awake()
     {
@@ -45,7 +62,13 @@ public class GameManager : MonoBehaviour
         Time.timeScale = timeScale;
         // LineBreakCheck();
         color = 0;
+        startGame = true;
+    }
 
+    void Start()
+    {
+        LoadUserData();
+        Debug.Log("우왕 ㅋㅋ : " + data.bestScore);
     }
 
     void Update()
@@ -64,13 +87,21 @@ public class GameManager : MonoBehaviour
             // Time.timeScale = timeScale * Mathf.Pow(2.5f, 1 - ((float)ballNum / (float)ballNumber));
 
         }
-        Debug.Log(Time.timeScale);
+        // Debug.Log(Time.timeScale);
+    }
+
+    void LateUpdate()
+    {
+        scoreTxt.text = string.Format("{0:n0}", score);
+        lifeTxt.text = string.Format("{0:n0}", life);
+        ballNumberTxt.text = string.Format("{0:n0}", ballNumber);
+        durabilityTxt.text = string.Format("{0:n0}", durability);
+
     }
 
 
     public void LineBreakCheck()
     {
-
         delay = -delayRate;
         HorizontalLineBreakCheck(1);
         delay = -delayRate;
@@ -96,11 +127,14 @@ public class GameManager : MonoBehaviour
             {
 
                 GameObject brick = GameObject.Find("(" + x + ", " + y + ")");
-                if (brick != null) { needFill = false; break; }
+                if (brick != null) { needFill = false; continue; }
+                brick = GameObject.Find("(" + x + ", " + y + ")Mold");
+                // if (brick.GetComponent<Mold>().spr.color != Color.white && !startGame)
+                // { StartCoroutine(brick.GetComponent<Mold>().LineEffect(delay)); }
             }
             if (needFill)
             {
-                Debug.Log("테트리스!H");
+                // Debug.Log("테트리스!H");
                 HorizontalLineMove(dir, y);
             }
         }
@@ -170,7 +204,10 @@ public class GameManager : MonoBehaviour
             {
 
                 GameObject brick = GameObject.Find("(" + x + ", " + y + ")");
-                if (brick != null) { needFill = false; break; }
+                if (brick != null) { needFill = false; }
+                brick = GameObject.Find("(" + x + ", " + y + ")Mold");
+                // if (brick.GetComponent<Mold>().spr.color != Color.white && !startGame)
+                // { StartCoroutine(brick.GetComponent<Mold>().LineEffect(delay)); }
             }
             if (needFill)
             {
@@ -240,6 +277,9 @@ public class GameManager : MonoBehaviour
         brick.GetComponent<Brick>().posX = x;
         brick.GetComponent<Brick>().posY = y;
 
+        // GameObject mold = GameObject.Find("(" + x + ", " + y + ")Mold");
+        // mold.GetComponent<Mold>().needReturn = true;
+
         --funcCount;
     }
 
@@ -268,4 +308,42 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(duration);
         particle.SetActive(false);
     }
+    //////////////////////////////////////////////////////////////////////////////////
+
+    public void SaveUserData()
+    {
+        string filePath = Application.persistentDataPath + "/userdata.json";
+        string jsonData = JsonConvert.SerializeObject(data);
+        File.WriteAllText(filePath, jsonData);
+    }
+    void LoadUserData()
+    {
+        string filePath = Application.persistentDataPath + "/userdata.json";
+        if (File.Exists(filePath))
+        {
+            try
+            {
+                string jsonData = File.ReadAllText(filePath);
+                data = JsonConvert.DeserializeObject<UserData>(jsonData);
+                Debug.Log(data.bestScore);
+            }
+            catch (JsonException ex)
+            {
+                Debug.LogError("Failed to deserialize. Reason: " + ex.Message);
+                // 파일을 삭제하거나, 새로 생성하는 등의 예외 처리를 수행
+            }
+        }
+        else
+        {
+            Debug.Log("No userdata found.");
+            data = new UserData();
+        }
+    }
 }
+
+[Serializable]
+public class UserData
+{
+    public int bestScore;
+}
+        

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Brick : MonoBehaviour
 {
@@ -46,12 +47,16 @@ public class Brick : MonoBehaviour
         if (collision.gameObject.CompareTag("Ball"))
         {
             // 색깔 다를 때,
-            if ((collision.gameObject.layer - this.gameObject.layer) != 2) {
-                Debug.Log("다름!");
-                OnDamaged(2); }
-            else {
-                Debug.Log("같음,,!");
-                OnDamaged(1); }// 같을 때
+            if ((collision.gameObject.layer - this.gameObject.layer) != 2)
+            {
+                // Debug.Log("다름!");
+                OnDamaged(2);
+            }
+            else
+            {
+                // Debug.Log("같음,,!");
+                OnDamaged(1);
+            }// 같을 때
         }
     }
 
@@ -71,6 +76,11 @@ public class Brick : MonoBehaviour
     {
         isBroken = true;
         ++GameManager.instance.score;
+        if (GameManager.instance.score > GameManager.instance.data.bestScore){
+            GameManager.instance.data.bestScore = GameManager.instance.score;
+            Debug.Log(GameManager.instance.data.bestScore);
+            GameManager.instance.SaveUserData();
+        }
         GameManager.CreateParticleEffect(2, transform.position, transform.localRotation, color);
         Destroy(this.gameObject);
     }

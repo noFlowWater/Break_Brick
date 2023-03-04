@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class Ball_Gen_Controller : MonoBehaviour
 {
     [SerializeField] SpriteRenderer spriteRenderer;
@@ -57,7 +58,7 @@ public class Ball_Gen_Controller : MonoBehaviour
         {
             ballNum = GameManager.instance.ballNumber;
             GameObject ball = null;
-            ball = GameObject.FindWithTag("Ball");
+            ball = GameObject.Find("Ball");
             if (ball == null && !onFire && GameManager.instance.isPlayerTurn != true)
             {
                 GameManager.instance.LineBreakCheck();
@@ -166,6 +167,7 @@ public class Ball_Gen_Controller : MonoBehaviour
     {
         onFire = true;
         GameManager.instance.isPlayerTurn = false;
+        GameManager.instance.startGame = false;
         --GameManager.instance.life;
     }
 
