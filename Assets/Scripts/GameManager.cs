@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     public int color;
     public bool startGame;
 
+    public bool inTitle;
+
     private void Awake()
     {
         instance = this;
@@ -46,32 +48,44 @@ public class GameManager : MonoBehaviour
         Time.timeScale = timeScale;
         // LineBreakCheck();
         color = 0;
-        startGame = true;
+        if (inTitle)
+        {
+            startGame = false;
+        }
+        else
+        {
+            startGame = true;
+        }
     }
 
     void Update()
     {
-
-        if (ballNum == 0)
+        if (inTitle)
         {
             Time.timeScale = timeScale;
         }
-        // else if (ballNum < ballNumber * 0.2 && ballNumber > 10 && !bgc.onFire) { Time.timeScale = timeScale * 2; }
-        else if (!bgc.onFire)
+        else
         {
-            // Time.timeScale = (timeScale * 2) + (timeScale * 3 * (1 - (ballNum / ballNumber)));
-            Time.timeScale = timeScale * (3f - 2f * ((float)(ballNum) / (float)(ballNumber)));
-            // Time.timeScale = timeScale * (1 + Mathf.Log(ballNum / ballNumber, ballNumber));
-            // Time.timeScale = timeScale * Mathf.Pow(2.5f, 1 - ((float)ballNum / (float)ballNumber));
+            if (ballNum == 0)
+            {
+                Time.timeScale = timeScale;
+            }
+            // else if (ballNum < ballNumber * 0.2 && ballNumber > 10 && !bgc.onFire) { Time.timeScale = timeScale * 2; }
+            else if (!bgc.onFire)
+            {
+                // Time.timeScale = (timeScale * 2) + (timeScale * 3 * (1 - (ballNum / ballNumber)));
+                Time.timeScale = timeScale * (3f - 2f * ((float)(ballNum) / (float)(ballNumber)));
+                // Time.timeScale = timeScale * (1 + Mathf.Log(ballNum / ballNumber, ballNumber));
+                // Time.timeScale = timeScale * Mathf.Pow(2.5f, 1 - ((float)ballNum / (float)ballNumber));
 
+            }
+            // Debug.Log(Time.timeScale);}
         }
-        // Debug.Log(Time.timeScale);
     }
-
 
     public void LineBreakCheck()
     {
-        Debug.Log("sibal");
+        // Debug.Log("sibal");
         delay = -delayRate;
         HorizontalLineBreakCheck(1);
         delay = -delayRate;
@@ -157,6 +171,8 @@ public class GameManager : MonoBehaviour
         {
             if (dir == 1) { spawner.Spawn(0); }
             else { spawner.Spawn(1); }
+            if (!startGame)
+            { ++durability; }
         }
     }
     void VerticalLineBreakCheck(int dir)
@@ -233,7 +249,10 @@ public class GameManager : MonoBehaviour
         {
             if (dir == 1) { spawner.Spawn(2); }
             else { spawner.Spawn(3); }
+            if (!startGame)
+            { ++durability; }
         }
+
     }
 
     public IEnumerator MoveBrick(GameObject brick, float x, float y)

@@ -19,6 +19,8 @@ public class Ball_Controller : MonoBehaviour
     bool ball_first_move;
     SpriteRenderer spr;
 
+    public string color;
+
 
     void Awake()
     {
@@ -28,7 +30,21 @@ public class Ball_Controller : MonoBehaviour
         spr.sortingLayerName = sortingLayerName;
         spr.sortingOrder = sortingOrder;
 
-        life_count = GameManager.instance.durability;
+        if (color == "Red")
+        {
+            spr.color = new Color(255 / 255f, 180 / 255f, 180 / 255f);
+            life_count = -999;
+        }
+        else if (color == "Blue")
+        {
+            spr.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
+            life_count = -999;
+        }
+        else
+        {
+            life_count = GameManager.instance.durability;
+        }
+
 
         rigid = GetComponent<Rigidbody2D>();
 
@@ -40,21 +56,27 @@ public class Ball_Controller : MonoBehaviour
     {
         TrailRenderer trail = GetComponent<TrailRenderer>();
         ball_first_move = true;
-        transform.name = "Ball";
+        // transform.name = "Ball";
 
-        if (GameManager.instance.color == 0)
-        {// BLUE
-            this.gameObject.layer = 8; // BlueBall 레이어로 초기화
-            spr.color = new Color(255 / 255f, 180 / 255f, 180 / 255f);
+        if (!GameManager.instance.inTitle)
+        {
+            if (GameManager.instance.color == 0)
+            {// BLUE
+                this.gameObject.layer = 8; // BlueBall 레이어로 초기화
+                spr.color = new Color(255 / 255f, 180 / 255f, 180 / 255f);
+            }
+            else
+            {// RED
+                this.gameObject.layer = 9; // RedBall 레이어로 초기화
+                spr.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
+
+            }
+            // trail.material.color = spr.color;
         }
         else
-        {// RED
-            this.gameObject.layer = 9; // RedBall 레이어로 초기화
-            spr.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
-
+        {
+            first_Dir = new Vector3(Random.Range(0.1f, 1), Random.Range(0.1f, 1), 0).normalized;
         }
-        // trail.material.color = spr.color;
-
         trail.startColor = new Color(spr.color.r, spr.color.g, spr.color.b, 100 / 255f);
     }
     void Update()
@@ -83,7 +105,7 @@ public class Ball_Controller : MonoBehaviour
         //     rigid.velocity = rigid.velocity.normalized * 2000 * GameManager.instance.ballSpeed * Time.fixedDeltaTime;
         // }
 
-        if (life_count <= 0)
+        if (life_count <= 0 && !GameManager.instance.inTitle)
         {
             life_count = GameManager.instance.durability;
             --GameManager.instance.ballNum;
@@ -104,7 +126,11 @@ public class Ball_Controller : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(contact.normal);
             GameManager.CreateParticleEffect(1, position, rotation, tempColor);
 
-            life_count--;
+
+            if (!GameManager.instance.inTitle)
+            {
+                life_count--;
+            }
             // audioSource.Play();
             GameManager.instance.bgc.HitSoundPlay();
         }

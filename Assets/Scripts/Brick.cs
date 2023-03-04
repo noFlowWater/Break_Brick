@@ -79,7 +79,7 @@ public class Brick : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    IEnumerator Shake()
+    protected IEnumerator Shake()
     {
         float elapsedTime = 0.0f;
 
