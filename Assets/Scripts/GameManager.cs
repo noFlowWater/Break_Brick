@@ -1,6 +1,13 @@
+using TMPro;
+using System;
+using System.IO;
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 
 
 public class GameManager : MonoBehaviour
@@ -12,13 +19,21 @@ public class GameManager : MonoBehaviour
     // public GameObject[] HorizontalChecker;
     public Spawner spawner;
     public Ball_Gen_Controller bgc;
+    public UserData data;
 
 
     public float level;
+
     public int score;
+    public TextMeshProUGUI scoreTxt;
+    public int bestScore;
+    public TextMeshProUGUI bestScoreTxt;
     public int ballNumber;
+    public TextMeshProUGUI ballNumberTxt;
     public int life;
+    public TextMeshProUGUI lifeTxt;
     public int durability;
+    public TextMeshProUGUI durabilityTxt;
 
     public float ballSpeed;
 
@@ -35,6 +50,7 @@ public class GameManager : MonoBehaviour
     public int funcCount;
 
     public int ballNum;
+
 
     public int color;
     public bool startGame;
@@ -56,6 +72,12 @@ public class GameManager : MonoBehaviour
         {
             startGame = true;
         }
+    }
+
+    void Start()
+    {
+        LoadUserData();
+        Debug.Log("우왕 ㅋㅋ : " + data.bestScore);
     }
 
     void Update()
@@ -83,9 +105,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void LateUpdate()
+    {
+        if (!inTitle)
+        {
+            scoreTxt.text = string.Format("{0:n0}", score);
+            lifeTxt.text = string.Format("{0:n0}", life);
+            ballNumberTxt.text = string.Format("{0:n0}", ballNumber);
+            durabilityTxt.text = string.Format("{0:n0}", durability);
+        }
+    }
+
+
     public void LineBreakCheck()
     {
-        // Debug.Log("sibal");
         delay = -delayRate;
         HorizontalLineBreakCheck(1);
         delay = -delayRate;
@@ -297,4 +330,41 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(duration);
         particle.SetActive(false);
     }
+    //////////////////////////////////////////////////////////////////////////////////
+
+    public void SaveUserData()
+    {
+        string filePath = Application.persistentDataPath + "/userdata.json";
+        string jsonData = JsonConvert.SerializeObject(data);
+        File.WriteAllText(filePath, jsonData);
+    }
+    void LoadUserData()
+    {
+        string filePath = Application.persistentDataPath + "/userdata.json";
+        if (File.Exists(filePath))
+        {
+            try
+            {
+                string jsonData = File.ReadAllText(filePath);
+                data = JsonConvert.DeserializeObject<UserData>(jsonData);
+                Debug.Log(data.bestScore);
+            }
+            catch (JsonException ex)
+            {
+                Debug.LogError("Failed to deserialize. Reason: " + ex.Message);
+                // 파일을 삭제하거나, 새로 생성하는 등의 예외 처리를 수행
+            }
+        }
+        else
+        {
+            Debug.Log("No userdata found.");
+            data = new UserData();
+        }
+    }
+}
+
+[Serializable]
+public class UserData
+{
+    public int bestScore;
 }

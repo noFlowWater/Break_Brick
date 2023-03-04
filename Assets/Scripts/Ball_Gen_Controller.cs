@@ -27,16 +27,9 @@ public class Ball_Gen_Controller : MonoBehaviour
     public int ballNum;
 
 
-    AudioSource hitSoundSources;
-    public AudioClip hitSoundClip;
-    [Range(0, 1)]
-    public float soudVolume;
-    [Range(-3, 3)]
-    public float pitch;
-
     void Awake()
     {
-        hitSoundSources = gameObject.AddComponent<AudioSource>();
+
     }
 
     private void Start()
@@ -206,24 +199,6 @@ public class Ball_Gen_Controller : MonoBehaviour
         return Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
     }
 
-    public void HitSoundPlay()
-    {
-        hitSoundSources.volume = soudVolume;
-        hitSoundSources.pitch = pitch;
-        hitSoundSources.PlayOneShot(hitSoundClip);
-        return;
-        // for (int i = 0; i < audioNum; ++i)
-        // {
-
-        // if (!hitSoundSources[i].isPlaying)
-        // {
-        //     hitSoundSources[i].volume = soudVolume;
-        //     hitSoundSources[i].pitch = pitch;
-        //     hitSoundSources[i].PlayOneShot(hitSoundClip);
-        //     return;
-        // }
-        // }
-
-    }
+    
 
 }

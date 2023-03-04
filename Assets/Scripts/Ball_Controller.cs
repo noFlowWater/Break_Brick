@@ -48,7 +48,6 @@ public class Ball_Controller : MonoBehaviour
 
         rigid = GetComponent<Rigidbody2D>();
 
-
     }
 
 
@@ -132,7 +131,7 @@ public class Ball_Controller : MonoBehaviour
                 life_count--;
             }
             // audioSource.Play();
-            GameManager.instance.bgc.HitSoundPlay();
+            // GameManager.instance.bgc.HitSoundPlay();
         }
     }
 

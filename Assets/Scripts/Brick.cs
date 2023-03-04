@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Brick : MonoBehaviour
 {
@@ -75,6 +76,11 @@ public class Brick : MonoBehaviour
     {
         isBroken = true;
         ++GameManager.instance.score;
+        if (GameManager.instance.score > GameManager.instance.data.bestScore){
+            GameManager.instance.data.bestScore = GameManager.instance.score;
+            Debug.Log(GameManager.instance.data.bestScore);
+            GameManager.instance.SaveUserData();
+        }
         GameManager.CreateParticleEffect(2, transform.position, transform.localRotation, color);
         Destroy(this.gameObject);
     }
