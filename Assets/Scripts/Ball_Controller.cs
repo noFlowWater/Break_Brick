@@ -20,6 +20,7 @@ public class Ball_Controller : MonoBehaviour
     SpriteRenderer spr;
 
 
+
     void Awake()
     {
         spr = GetComponent<SpriteRenderer>();
@@ -31,7 +32,6 @@ public class Ball_Controller : MonoBehaviour
         life_count = GameManager.instance.durability;
 
         rigid = GetComponent<Rigidbody2D>();
-
 
     }
 
@@ -104,8 +104,6 @@ public class Ball_Controller : MonoBehaviour
             GameManager.CreateParticleEffect(1, position, rotation, tempColor);
 
             life_count--;
-            // audioSource.Play();
-            GameManager.instance.bgc.HitSoundPlay();
         }
     }
 
