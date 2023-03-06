@@ -49,115 +49,127 @@ public class Ball_Gen_Controller : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 mousePos;
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        transform.position = new Vector2(mousePos.x, mousePos.y);
-
-        if (!onFire)
+        if (!GameManager.instance.inTitle)
         {
-            ballNum = GameManager.instance.ballNumber;
-            GameObject ball = null;
-            ball = GameObject.Find("Ball");
-            if (ball == null && !onFire && GameManager.instance.isPlayerTurn != true)
-            {
-                GameManager.instance.LineBreakCheck();
-                GameManager.instance.isPlayerTurn = true;
-            }
-        }
+            Vector2 mousePos;
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (onFire)
-        {
-            timer += Time.deltaTime;
+            transform.position = new Vector2(mousePos.x, mousePos.y);
 
-            if (timer > waitingTime)
-            {
-                CreatBall(dirc, start_Pos);
-                timer = 0;
-            }
-
-            if (ballNum == 0)
+            if (!onFire)
             {
                 ballNum = GameManager.instance.ballNumber;
-                onFire = false;
+                GameObject ball = null;
+                ball = GameObject.FindWithTag("Ball");
+                if (ball == null && !onFire && GameManager.instance.isPlayerTurn != true)
+                {
+                    GameManager.instance.LineBreakCheck();
+                    GameManager.instance.isPlayerTurn = true;
+                }
+            }
+
+            if (onFire)
+            {
+                timer += Time.deltaTime;
+
+                if (timer > waitingTime)
+                {
+                    CreatBall(dirc, start_Pos);
+                    timer = 0;
+                }
+
+                if (ballNum == 0)
+                {
+                    ballNum = GameManager.instance.ballNumber;
+                    onFire = false;
+                }
             }
         }
     }
 
     private void OnMouseDown()
     {
-        if (Mathf.Abs(transform.position.x) < Mathf.Abs(GameManager.instance.playerPlayPointX + 0.5f) &&
-            Mathf.Abs(transform.position.y) < Mathf.Abs(GameManager.instance.playerPlayPointY + 0.5f))
+        if (!GameManager.instance.inTitle)
         {
-            inFireArea = true;
-        }
-        else
-        {
-            inFireArea = false;
-        }
-        if (!onFire && GameManager.instance.isPlayerTurn && !isMouseDownFirst && inFireArea)
-        {
-
-            // Debug.Log(" -- Mouse DOWN -- ");
-            isMouseDownFirst = true;
-            // spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
-            if (GameManager.instance.color == 1)
+            if (Mathf.Abs(transform.position.x) < Mathf.Abs(GameManager.instance.playerPlayPointX + 0.5f) &&
+                Mathf.Abs(transform.position.y) < Mathf.Abs(GameManager.instance.playerPlayPointY + 0.5f))
             {
-                spriteRenderer.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
+                inFireArea = true;
             }
             else
             {
-                spriteRenderer.color = new Color(255 / 255f, 180 / 255f, 180 / 255f);
+                inFireArea = false;
             }
+            if (!onFire && GameManager.instance.isPlayerTurn && !isMouseDownFirst && inFireArea)
+            {
 
-            start_Pos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                // Debug.Log(" -- Mouse DOWN -- ");
+                isMouseDownFirst = true;
+                // spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+                if (GameManager.instance.color == 1)
+                {
+                    spriteRenderer.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
+                }
+                else
+                {
+                    spriteRenderer.color = new Color(255 / 255f, 180 / 255f, 180 / 255f);
+                }
+
+                start_Pos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            }
         }
     }
 
     private void OnMouseDrag()
     {
-        //start_Pos 과 mousePos 를 이용하여 화살표를 표현하고싶...!
-        if (!onFire && GameManager.instance.isPlayerTurn)
+        if (!GameManager.instance.inTitle)
         {
-            if (!isMouseDragFirst)
+            //start_Pos 과 mousePos 를 이용하여 화살표를 표현하고싶...!
+            if (!onFire && GameManager.instance.isPlayerTurn)
             {
-                isMouseDragFirst = true;
+                if (!isMouseDragFirst)
+                {
+                    isMouseDragFirst = true;
+                }
+
+                // Debug.Log(" -- Mouse DRAG -- ");
+
+                Vector3 myPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                Vector3 dirc = (myPos - start_Pos).normalized; ;
+
+                linePoints[0] = start_Pos;
+                linePoints[1] = myPos;
+                // lr.enabled = true;
+                // lr.SetPositions(linePoints);
+                DottedLine.Instance.DrawDottedLine(start_Pos, myPos);
+
+                transform.rotation = Quaternion.Euler(0, 0, 2 * GetAngle(new Vector3(1, 0, 0), dirc));
             }
-
-            // Debug.Log(" -- Mouse DRAG -- ");
-
-            Vector3 myPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-            Vector3 dirc = (myPos - start_Pos).normalized; ;
-
-            linePoints[0] = start_Pos;
-            linePoints[1] = myPos;
-            // lr.enabled = true;
-            // lr.SetPositions(linePoints);
-            DottedLine.Instance.DrawDottedLine(start_Pos, myPos);
-
-            transform.rotation = Quaternion.Euler(0, 0, 2 * GetAngle(new Vector3(1, 0, 0), dirc));
         }
     }
 
     private void OnMouseUp()//클릭을 땠을 때.
     {
-        if (!onFire && isMouseDragFirst)
+        if (!GameManager.instance.inTitle)
         {
-
-            // Debug.Log(" -- Mouse UP -- ");
-
-            isMouseDragFirst = false;
-            isMouseDownFirst = false;
-
-            // lr.enabled = false;
-            spriteRenderer.color = new Color(1f, 1f, 1f, 0);
-
-            end_Pos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-            dirc = (end_Pos - start_Pos).normalized;
-
-            if (dirc != Vector3.zero && GameManager.instance.funcCount == 0)
+            if (!onFire && isMouseDragFirst)
             {
-                Fire();
+
+                // Debug.Log(" -- Mouse UP -- ");
+
+                isMouseDragFirst = false;
+                isMouseDownFirst = false;
+
+                // lr.enabled = false;
+                spriteRenderer.color = new Color(1f, 1f, 1f, 0);
+
+                end_Pos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                dirc = (end_Pos - start_Pos).normalized;
+
+                if (dirc != Vector3.zero && GameManager.instance.funcCount == 0)
+                {
+                    Fire();
+                }
             }
         }
 

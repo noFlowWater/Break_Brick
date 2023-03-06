@@ -22,6 +22,11 @@ public class TextMeshInBrick : MonoBehaviour
 
     private void Update()
     {
-        tmp.text = brickObj.life.ToString();
+        if (brickObj.life == -999)
+        {
+            tmp.text = "!";
+        }
+        else
+        { tmp.text = brickObj.life.ToString(); }
     }
 }
