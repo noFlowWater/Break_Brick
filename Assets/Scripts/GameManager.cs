@@ -176,7 +176,7 @@ public class GameManager : MonoBehaviour
         float startXPos = dir * spawner.upPoint[0].transform.position.x;
         float endXpos = dir * spawner.upPoint[spawner.upPoint.Length - 1].transform.position.x;
         float startYPos = dir * (playerPlayPointY + 1);
-        float endYPos = dir * (spawner.upPoint[0].transform.position.y - 2);
+        float endYPos = dir * (spawner.upPoint[0].transform.position.y - 2 - 1);
 
         for (float y = startYPos; dir * y <= dir * endYPos; y += dir)
         {
@@ -256,7 +256,7 @@ public class GameManager : MonoBehaviour
     void VerticalLineBreakCheck(int dir)
     {
         float startXPos = dir * (playerPlayPointX + 1);
-        float endXPos = dir * (spawner.rightPoint[0].transform.position.x - 2);
+        float endXPos = dir * (spawner.rightPoint[0].transform.position.x - 2 - 5);
         float startYPos = dir * spawner.rightPoint[0].transform.position.y;
         float endYPos = dir * spawner.rightPoint[spawner.rightPoint.Length - 1].transform.position.y;
 
