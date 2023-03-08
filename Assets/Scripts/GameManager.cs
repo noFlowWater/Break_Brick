@@ -152,6 +152,11 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void FinishOneTurn()
+    {
+
+    }
+
 
     public void LineBreakCheck()
     {
@@ -181,15 +186,15 @@ public class GameManager : MonoBehaviour
         for (float y = startYPos; dir * y <= dir * endYPos; y += dir)
         {
             bool needFill = true;
-            for (float x = startXPos; dir * x <= dir * endXpos; x += dir)
-            {
+            // for (float x = startXPos; dir * x <= dir * endXpos; x += dir)
+            // {
 
-                GameObject brick = GameObject.Find("(" + x + ", " + y + ")");
-                if (brick != null) { needFill = false; continue; }
-                brick = GameObject.Find("(" + x + ", " + y + ")Mold");
-                // if (brick.GetComponent<Mold>().spr.color != Color.white && !startGame)
-                // { StartCoroutine(brick.GetComponent<Mold>().LineEffect(delay)); }
-            }
+            //     GameObject brick = GameObject.Find("(" + x + ", " + y + ")");
+            //     if (brick != null) { needFill = false; continue; }
+            //     brick = GameObject.Find("(" + x + ", " + y + ")Mold");
+            //     // if (brick.GetComponent<Mold>().spr.color != Color.white && !startGame)
+            //     // { StartCoroutine(brick.GetComponent<Mold>().LineEffect(delay)); }
+            // }
             if (needFill)
             {
                 // Debug.Log("테트리스!H");
@@ -207,29 +212,14 @@ public class GameManager : MonoBehaviour
 
         GameObject brick = null;
 
-        // Debug.Log("startXPos: " + startXPos);
-        // Debug.Log("endXPos: " + endXPos);
-        // Debug.Log("endYPos: " + endYPos);
-        // Debug.Log("needY: " + needY);
-
-
-        for (y = needY; dir * y < dir * endYPos; y += dir)
+        if (needY == ((spawner.ySize / 2) - 0.5f) * dir)
         {
-            bool next = true;
-            for (x = startXPos; dir * x <= dir * endXPos; x += dir)
-            {
-                brick = GameObject.Find("(" + x + ", " + y + ")");
-                if (brick != null)
-                {
-                    next = false;
-                    break;
-                }
-
-            }
-            if (!next) { break; }
+            y = needY + (3 * dir);
         }
-
-        // delay += delayRate;
+        else
+        {
+            y = needY + dir;
+        }
         for (x = startXPos; dir * x <= dir * endXPos; x += dir)
         {
             brick = GameObject.Find("(" + x + ", " + y + ")");
@@ -239,24 +229,18 @@ public class GameManager : MonoBehaviour
                 delay += delayRate;
                 StartCoroutine(MoveBrick(brick, x, needY));
             }
-
         }
-        if (y == endYPos)
+        if (needY == ((spawner.ySize / 2) - 0.5f) * dir)
         {
             if (dir == 1) { spawner.Spawn(0); }
             else { spawner.Spawn(1); }
-            if (level != 1)
-            {
-                ++ballNumber;
-
-                level += 1f;
-            }
         }
+
     }
     void VerticalLineBreakCheck(int dir)
     {
         float startXPos = dir * (playerPlayPointX + 1);
-        float endXPos = dir * (spawner.rightPoint[0].transform.position.x - 2 - 5);
+        float endXPos = dir * (spawner.rightPoint[0].transform.position.x - 2 - 1);
         float startYPos = dir * spawner.rightPoint[0].transform.position.y;
         float endYPos = dir * spawner.rightPoint[spawner.rightPoint.Length - 1].transform.position.y;
 
@@ -264,18 +248,19 @@ public class GameManager : MonoBehaviour
         {
 
             bool needFill = true;
-            for (float y = startYPos; dir * y >= dir * endYPos; y -= dir)
-            {
+            // for (float y = startYPos; dir * y >= dir * endYPos; y -= dir)
+            // {
 
-                GameObject brick = GameObject.Find("(" + x + ", " + y + ")");
-                if (brick != null) { needFill = false; }
-                brick = GameObject.Find("(" + x + ", " + y + ")Mold");
-                // if (brick.GetComponent<Mold>().spr.color != Color.white && !startGame)
-                // { StartCoroutine(brick.GetComponent<Mold>().LineEffect(delay)); }
-            }
+            //     GameObject brick = GameObject.Find("(" + x + ", " + y + ")");
+            //     if (brick != null) { needFill = false; }
+            //     brick = GameObject.Find("(" + x + ", " + y + ")Mold");
+            //     // if (brick.GetComponent<Mold>().spr.color != Color.white && !startGame)
+            //     // { StartCoroutine(brick.GetComponent<Mold>().LineEffect(delay)); }
+            // }
+            print("시발");
             if (needFill)
             {
-                // Debug.Log("테트리스!V");
+                Debug.Log("테트리스!V");
                 VerticalLineMove(dir, x);
             }
         }
@@ -290,29 +275,16 @@ public class GameManager : MonoBehaviour
 
         GameObject brick = null;
 
-        // Debug.Log("startYPos: " + startYPos);
-        // Debug.Log("endYPos: " + endYPos);
-        // Debug.Log("endXPos: " + endXPos);
-        // Debug.Log("needX: " + needX);
-
-        for (x = needX; dir * x < dir * endXPos; x += dir)
+        if (needX == ((spawner.xSize / 2) - 0.5f) * dir)
         {
-            bool next = true;
-            for (y = startYPos; dir * y >= dir * endYPos; y -= dir)
-            {
-                brick = GameObject.Find("(" + x + ", " + y + ")");
-                if (brick != null)
-                {
-                    next = false;
-                    break;
-                }
-
-            }
-            if (!next) { break; }
+            x = needX + (3 * dir);
         }
-        // Debug.Log("x: " + x);
+        else
+        {
+            x = needX + dir;
+        }
+        print(x);
 
-        // delay += delayRate;
         for (y = startYPos; dir * y >= dir * endYPos; y -= dir)
         {
             brick = GameObject.Find("(" + x + ", " + y + ")");
@@ -323,15 +295,10 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(MoveBrick(brick, needX, y));
             }
         }
-        if (x == endXPos)
+        if (needX == ((spawner.xSize / 2) - 0.5f) * dir)
         {
             if (dir == 1) { spawner.Spawn(2); }
             else { spawner.Spawn(3); }
-            if (level != 1)
-            {
-                ++ballNumber;
-                level += 1f;
-            }
         }
 
     }
