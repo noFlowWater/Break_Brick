@@ -78,6 +78,7 @@ public class Brick : MonoBehaviour
         ++GameManager.instance.score;
         if (GameManager.instance.score > GameManager.instance.data.bestScore){
             GameManager.instance.data.bestScore = GameManager.instance.score;
+            GameManager.instance.bestScore = GameManager.instance.data.bestScore;
             Debug.Log(GameManager.instance.data.bestScore);
             GameManager.instance.SaveUserData();
         }

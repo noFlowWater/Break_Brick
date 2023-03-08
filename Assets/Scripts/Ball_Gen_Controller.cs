@@ -27,11 +27,6 @@ public class Ball_Gen_Controller : MonoBehaviour
     public int ballNum;
 
 
-    void Awake()
-    {
-
-    }
-
     private void Start()
     {
         spriteRenderer.color = new Color(1f, 1f, 1f, 0);
@@ -68,7 +63,7 @@ public class Ball_Gen_Controller : MonoBehaviour
                 }
             }
 
-            if (onFire)
+            if (onFire && GameManager.instance.playPanel.activeSelf)
             {
                 timer += Time.deltaTime;
 
@@ -123,15 +118,13 @@ public class Ball_Gen_Controller : MonoBehaviour
     private void OnMouseDrag()
     {
         if (!GameManager.instance.inTitle)
-        {
-            //start_Pos 과 mousePos 를 이용하여 화살표를 표현하고싶...!
+        {//start_Pos 과 mousePos 를 이용하여 화살표를 표현하고싶...!
             if (!onFire && GameManager.instance.isPlayerTurn)
             {
                 if (!isMouseDragFirst)
                 {
                     isMouseDragFirst = true;
                 }
-
                 // Debug.Log(" -- Mouse DRAG -- ");
 
                 Vector3 myPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
@@ -147,14 +140,12 @@ public class Ball_Gen_Controller : MonoBehaviour
             }
         }
     }
-
     private void OnMouseUp()//클릭을 땠을 때.
     {
         if (!GameManager.instance.inTitle)
         {
             if (!onFire && isMouseDragFirst)
             {
-
                 // Debug.Log(" -- Mouse UP -- ");
 
                 isMouseDragFirst = false;
@@ -172,9 +163,7 @@ public class Ball_Gen_Controller : MonoBehaviour
                 }
             }
         }
-
     }
-
     void Fire()
     {
         onFire = true;
@@ -182,7 +171,6 @@ public class Ball_Gen_Controller : MonoBehaviour
         GameManager.instance.startGame = false;
         --GameManager.instance.life;
     }
-
     void CreatBall(Vector3 dirc, Vector3 position)
     {
         GameObject ball = GameManager.instance.poolManager.Get(0);
@@ -191,14 +179,10 @@ public class Ball_Gen_Controller : MonoBehaviour
         ballNum--;
 
     }
-
     public static float GetAngle(Vector3 vStart, Vector3 vEnd)
     {
         Vector3 v = vEnd - vStart;
 
         return Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
     }
-
-    
-
 }

@@ -8,6 +8,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using UnityEngine.SceneManagement;
+
 
 
 public class GameManager : MonoBehaviour
@@ -23,6 +25,10 @@ public class GameManager : MonoBehaviour
 
 
     public float level;
+
+    public GameObject ballGenController;
+    public GameObject pausePanel;
+    public GameObject playPanel;
 
     public int score;
     public TextMeshProUGUI scoreTxt;
@@ -47,6 +53,9 @@ public class GameManager : MonoBehaviour
     public float brickSpeed;
 
     public float timeScale;
+    public TextMeshProUGUI timeScaleTxt;
+    float beforeTimeScale;
+
     public int funcCount;
 
     public int ballNum;
@@ -77,7 +86,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         LoadUserData();
-        Debug.Log("우왕 ㅋㅋ : " + data.bestScore);
+        bestScore = data.bestScore;
     }
 
     void Update()
@@ -101,7 +110,10 @@ public class GameManager : MonoBehaviour
                 // Time.timeScale = timeScale * Mathf.Pow(2.5f, 1 - ((float)ballNum / (float)ballNumber));
 
             }
-            // Debug.Log(Time.timeScale);}
+            else
+            {
+                Time.timeScale = timeScale;
+            }
         }
     }
 
@@ -113,6 +125,10 @@ public class GameManager : MonoBehaviour
             lifeTxt.text = string.Format("{0:#,###0}", life);
             ballNumberTxt.text = string.Format("{0:#,###0}", ballNumber);
             durabilityTxt.text = string.Format("{0:#,###0}", durability);
+        }
+        else
+        {
+            bestScoreTxt.text = string.Format("Best Record..!\n{0:#,###0}", bestScore);
         }
     }
 
@@ -359,6 +375,46 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("No userdata found.");
             data = new UserData();
+        }
+    }
+    //////////////////////////////////////////////////////////////////////////////////
+
+    public void LoadInGameScene()
+    {
+        SceneManager.LoadScene("InGameScene");
+    }
+
+    public void PauseButtonClick()
+    {
+
+        if (this.playPanel.activeSelf)
+        {// 일시정지 할 때.
+            this.beforeTimeScale = this.timeScale;
+            this.timeScale = 0;
+            //this.ballGenController.SetActive(false);
+            this.playPanel.SetActive(false);
+            this.pausePanel.SetActive(true);
+        }
+        else
+        {// 일시정지를 풀 때.
+            this.timeScale = this.beforeTimeScale;
+            //this.ballGenController.SetActive(true);
+            this.playPanel.SetActive(true);
+            this.pausePanel.SetActive(false);
+        }
+
+    }
+    public void TimeScaleButton()
+    {
+        if(this.timeScale > 3)
+        {
+            this.timeScale = 1;
+            this.timeScaleTxt.text = string.Format("x{0:#,###0}", timeScale);
+        }
+        else
+        {
+            this.timeScale++;
+            this.timeScaleTxt.text = string.Format("x{0:#,###0}", timeScale);
         }
     }
 }
