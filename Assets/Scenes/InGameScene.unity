@@ -1521,22 +1521,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28d285619a37142cfa13ff145ac0a034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 1573385518}
   poolManager: {fileID: 640832781}
   spawner: {fileID: 792350045}
   bgc: {fileID: 4212344323529541294}
   data:
     bestScore: 0
-  level: 20
+  level: 1
   score: 0
   scoreTxt: {fileID: 643729739}
   bestScore: 0
   bestScoreTxt: {fileID: 287055585}
-  ballNumber: 30
+  ballNumber: 5
   ballNumberTxt: {fileID: 271008577}
-  life: 5
+  life: 10
   lifeTxt: {fileID: 1956373033}
-  durability: 30
+  durability: 5
   durabilityTxt: {fileID: 1402703887}
   ballSpeed: 10
   isPlayerTurn: 0
@@ -1545,11 +1544,10 @@ MonoBehaviour:
   delayRate: 0.5
   delay: 0
   brickSpeed: 0.1
-  timeScale: 1
+  timeScale: 10
   funcCount: 0
   ballNum: 0
   color: 0
-  startGame: 0
   inTitle: 0
 --- !u!4 &419948897
 Transform:

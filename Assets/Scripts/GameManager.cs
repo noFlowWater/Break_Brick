@@ -13,7 +13,7 @@ using System.Runtime.Serialization;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public MainCamera mainCamera;
+
     public PoolManager poolManager;
     // public GameObject[] VerticalChecker;
     // public GameObject[] HorizontalChecker;
@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
 
 
     public float level;
+    float levelAdd;
 
     public int score;
     public TextMeshProUGUI scoreTxt;
@@ -53,9 +54,10 @@ public class GameManager : MonoBehaviour
 
 
     public int color;
-    public bool startGame;
+    // public bool startGame;
 
     public bool inTitle;
+    public bool loading;
 
     private void Awake()
     {
@@ -64,20 +66,26 @@ public class GameManager : MonoBehaviour
         Time.timeScale = timeScale;
         // LineBreakCheck();
         color = 0;
-        if (inTitle)
-        {
-            startGame = false;
-        }
-        else
-        {
-            startGame = true;
-        }
+        // if (inTitle)
+        // {
+        //     startGame = false;
+        // }
+        // else
+        // {
+        //     startGame = true;
+        // }
     }
 
     void Start()
     {
         LoadUserData();
         Debug.Log("우왕 ㅋㅋ : " + data.bestScore);
+
+        if (!inTitle)
+        {
+            DataManager.Instance.LoadGameData();
+            spawner.InitSpawn();
+        }
     }
 
     void Update()
@@ -116,6 +124,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void OnApplicationQuit()
+    {
+        DataManager.Instance.SaveGameData();
+    }
+
 
     public void LineBreakCheck()
     {
@@ -128,6 +141,10 @@ public class GameManager : MonoBehaviour
         delay = -delayRate;
         VerticalLineBreakCheck(-1);
         color = (color + 1) % 2;
+
+        level += score / 10;
+        durability = (int)(ballNumber / 2);
+        DataManager.Instance.SaveGameData();
     }
 
     void HorizontalLineBreakCheck(int dir)
@@ -204,8 +221,12 @@ public class GameManager : MonoBehaviour
         {
             if (dir == 1) { spawner.Spawn(0); }
             else { spawner.Spawn(1); }
-            if (!startGame)
-            { ++durability; }
+            if (level != 1)
+            {
+                ++ballNumber;
+
+                level += 1f;
+            }
         }
     }
     void VerticalLineBreakCheck(int dir)
@@ -282,8 +303,11 @@ public class GameManager : MonoBehaviour
         {
             if (dir == 1) { spawner.Spawn(2); }
             else { spawner.Spawn(3); }
-            if (!startGame)
-            { ++durability; }
+            if (level != 1)
+            {
+                ++ballNumber;
+                level += 1f;
+            }
         }
 
     }

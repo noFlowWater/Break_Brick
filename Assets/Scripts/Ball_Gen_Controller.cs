@@ -61,7 +61,8 @@ public class Ball_Gen_Controller : MonoBehaviour
                 ballNum = GameManager.instance.ballNumber;
                 GameObject ball = null;
                 ball = GameObject.FindWithTag("Ball");
-                if (ball == null && !onFire && GameManager.instance.isPlayerTurn != true)
+                if (ball == null && !onFire && GameManager.instance.isPlayerTurn != true &&
+                !GameManager.instance.loading)
                 {
                     GameManager.instance.LineBreakCheck();
                     GameManager.instance.isPlayerTurn = true;
@@ -179,7 +180,7 @@ public class Ball_Gen_Controller : MonoBehaviour
     {
         onFire = true;
         GameManager.instance.isPlayerTurn = false;
-        GameManager.instance.startGame = false;
+        // GameManager.instance.startGame = false;
         --GameManager.instance.life;
     }
 
@@ -199,6 +200,6 @@ public class Ball_Gen_Controller : MonoBehaviour
         return Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
     }
 
-    
+
 
 }
