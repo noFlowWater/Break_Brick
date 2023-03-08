@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
 
         if (!inTitle)
         {
-            DataManager.Instance.LoadGameData();
+            // DataManager.Instance.LoadGameData();
             spawner.InitSpawn();
         }
         bestScore = data.bestScore;
