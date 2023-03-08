@@ -1785,8 +1785,8 @@ MonoBehaviour:
   durabilityTxt: {fileID: 110017603}
   ballSpeed: 10
   isPlayerTurn: 0
-  playerPlayPointX: 2.5
-  playerPlayPointY: 1.5
+  playerPlayPointX: 0.5
+  playerPlayPointY: 0.5
   delayRate: 0.5
   delay: 0
   brickSpeed: 0.1
@@ -1795,8 +1795,8 @@ MonoBehaviour:
   funcCount: 0
   ballNum: 0
   color: 0
-  startGame: 0
   inTitle: 0
+  loading: 0
 --- !u!4 &419948897
 Transform:
   m_ObjectHideFlags: 0

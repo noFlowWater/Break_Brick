@@ -46,7 +46,7 @@ public class DataManager : MonoBehaviour
 
             GameManager.instance.level = data.level;
             GameManager.instance.score = data.score;
-            GameManager.instance.bestScore = data.bestScore;
+
             GameManager.instance.ballNumber = data.ballNumber;
             GameManager.instance.life = data.life;
             GameManager.instance.durability = data.durability;
@@ -57,7 +57,7 @@ public class DataManager : MonoBehaviour
             {
                 foreach (BrickData brickData in data.bricks)
                 {
-                    if (brickData.type == 0) { break; }
+                    if (brickData.type == 0 || brickData.life == 0) { break; }
                     GameObject brick = spawner.Get_(brickData.color, brickData.type);
                     brick.GetComponent<Brick>().life = brickData.life;
                     brick.GetComponent<Brick>().posX = brickData.posX;
@@ -83,7 +83,7 @@ public class DataManager : MonoBehaviour
         // 데이터 저장
         data.level = GameManager.instance.level;
         data.score = GameManager.instance.score;
-        data.bestScore = GameManager.instance.bestScore;
+
         data.ballNumber = GameManager.instance.ballNumber;
         data.life = GameManager.instance.life;
         data.durability = GameManager.instance.durability;

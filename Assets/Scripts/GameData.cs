@@ -9,7 +9,7 @@ public class GameData
 {
     public float level;
     public int score;
-    public int bestScore;
+
     public int ballNumber;
     public int life;
     public int durability;

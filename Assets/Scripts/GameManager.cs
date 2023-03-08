@@ -145,14 +145,17 @@ public class GameManager : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        DataManager.Instance.SaveGameData();
+        if (isPlayerTurn)
+        {
+            DataManager.Instance.SaveGameData();
+        }
 
-        
     }
 
 
     public void LineBreakCheck()
     {
+
         delay = -delayRate;
         HorizontalLineBreakCheck(1);
         delay = -delayRate;
@@ -435,7 +438,7 @@ public class GameManager : MonoBehaviour
     }
     public void TimeScaleButton()
     {
-        if(this.timeScale > 3)
+        if (this.timeScale > 3)
         {
             this.timeScale = 1;
             this.timeScaleTxt.text = string.Format("x{0:#,###0}", timeScale);
