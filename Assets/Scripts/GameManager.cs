@@ -8,6 +8,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using UnityEngine.SceneManagement;
+
 
 
 public class GameManager : MonoBehaviour
@@ -24,6 +26,10 @@ public class GameManager : MonoBehaviour
 
     public float level;
     float levelAdd;
+
+    public GameObject ballGenController;
+    public GameObject pausePanel;
+    public GameObject playPanel;
 
     public int score;
     public TextMeshProUGUI scoreTxt;
@@ -48,6 +54,9 @@ public class GameManager : MonoBehaviour
     public float brickSpeed;
 
     public float timeScale;
+    public TextMeshProUGUI timeScaleTxt;
+    float beforeTimeScale;
+
     public int funcCount;
 
     public int ballNum;
@@ -58,6 +67,7 @@ public class GameManager : MonoBehaviour
 
     public bool inTitle;
     public bool loading;
+
 
     private void Awake()
     {
@@ -86,6 +96,7 @@ public class GameManager : MonoBehaviour
             DataManager.Instance.LoadGameData();
             spawner.InitSpawn();
         }
+        bestScore = data.bestScore;
     }
 
     void Update()
@@ -110,6 +121,10 @@ public class GameManager : MonoBehaviour
 
             }
             // Debug.Log(Time.timeScale);}
+            else
+            {
+                Time.timeScale = timeScale;
+            }
         }
     }
 
@@ -117,16 +132,22 @@ public class GameManager : MonoBehaviour
     {
         if (!inTitle)
         {
-            scoreTxt.text = string.Format("{0:n0}", score);
-            lifeTxt.text = string.Format("{0:n0}", life);
-            ballNumberTxt.text = string.Format("{0:n0}", ballNumber);
-            durabilityTxt.text = string.Format("{0:n0}", durability);
+            scoreTxt.text = string.Format("{0:#,###0}", score);
+            lifeTxt.text = string.Format("{0:#,###0}", life);
+            ballNumberTxt.text = string.Format("{0:#,###0}", ballNumber);
+            durabilityTxt.text = string.Format("{0:#,###0}", durability);
+        }
+        else
+        {
+            bestScoreTxt.text = string.Format("Best Record..!\n{0:#,###0}", bestScore);
         }
     }
 
     void OnApplicationQuit()
     {
         DataManager.Instance.SaveGameData();
+
+        
     }
 
 
@@ -383,6 +404,46 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("No userdata found.");
             data = new UserData();
+        }
+    }
+    //////////////////////////////////////////////////////////////////////////////////
+
+    public void LoadInGameScene()
+    {
+        SceneManager.LoadScene("InGameScene");
+    }
+
+    public void PauseButtonClick()
+    {
+
+        if (this.playPanel.activeSelf)
+        {// 일시정지 할 때.
+            this.beforeTimeScale = this.timeScale;
+            this.timeScale = 0;
+            //this.ballGenController.SetActive(false);
+            this.playPanel.SetActive(false);
+            this.pausePanel.SetActive(true);
+        }
+        else
+        {// 일시정지를 풀 때.
+            this.timeScale = this.beforeTimeScale;
+            //this.ballGenController.SetActive(true);
+            this.playPanel.SetActive(true);
+            this.pausePanel.SetActive(false);
+        }
+
+    }
+    public void TimeScaleButton()
+    {
+        if(this.timeScale > 3)
+        {
+            this.timeScale = 1;
+            this.timeScaleTxt.text = string.Format("x{0:#,###0}", timeScale);
+        }
+        else
+        {
+            this.timeScale++;
+            this.timeScaleTxt.text = string.Format("x{0:#,###0}", timeScale);
         }
     }
 }

@@ -134,6 +134,4 @@ public class Ball_Controller : MonoBehaviour
             // GameManager.instance.bgc.HitSoundPlay();
         }
     }
-
-
 }
