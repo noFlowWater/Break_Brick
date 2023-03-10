@@ -37,7 +37,6 @@ public class ZogagSound : MonoBehaviour
 
         // 이어폰의 좌우 스테레오 출력 값 조정
         audioSource.panStereo = (leftVolume - rightVolume) / 2f;
-        Debug.Log("인게임 : " + audioSource.panStereo);
-        audioSource.Play(); 
+        audioSource.Play();
     }
 }

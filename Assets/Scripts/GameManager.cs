@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 
 
     public float level;
-    float levelAdd;
+
 
     public GameObject ballGenController;
     public GameObject pausePanel;
@@ -63,7 +63,8 @@ public class GameManager : MonoBehaviour
 
     public bool inTitle;
     public bool loading;
-
+    public Toggle muteToggle;
+    public bool isMute;
 
     private void Awake()
     {
@@ -85,14 +86,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         LoadUserData();
-        Debug.Log("우왕 ㅋㅋ : " + data.bestScore);
-
         if (!inTitle)
         {
             // DataManager.Instance.LoadGameData();
             spawner.InitSpawn();
         }
         bestScore = data.bestScore;
+        isMute = data.isMuted;
     }
 
     void Update()
@@ -154,18 +154,26 @@ public class GameManager : MonoBehaviour
 
     public void LineBreakCheck()
     {
+        if (color == 0)
+        {
 
-        delay = -delayRate;
-        HorizontalLineBreakCheck(1);
-        delay = -delayRate;
-        HorizontalLineBreakCheck(-1);
-        delay = -delayRate;
-        VerticalLineBreakCheck(1);
-        delay = -delayRate;
-        VerticalLineBreakCheck(-1);
+            delay = -delayRate;
+            HorizontalLineBreakCheck(1);
+            delay = -delayRate;
+            HorizontalLineBreakCheck(-1);
+
+        }
+        else
+        {
+            delay = -delayRate;
+            VerticalLineBreakCheck(1);
+            delay = -delayRate;
+            VerticalLineBreakCheck(-1);
+
+        }
         color = (color + 1) % 2;
 
-        level += score / 10;
+
         DataManager.Instance.SaveGameData();
     }
 
@@ -176,23 +184,15 @@ public class GameManager : MonoBehaviour
         float startYPos = dir * (playerPlayPointY + 1);
         float endYPos = dir * (spawner.upPoint[0].transform.position.y - 2 - 1);
 
+        for (float x = startXPos; dir * x <= dir * endXpos; x += dir)
+        {
+            GameObject brick = GameObject.Find("(" + x + ", " + startYPos + ")");
+            if (brick != null) { print("GameOver!"); return; }
+        }
+
         for (float y = startYPos; dir * y <= dir * endYPos; y += dir)
         {
-            bool needFill = true;
-            // for (float x = startXPos; dir * x <= dir * endXpos; x += dir)
-            // {
-
-            //     GameObject brick = GameObject.Find("(" + x + ", " + y + ")");
-            //     if (brick != null) { needFill = false; continue; }
-            //     brick = GameObject.Find("(" + x + ", " + y + ")Mold");
-            //     // if (brick.GetComponent<Mold>().spr.color != Color.white && !startGame)
-            //     // { StartCoroutine(brick.GetComponent<Mold>().LineEffect(delay)); }
-            // }
-            if (needFill)
-            {
-                // Debug.Log("테트리스!H");
-                HorizontalLineMove(dir, y);
-            }
+            HorizontalLineMove(dir, y);
         }
     }
     void HorizontalLineMove(int dir, float needY)
@@ -237,25 +237,16 @@ public class GameManager : MonoBehaviour
         float startYPos = dir * spawner.rightPoint[0].transform.position.y;
         float endYPos = dir * spawner.rightPoint[spawner.rightPoint.Length - 1].transform.position.y;
 
+        for (float y = startYPos; dir * y >= dir * endYPos; y -= dir)
+        {
+            GameObject brick = GameObject.Find("(" + startXPos + ", " + y + ")");
+            if (brick != null) { print("GameOver!!"); return; }
+        }
+
+
         for (float x = startXPos; dir * x <= dir * endXPos; x += dir)
         {
-
-            bool needFill = true;
-            // for (float y = startYPos; dir * y >= dir * endYPos; y -= dir)
-            // {
-
-            //     GameObject brick = GameObject.Find("(" + x + ", " + y + ")");
-            //     if (brick != null) { needFill = false; }
-            //     brick = GameObject.Find("(" + x + ", " + y + ")Mold");
-            //     // if (brick.GetComponent<Mold>().spr.color != Color.white && !startGame)
-            //     // { StartCoroutine(brick.GetComponent<Mold>().LineEffect(delay)); }
-            // }
-            print("시발");
-            if (needFill)
-            {
-                Debug.Log("테트리스!V");
-                VerticalLineMove(dir, x);
-            }
+            VerticalLineMove(dir, x);
         }
     }
     void VerticalLineMove(int dir, float needX)
@@ -374,6 +365,32 @@ public class GameManager : MonoBehaviour
     public void LoadInGameScene()
     {
         SceneManager.LoadScene("InGameScene");
+        if(isMute){ AudioListener.volume = 0f; }
+        else {AudioListener.volume = 1f;}
+    }
+
+    public void GameQuit()
+    {   
+        bool lastMute; 
+        SaveUserData();
+        //게임 데이터 삭제//
+        SceneManager.LoadScene("Title");
+        LoadUserData();
+        isMute = data.isMuted;
+    }
+
+    public void ToggleMute()
+    {
+        if (!muteToggle.isOn)
+        {
+            isMute = true;
+            data.isMuted = true;
+        }
+        else
+        {
+            isMute = false;
+            data.isMuted = false;
+        }
     }
 
     public void PauseButtonClick()
@@ -381,6 +398,8 @@ public class GameManager : MonoBehaviour
 
         if (this.playPanel.activeSelf)
         {// 일시정지 할 때.
+            if(isMute){muteToggle.isOn = false;}
+            else{muteToggle.isOn = true;}
             this.beforeTimeScale = this.timeScale;
             this.timeScale = 0;
             //this.ballGenController.SetActive(false);
@@ -389,6 +408,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {// 일시정지를 풀 때.
+            if(isMute){ AudioListener.volume = 0f; }
+            else {AudioListener.volume = 1f;}
             this.timeScale = this.beforeTimeScale;
             //this.ballGenController.SetActive(true);
             this.playPanel.SetActive(true);
@@ -415,4 +436,5 @@ public class GameManager : MonoBehaviour
 public class UserData
 {
     public int bestScore;
+    public bool isMuted;
 }

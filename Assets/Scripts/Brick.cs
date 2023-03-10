@@ -23,7 +23,7 @@ public class Brick : MonoBehaviour
     Color color = Color.white;
     protected virtual void Awake()
     {
-        life = (int)GameManager.instance.level;
+
         isBroken = false;
         // 6: red, 7: blue
         if (transform.gameObject.layer == 6) { color = new Color(255 / 255f, 180 / 255f, 180 / 255f); }

@@ -85,9 +85,10 @@ public class Spawner : MonoBehaviour
 
         }
         if (points == null) { return; }
-
+        int[] blankIndex = { Random.Range(-1, size) };
         for (int i = 0; i < size; ++i)
         {
+            if (i == blankIndex[0]) { continue; }
             float x = points[i].transform.position.x;
             float y = points[i].transform.position.y;
             brick = GameObject.Find("(" + x + ", " + y + ")");
