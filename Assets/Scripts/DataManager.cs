@@ -48,8 +48,6 @@ public class DataManager : MonoBehaviour
             GameManager.instance.score = data.score;
 
             GameManager.instance.ballNumber = data.ballNumber;
-            GameManager.instance.life = data.life;
-            GameManager.instance.durability = data.durability;
             GameManager.instance.color = data.color;
 
             // for (int i = 0; i < data.bricks.Count; ++i)
@@ -85,8 +83,6 @@ public class DataManager : MonoBehaviour
         data.score = GameManager.instance.score;
 
         data.ballNumber = GameManager.instance.ballNumber;
-        data.life = GameManager.instance.life;
-        data.durability = GameManager.instance.durability;
         data.color = GameManager.instance.color;
 
         // (-9.5, -5.5) ~ (9.5, 5.5)

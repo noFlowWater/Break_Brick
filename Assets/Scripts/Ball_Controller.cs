@@ -15,8 +15,8 @@ public class Ball_Controller : MonoBehaviour
     public Vector3 first_Dir;
     public Vector3 first_Pos;
 
-    public int life_count;
     bool ball_first_move;
+    bool ball_first_bounce;
     SpriteRenderer spr;
 
     public string color;
@@ -25,29 +25,19 @@ public class Ball_Controller : MonoBehaviour
     void Awake()
     {
         spr = GetComponent<SpriteRenderer>();
-
+        rigid = GetComponent<Rigidbody2D>();
 
         spr.sortingLayerName = sortingLayerName;
         spr.sortingOrder = sortingOrder;
-
         if (color == "Red")
         {
             spr.color = new Color(255 / 255f, 180 / 255f, 180 / 255f);
-            life_count = -999;
         }
         else if (color == "Blue")
         {
             spr.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
-            life_count = -999;
         }
-        else
-        {
-            life_count = GameManager.instance.durability;
-        }
-
-
-        rigid = GetComponent<Rigidbody2D>();
-
+        
     }
 
 
@@ -55,6 +45,7 @@ public class Ball_Controller : MonoBehaviour
     {
         TrailRenderer trail = GetComponent<TrailRenderer>();
         ball_first_move = true;
+        ball_first_bounce = false;
         // transform.name = "Ball";
 
         if (!GameManager.instance.inTitle)
@@ -104,9 +95,10 @@ public class Ball_Controller : MonoBehaviour
         //     rigid.velocity = rigid.velocity.normalized * 2000 * GameManager.instance.ballSpeed * Time.fixedDeltaTime;
         // }
 
-        if (life_count <= 0 && !GameManager.instance.inTitle)
+        if (ball_first_bounce &&
+            Mathf.Abs(transform.position.x) < Mathf.Abs(GameManager.instance.playerPlayPointX) &&
+            Mathf.Abs(transform.position.y) < Mathf.Abs(GameManager.instance.playerPlayPointY))
         {
-            life_count = GameManager.instance.durability;
             --GameManager.instance.ballNum;
             gameObject.SetActive(false);
         }
@@ -116,6 +108,9 @@ public class Ball_Controller : MonoBehaviour
     {
         if (collision.gameObject.tag == "Wall")
         {
+            if(!ball_first_bounce)
+                ball_first_bounce = true;
+
             Color tempColor = Color.white;
             if (collision.gameObject.layer == 6) { tempColor = new Color(255 / 255f, 180 / 255f, 180 / 255f); }
             else if (collision.gameObject.layer == 7) { tempColor = new Color(180 / 255f, 225 / 255f, 255 / 255f); }
@@ -124,14 +119,6 @@ public class Ball_Controller : MonoBehaviour
             Vector3 position = contact.point;
             Quaternion rotation = Quaternion.LookRotation(contact.normal);
             GameManager.CreateParticleEffect(1, position, rotation, tempColor);
-
-
-            if (!GameManager.instance.inTitle)
-            {
-                life_count--;
-            }
-            // audioSource.Play();
-            // GameManager.instance.bgc.HitSoundPlay();
         }
     }
 }

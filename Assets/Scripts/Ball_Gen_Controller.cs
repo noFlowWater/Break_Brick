@@ -171,7 +171,6 @@ public class Ball_Gen_Controller : MonoBehaviour
         onFire = true;
         GameManager.instance.isPlayerTurn = false;
         // GameManager.instance.startGame = false;
-        --GameManager.instance.life;
     }
     void CreatBall(Vector3 dirc, Vector3 position)
     {

@@ -6,7 +6,6 @@ public class DurabilityBrick : Brick
 {
     protected override void Break()
     {
-        ++GameManager.instance.durability;
         base.Break();
     }
 }
