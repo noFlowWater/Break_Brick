@@ -46,9 +46,10 @@ public class DataManager : MonoBehaviour
 
             GameManager.instance.level = data.level;
             GameManager.instance.score = data.score;
-
             GameManager.instance.ballNumber = data.ballNumber;
             GameManager.instance.color = data.color;
+            GameManager.instance.isPlayerTurn = true;
+
 
             // for (int i = 0; i < data.bricks.Count; ++i)
             if (data.bricks != null)
@@ -104,13 +105,9 @@ public class DataManager : MonoBehaviour
                         brickData.type = 1;
                         brickData.maxLife = brick.GetComponent<NormalBrick>().maxLife;
                     }
-                    else if (brick.GetComponent<Brick>() is LifeBrick)
-                    {
-                        brickData.type = 2;
-                    }
                     else if (brick.GetComponent<Brick>() is BallNumberIncreaseBrick)
                     {
-                        brickData.type = 3;
+                        brickData.type = 2;
                     }
                     //red
                     if (brick.layer == 6)
@@ -144,5 +141,15 @@ public class DataManager : MonoBehaviour
         File.WriteAllText(filePath, ToJsonData);
 
         print("저장완료");
+    }
+
+    public void DataDelete()
+    {
+        string filePath = Application.persistentDataPath + "/" + GameDataFileName;
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+            print("데이터 삭제");
+        }
     }
 }

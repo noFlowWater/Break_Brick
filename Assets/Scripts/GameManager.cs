@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
     public float level;
 
 
-    public GameObject ballGenController;
     public GameObject pausePanel;
     public GameObject playPanel;
 
@@ -57,12 +56,13 @@ public class GameManager : MonoBehaviour
 
     public int ballNum;
 
-
+    // 0: Blue, 1: Red
     public int color;
     // public bool startGame;
 
     public bool inTitle;
     public bool loading;
+    public int whereBNB;
 
 
     private void Awake()
@@ -72,24 +72,16 @@ public class GameManager : MonoBehaviour
         Time.timeScale = timeScale;
         // LineBreakCheck();
         color = 0;
-        // if (inTitle)
-        // {
-        //     startGame = false;
-        // }
-        // else
-        // {
-        //     startGame = true;
-        // }
     }
 
     void Start()
     {
         LoadUserData();
-        Debug.Log("우왕 ㅋㅋ : " + data.bestScore);
+        // Debug.Log("우왕 ㅋㅋ : " + data.bestScore);
 
         if (!inTitle)
         {
-            // DataManager.Instance.LoadGameData();
+            DataManager.Instance.LoadGameData();
             spawner.InitSpawn();
         }
         bestScore = data.bestScore;
@@ -142,29 +134,27 @@ public class GameManager : MonoBehaviour
         if (isPlayerTurn)
         {
             DataManager.Instance.SaveGameData();
+            // DataManager.Instance.DataDelete();
         }
-
-    }
-
-    public void FinishOneTurn()
-    {
 
     }
 
 
     public void LineBreakCheck()
     {
-        if (color == 0)
+        ++GameManager.instance.level;
+        if (color == 1) // Red -> BlueBrick 생성
         {
-
+            whereBNB = UnityEngine.Random.Range(0, 2);
             delay = -delayRate;
             HorizontalLineBreakCheck(1);
             delay = -delayRate;
             HorizontalLineBreakCheck(-1);
 
         }
-        else
+        else    // Blue -> RedBrick 생성
         {
+            whereBNB = UnityEngine.Random.Range(2, 4);
             delay = -delayRate;
             VerticalLineBreakCheck(1);
             delay = -delayRate;
@@ -172,7 +162,6 @@ public class GameManager : MonoBehaviour
 
         }
         color = (color + 1) % 2;
-
 
         DataManager.Instance.SaveGameData();
     }
@@ -267,7 +256,7 @@ public class GameManager : MonoBehaviour
         {
             x = needX + dir;
         }
-        print(x);
+        // print(x);
 
         for (y = startYPos; dir * y >= dir * endYPos; y -= dir)
         {
@@ -346,7 +335,7 @@ public class GameManager : MonoBehaviour
             {
                 string jsonData = File.ReadAllText(filePath);
                 data = JsonConvert.DeserializeObject<UserData>(jsonData);
-                Debug.Log(data.bestScore);
+                // Debug.Log(data.bestScore);
             }
             catch (JsonException ex)
             {

@@ -102,12 +102,14 @@ public class Ball_Gen_Controller : MonoBehaviour
                 // Debug.Log(" -- Mouse DOWN -- ");
                 isMouseDownFirst = true;
                 // spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
-                if (GameManager.instance.color == 1)
+                if (GameManager.instance.color == 0)
                 {
+                    //Blue
                     spriteRenderer.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
                 }
                 else
                 {
+                    //Red
                     spriteRenderer.color = new Color(255 / 255f, 180 / 255f, 180 / 255f);
                 }
 

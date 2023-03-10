@@ -28,6 +28,7 @@ public class Brick : MonoBehaviour
         // 6: red, 7: blue
         if (transform.gameObject.layer == 6) { color = new Color(255 / 255f, 180 / 255f, 180 / 255f); }
         else if (transform.gameObject.layer == 7) { color = new Color(180 / 255f, 225 / 255f, 255 / 255f); }
+        life = (int)GameManager.instance.level;
     }
 
     void Update()

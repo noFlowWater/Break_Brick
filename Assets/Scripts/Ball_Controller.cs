@@ -37,7 +37,7 @@ public class Ball_Controller : MonoBehaviour
         {
             spr.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
         }
-        
+
     }
 
 
@@ -52,13 +52,13 @@ public class Ball_Controller : MonoBehaviour
         {
             if (GameManager.instance.color == 0)
             {// BLUE
-                this.gameObject.layer = 8; // BlueBall 레이어로 초기화
-                spr.color = new Color(255 / 255f, 180 / 255f, 180 / 255f);
+                this.gameObject.layer = 9; // BlueBall 레이어로 초기화
+                spr.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
             }
             else
             {// RED
-                this.gameObject.layer = 9; // RedBall 레이어로 초기화
-                spr.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
+                this.gameObject.layer = 8; // RedBall 레이어로 초기화
+                spr.color = new Color(255 / 255f, 180 / 255f, 180 / 255f);
 
             }
             // trail.material.color = spr.color;
@@ -108,7 +108,7 @@ public class Ball_Controller : MonoBehaviour
     {
         if (collision.gameObject.tag == "Wall")
         {
-            if(!ball_first_bounce)
+            if (!ball_first_bounce)
                 ball_first_bounce = true;
 
             Color tempColor = Color.white;
