@@ -21,14 +21,6 @@ public class Mold : MonoBehaviour
     void Update()
     {
         GameObject brick = GameObject.Find("(" + transform.position.x + ", " + transform.position.y + ")");
-        if (brick != null && needReturn && GameManager.instance.isPlayerTurn && !GameManager.instance.startGame)
-        {
-            if (brick.transform.position == transform.position)
-            {
-                Debug.Log(originColor);
-                // spr.color = originColor;
-            }
-        }
     }
 
     public IEnumerator LineEffect(float delay)

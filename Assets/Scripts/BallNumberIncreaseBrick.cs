@@ -15,7 +15,7 @@ public class BallNumberIncreaseBrick : Brick
     }
     protected override void Break()
     {
-        GameManager.instance.level += 0.3f;
+        GameManager.instance.level += 1f;
         GameManager.instance.ballNumber += 1;
         base.Break();
         // Debug.Log("Break");

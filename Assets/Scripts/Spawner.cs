@@ -21,10 +21,9 @@ public class Spawner : MonoBehaviour
     private void Awake()
     {
 
-        InitSpawn();
     }
 
-    private void InitSpawn()
+    public void InitSpawn()
     {
         GameObject brick;
         for (float x = (-xSize / 2) + 0.5f; x < (xSize / 2) + 0.5f; ++x)
@@ -93,7 +92,7 @@ public class Spawner : MonoBehaviour
             float y = points[i].transform.position.y;
             brick = GameObject.Find("(" + x + ", " + y + ")");
             if (brick != null) { continue; }
-            brick = Get_(color);
+            brick = Get_(color, -1);
             brick.GetComponent<Brick>().posX = x;
             brick.GetComponent<Brick>().posY = y;
             brick.transform.position = new Vector3(x, y, 0);
@@ -115,11 +114,10 @@ public class Spawner : MonoBehaviour
         }
         return mold;
     }
-    public GameObject Get_(int color = -1)
+    public GameObject Get_(int color, int index)
     {
         GameObject select = null;
         GameObject[] prefabs;
-        int index;
 
         if (color == 0)
         {
@@ -129,19 +127,23 @@ public class Spawner : MonoBehaviour
         {
             prefabs = redPrefabs;
         }
+        if (index == -1)
+        {
+            index = Random.Range(1, 100);
+            if (index < 90)
+            {
+                select = Instantiate(prefabs[1], transform);
+            }
+            else
+            {
+                index = Random.Range(2, prefabs.Length);
+                select = Instantiate(prefabs[index], transform);
+            }
+            return select;
+        }
 
-        // index == -1 경우, 랜덤으로 블록을 생성.
-        
-        index = Random.Range(1, 100);
-        if (index < 90)
-        {
-            select = Instantiate(prefabs[1], transform);
-        }
-        else
-        {
-            index = Random.Range(2, prefabs.Length);
-            select = Instantiate(prefabs[index], transform);
-        }
+        select = Instantiate(prefabs[index], transform);
+
         return select;
     }
 }

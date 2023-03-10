@@ -4888,7 +4888,7 @@ RectTransform:
   m_GameObject: {fileID: 1049160275}
   m_LocalRotation: {x: 0, y: 0, z: 0.006806706, w: 0.9999769}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 210569407}
@@ -4950,7 +4950,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24.45
+  m_fontSize: 41.7
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -8004,13 +8004,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28d285619a37142cfa13ff145ac0a034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
   poolManager: {fileID: 1236395885}
   spawner: {fileID: 0}
   bgc: {fileID: 1379493255}
   data:
     bestScore: 0
   level: 0
+  ballGenController: {fileID: 0}
+  pausePanel: {fileID: 0}
+  playPanel: {fileID: 0}
   score: 0
   scoreTxt: {fileID: 0}
   bestScore: 0
@@ -8029,11 +8031,12 @@ MonoBehaviour:
   delay: 0
   brickSpeed: 0
   timeScale: 1
+  timeScaleTxt: {fileID: 0}
   funcCount: 0
   ballNum: 0
   color: 0
-  startGame: 0
   inTitle: 1
+  loading: 0
 --- !u!4 &1551399966
 Transform:
   m_ObjectHideFlags: 0

@@ -25,6 +25,7 @@ public class Brick : MonoBehaviour
     {
         life = (int)GameManager.instance.level;
         isBroken = false;
+        // 6: red, 7: blue
         if (transform.gameObject.layer == 6) { color = new Color(255 / 255f, 180 / 255f, 180 / 255f); }
         else if (transform.gameObject.layer == 7) { color = new Color(180 / 255f, 225 / 255f, 255 / 255f); }
     }
@@ -76,7 +77,8 @@ public class Brick : MonoBehaviour
     {
         isBroken = true;
         ++GameManager.instance.score;
-        if (GameManager.instance.score > GameManager.instance.data.bestScore){
+        if (GameManager.instance.score > GameManager.instance.data.bestScore)
+        {
             GameManager.instance.data.bestScore = GameManager.instance.score;
             GameManager.instance.bestScore = GameManager.instance.data.bestScore;
             Debug.Log(GameManager.instance.data.bestScore);

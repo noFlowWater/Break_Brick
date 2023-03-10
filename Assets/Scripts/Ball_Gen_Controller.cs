@@ -56,7 +56,8 @@ public class Ball_Gen_Controller : MonoBehaviour
                 ballNum = GameManager.instance.ballNumber;
                 GameObject ball = null;
                 ball = GameObject.FindWithTag("Ball");
-                if (ball == null && !onFire && GameManager.instance.isPlayerTurn != true)
+                if (ball == null && !onFire && GameManager.instance.isPlayerTurn != true &&
+                !GameManager.instance.loading)
                 {
                     GameManager.instance.LineBreakCheck();
                     GameManager.instance.isPlayerTurn = true;
@@ -118,8 +119,9 @@ public class Ball_Gen_Controller : MonoBehaviour
     private void OnMouseDrag()
     {
         if (!GameManager.instance.inTitle)
-        {//start_Pos 과 mousePos 를 이용하여 화살표를 표현하고싶...!
-            if (!onFire && GameManager.instance.isPlayerTurn)
+        {
+            //start_Pos 과 mousePos 를 이용하여 화살표를 표현하고싶...!
+            if (!onFire && GameManager.instance.isPlayerTurn && isMouseDownFirst)
             {
                 if (!isMouseDragFirst)
                 {
@@ -168,7 +170,7 @@ public class Ball_Gen_Controller : MonoBehaviour
     {
         onFire = true;
         GameManager.instance.isPlayerTurn = false;
-        GameManager.instance.startGame = false;
+        // GameManager.instance.startGame = false;
         --GameManager.instance.life;
     }
     void CreatBall(Vector3 dirc, Vector3 position)

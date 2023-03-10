@@ -15,7 +15,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public MainCamera mainCamera;
+
     public PoolManager poolManager;
     // public GameObject[] VerticalChecker;
     // public GameObject[] HorizontalChecker;
@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
 
     public float level;
+    float levelAdd;
 
     public GameObject ballGenController;
     public GameObject pausePanel;
@@ -62,9 +63,11 @@ public class GameManager : MonoBehaviour
 
 
     public int color;
-    public bool startGame;
+    // public bool startGame;
 
     public bool inTitle;
+    public bool loading;
+
 
     private void Awake()
     {
@@ -73,19 +76,26 @@ public class GameManager : MonoBehaviour
         Time.timeScale = timeScale;
         // LineBreakCheck();
         color = 0;
-        if (inTitle)
-        {
-            startGame = false;
-        }
-        else
-        {
-            startGame = true;
-        }
+        // if (inTitle)
+        // {
+        //     startGame = false;
+        // }
+        // else
+        // {
+        //     startGame = true;
+        // }
     }
 
     void Start()
     {
         LoadUserData();
+        Debug.Log("우왕 ㅋㅋ : " + data.bestScore);
+
+        if (!inTitle)
+        {
+            // DataManager.Instance.LoadGameData();
+            spawner.InitSpawn();
+        }
         bestScore = data.bestScore;
     }
 
@@ -110,6 +120,7 @@ public class GameManager : MonoBehaviour
                 // Time.timeScale = timeScale * Mathf.Pow(2.5f, 1 - ((float)ballNum / (float)ballNumber));
 
             }
+            // Debug.Log(Time.timeScale);}
             else
             {
                 Time.timeScale = timeScale;
@@ -132,9 +143,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void OnApplicationQuit()
+    {
+        if (isPlayerTurn)
+        {
+            DataManager.Instance.SaveGameData();
+        }
+
+    }
+
+    public void FinishOneTurn()
+    {
+
+    }
+
 
     public void LineBreakCheck()
     {
+
         delay = -delayRate;
         HorizontalLineBreakCheck(1);
         delay = -delayRate;
@@ -144,6 +170,10 @@ public class GameManager : MonoBehaviour
         delay = -delayRate;
         VerticalLineBreakCheck(-1);
         color = (color + 1) % 2;
+
+        level += score / 10;
+        durability = (int)(ballNumber / 2);
+        DataManager.Instance.SaveGameData();
     }
 
     void HorizontalLineBreakCheck(int dir)
@@ -151,20 +181,20 @@ public class GameManager : MonoBehaviour
         float startXPos = dir * spawner.upPoint[0].transform.position.x;
         float endXpos = dir * spawner.upPoint[spawner.upPoint.Length - 1].transform.position.x;
         float startYPos = dir * (playerPlayPointY + 1);
-        float endYPos = dir * (spawner.upPoint[0].transform.position.y - 2);
+        float endYPos = dir * (spawner.upPoint[0].transform.position.y - 2 - 1);
 
         for (float y = startYPos; dir * y <= dir * endYPos; y += dir)
         {
             bool needFill = true;
-            for (float x = startXPos; dir * x <= dir * endXpos; x += dir)
-            {
+            // for (float x = startXPos; dir * x <= dir * endXpos; x += dir)
+            // {
 
-                GameObject brick = GameObject.Find("(" + x + ", " + y + ")");
-                if (brick != null) { needFill = false; continue; }
-                brick = GameObject.Find("(" + x + ", " + y + ")Mold");
-                // if (brick.GetComponent<Mold>().spr.color != Color.white && !startGame)
-                // { StartCoroutine(brick.GetComponent<Mold>().LineEffect(delay)); }
-            }
+            //     GameObject brick = GameObject.Find("(" + x + ", " + y + ")");
+            //     if (brick != null) { needFill = false; continue; }
+            //     brick = GameObject.Find("(" + x + ", " + y + ")Mold");
+            //     // if (brick.GetComponent<Mold>().spr.color != Color.white && !startGame)
+            //     // { StartCoroutine(brick.GetComponent<Mold>().LineEffect(delay)); }
+            // }
             if (needFill)
             {
                 // Debug.Log("테트리스!H");
@@ -182,29 +212,14 @@ public class GameManager : MonoBehaviour
 
         GameObject brick = null;
 
-        // Debug.Log("startXPos: " + startXPos);
-        // Debug.Log("endXPos: " + endXPos);
-        // Debug.Log("endYPos: " + endYPos);
-        // Debug.Log("needY: " + needY);
-
-
-        for (y = needY; dir * y < dir * endYPos; y += dir)
+        if (needY == ((spawner.ySize / 2) - 0.5f) * dir)
         {
-            bool next = true;
-            for (x = startXPos; dir * x <= dir * endXPos; x += dir)
-            {
-                brick = GameObject.Find("(" + x + ", " + y + ")");
-                if (brick != null)
-                {
-                    next = false;
-                    break;
-                }
-
-            }
-            if (!next) { break; }
+            y = needY + (3 * dir);
         }
-
-        // delay += delayRate;
+        else
+        {
+            y = needY + dir;
+        }
         for (x = startXPos; dir * x <= dir * endXPos; x += dir)
         {
             brick = GameObject.Find("(" + x + ", " + y + ")");
@@ -214,20 +229,18 @@ public class GameManager : MonoBehaviour
                 delay += delayRate;
                 StartCoroutine(MoveBrick(brick, x, needY));
             }
-
         }
-        if (y == endYPos)
+        if (needY == ((spawner.ySize / 2) - 0.5f) * dir)
         {
             if (dir == 1) { spawner.Spawn(0); }
             else { spawner.Spawn(1); }
-            if (!startGame)
-            { ++durability; }
         }
+
     }
     void VerticalLineBreakCheck(int dir)
     {
         float startXPos = dir * (playerPlayPointX + 1);
-        float endXPos = dir * (spawner.rightPoint[0].transform.position.x - 2);
+        float endXPos = dir * (spawner.rightPoint[0].transform.position.x - 2 - 1);
         float startYPos = dir * spawner.rightPoint[0].transform.position.y;
         float endYPos = dir * spawner.rightPoint[spawner.rightPoint.Length - 1].transform.position.y;
 
@@ -235,18 +248,19 @@ public class GameManager : MonoBehaviour
         {
 
             bool needFill = true;
-            for (float y = startYPos; dir * y >= dir * endYPos; y -= dir)
-            {
+            // for (float y = startYPos; dir * y >= dir * endYPos; y -= dir)
+            // {
 
-                GameObject brick = GameObject.Find("(" + x + ", " + y + ")");
-                if (brick != null) { needFill = false; }
-                brick = GameObject.Find("(" + x + ", " + y + ")Mold");
-                // if (brick.GetComponent<Mold>().spr.color != Color.white && !startGame)
-                // { StartCoroutine(brick.GetComponent<Mold>().LineEffect(delay)); }
-            }
+            //     GameObject brick = GameObject.Find("(" + x + ", " + y + ")");
+            //     if (brick != null) { needFill = false; }
+            //     brick = GameObject.Find("(" + x + ", " + y + ")Mold");
+            //     // if (brick.GetComponent<Mold>().spr.color != Color.white && !startGame)
+            //     // { StartCoroutine(brick.GetComponent<Mold>().LineEffect(delay)); }
+            // }
+            print("시발");
             if (needFill)
             {
-                // Debug.Log("테트리스!V");
+                Debug.Log("테트리스!V");
                 VerticalLineMove(dir, x);
             }
         }
@@ -261,29 +275,16 @@ public class GameManager : MonoBehaviour
 
         GameObject brick = null;
 
-        // Debug.Log("startYPos: " + startYPos);
-        // Debug.Log("endYPos: " + endYPos);
-        // Debug.Log("endXPos: " + endXPos);
-        // Debug.Log("needX: " + needX);
-
-        for (x = needX; dir * x < dir * endXPos; x += dir)
+        if (needX == ((spawner.xSize / 2) - 0.5f) * dir)
         {
-            bool next = true;
-            for (y = startYPos; dir * y >= dir * endYPos; y -= dir)
-            {
-                brick = GameObject.Find("(" + x + ", " + y + ")");
-                if (brick != null)
-                {
-                    next = false;
-                    break;
-                }
-
-            }
-            if (!next) { break; }
+            x = needX + (3 * dir);
         }
-        // Debug.Log("x: " + x);
+        else
+        {
+            x = needX + dir;
+        }
+        print(x);
 
-        // delay += delayRate;
         for (y = startYPos; dir * y >= dir * endYPos; y -= dir)
         {
             brick = GameObject.Find("(" + x + ", " + y + ")");
@@ -294,12 +295,10 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(MoveBrick(brick, needX, y));
             }
         }
-        if (x == endXPos)
+        if (needX == ((spawner.xSize / 2) - 0.5f) * dir)
         {
             if (dir == 1) { spawner.Spawn(2); }
             else { spawner.Spawn(3); }
-            if (!startGame)
-            { ++durability; }
         }
 
     }
@@ -406,7 +405,7 @@ public class GameManager : MonoBehaviour
     }
     public void TimeScaleButton()
     {
-        if(this.timeScale > 3)
+        if (this.timeScale > 3)
         {
             this.timeScale = 1;
             this.timeScaleTxt.text = string.Format("x{0:#,###0}", timeScale);
