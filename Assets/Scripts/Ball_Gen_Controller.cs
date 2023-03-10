@@ -121,7 +121,7 @@ public class Ball_Gen_Controller : MonoBehaviour
         if (!GameManager.instance.inTitle)
         {
             //start_Pos 과 mousePos 를 이용하여 화살표를 표현하고싶...!
-            if (!onFire && GameManager.instance.isPlayerTurn)
+            if (!onFire && GameManager.instance.isPlayerTurn && inFireArea)
             {
                 if (!isMouseDragFirst)
                 {
@@ -146,7 +146,7 @@ public class Ball_Gen_Controller : MonoBehaviour
     {
         if (!GameManager.instance.inTitle)
         {
-            if (!onFire && isMouseDragFirst)
+            if (!onFire && isMouseDragFirst && inFireArea)
             {
                 // Debug.Log(" -- Mouse UP -- ");
 

@@ -183,23 +183,15 @@ public class GameManager : MonoBehaviour
         float startYPos = dir * (playerPlayPointY + 1);
         float endYPos = dir * (spawner.upPoint[0].transform.position.y - 2 - 1);
 
+        for (float x = startXPos; dir * x <= dir * endXpos; x += dir)
+        {
+            GameObject brick = GameObject.Find("(" + x + ", " + startYPos + ")");
+            if (brick != null) { print("GameOver!"); return; }
+        }
+
         for (float y = startYPos; dir * y <= dir * endYPos; y += dir)
         {
-            bool needFill = true;
-            // for (float x = startXPos; dir * x <= dir * endXpos; x += dir)
-            // {
-
-            //     GameObject brick = GameObject.Find("(" + x + ", " + y + ")");
-            //     if (brick != null) { needFill = false; continue; }
-            //     brick = GameObject.Find("(" + x + ", " + y + ")Mold");
-            //     // if (brick.GetComponent<Mold>().spr.color != Color.white && !startGame)
-            //     // { StartCoroutine(brick.GetComponent<Mold>().LineEffect(delay)); }
-            // }
-            if (needFill)
-            {
-                // Debug.Log("테트리스!H");
-                HorizontalLineMove(dir, y);
-            }
+            HorizontalLineMove(dir, y);
         }
     }
     void HorizontalLineMove(int dir, float needY)
@@ -244,25 +236,16 @@ public class GameManager : MonoBehaviour
         float startYPos = dir * spawner.rightPoint[0].transform.position.y;
         float endYPos = dir * spawner.rightPoint[spawner.rightPoint.Length - 1].transform.position.y;
 
+        for (float y = startYPos; dir * y >= dir * endYPos; y -= dir)
+        {
+            GameObject brick = GameObject.Find("(" + startXPos + ", " + y + ")");
+            if (brick != null) { print("GameOver!!"); return; }
+        }
+
+
         for (float x = startXPos; dir * x <= dir * endXPos; x += dir)
         {
-
-            bool needFill = true;
-            // for (float y = startYPos; dir * y >= dir * endYPos; y -= dir)
-            // {
-
-            //     GameObject brick = GameObject.Find("(" + x + ", " + y + ")");
-            //     if (brick != null) { needFill = false; }
-            //     brick = GameObject.Find("(" + x + ", " + y + ")Mold");
-            //     // if (brick.GetComponent<Mold>().spr.color != Color.white && !startGame)
-            //     // { StartCoroutine(brick.GetComponent<Mold>().LineEffect(delay)); }
-            // }
-            print("시발");
-            if (needFill)
-            {
-                Debug.Log("테트리스!V");
-                VerticalLineMove(dir, x);
-            }
+            VerticalLineMove(dir, x);
         }
     }
     void VerticalLineMove(int dir, float needX)
