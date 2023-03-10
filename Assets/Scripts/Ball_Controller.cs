@@ -68,6 +68,7 @@ public class Ball_Controller : MonoBehaviour
             first_Dir = new Vector3(Random.Range(0.1f, 1), Random.Range(0.1f, 1), 0).normalized;
         }
         trail.startColor = new Color(spr.color.r, spr.color.g, spr.color.b, 100 / 255f);
+
     }
     void Update()
     {
@@ -95,17 +96,18 @@ public class Ball_Controller : MonoBehaviour
         //     rigid.velocity = rigid.velocity.normalized * 2000 * GameManager.instance.ballSpeed * Time.fixedDeltaTime;
         // }
 
-        if (ball_first_bounce &&
-            Mathf.Abs(transform.position.x) < Mathf.Abs(GameManager.instance.playerPlayPointX) &&
-            Mathf.Abs(transform.position.y) < Mathf.Abs(GameManager.instance.playerPlayPointY))
-        {
-            --GameManager.instance.ballNum;
-            gameObject.SetActive(false);
-        }
+        // if (ball_first_bounce &&
+        //     Mathf.Abs(transform.position.x) < Mathf.Abs(GameManager.instance.playerPlayPointX) &&
+        //     Mathf.Abs(transform.position.y) < Mathf.Abs(GameManager.instance.playerPlayPointY))
+        // {
+        //     --GameManager.instance.ballNum;
+        //     gameObject.SetActive(false);
+        // }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+
         if (collision.gameObject.tag == "Wall")
         {
             if (!ball_first_bounce)
@@ -121,4 +123,14 @@ public class Ball_Controller : MonoBehaviour
             GameManager.CreateParticleEffect(1, position, rotation, tempColor);
         }
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("BallDestroyZone") && ball_first_bounce)
+        {
+            --GameManager.instance.ballNum;
+            gameObject.SetActive(false);
+        }
+    }
+
 }

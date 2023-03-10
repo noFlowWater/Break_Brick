@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
     public bool inTitle;
     public bool loading;
     public int whereBNB;
+    float fastForwardCount;
 
 
     private void Awake()
@@ -98,15 +99,27 @@ public class GameManager : MonoBehaviour
             if (ballNum == 0)
             {
                 Time.timeScale = timeScale;
+                if (ballNumber > 100)
+                {
+                    fastForwardCount = ballNumber;
+                }
+                else
+                {
+                    fastForwardCount = 100;
+                }
             }
             // else if (ballNum < ballNumber * 0.2 && ballNumber > 10 && !bgc.onFire) { Time.timeScale = timeScale * 2; }
             else if (!bgc.onFire)
             {
-                // Time.timeScale = (timeScale * 2) + (timeScale * 3 * (1 - (ballNum / ballNumber)));
-                Time.timeScale = timeScale * (3f - 2f * ((float)(ballNum) / (float)(ballNumber)));
-                // Time.timeScale = timeScale * (1 + Mathf.Log(ballNum / ballNumber, ballNumber));
-                // Time.timeScale = timeScale * Mathf.Pow(2.5f, 1 - ((float)ballNum / (float)ballNumber));
-
+                if (fastForwardCount < 0)
+                {
+                    Time.timeScale = 50;
+                }
+                else
+                {
+                    Time.timeScale = timeScale * (3f - 2f * ((float)(ballNum) / (float)(ballNumber)));
+                    fastForwardCount -= Time.deltaTime;
+                }
             }
             // Debug.Log(Time.timeScale);}
             else

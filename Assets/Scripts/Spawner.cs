@@ -100,7 +100,7 @@ public class Spawner : MonoBehaviour
             int typeofBrick = 1;
             if (i == blankIndex && blankIndex != bnbIndex)
             {
-                print(blankIndex + ", " + bnbIndex);
+                // print(blankIndex + ", " + bnbIndex);
                 continue;
             }
             if (i == bnbIndex)

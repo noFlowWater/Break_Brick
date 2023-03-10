@@ -48,7 +48,7 @@ public class DataManager : MonoBehaviour
             GameManager.instance.score = data.score;
             GameManager.instance.ballNumber = data.ballNumber;
             GameManager.instance.color = data.color;
-            GameManager.instance.isPlayerTurn = true;
+
 
 
             // for (int i = 0; i < data.bricks.Count; ++i)
@@ -69,6 +69,7 @@ public class DataManager : MonoBehaviour
                     brick.name = "(" + brickData.posX + ", " + brickData.posY + ")";
                 }
             }
+            GameManager.instance.isPlayerTurn = true;
             print("불러오기 완료");
 
         }
