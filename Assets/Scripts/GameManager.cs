@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 
 
     public float level;
-    float levelAdd;
+
 
     public GameObject ballGenController;
     public GameObject pausePanel;
@@ -154,18 +154,26 @@ public class GameManager : MonoBehaviour
 
     public void LineBreakCheck()
     {
+        if (color == 0)
+        {
 
-        delay = -delayRate;
-        HorizontalLineBreakCheck(1);
-        delay = -delayRate;
-        HorizontalLineBreakCheck(-1);
-        delay = -delayRate;
-        VerticalLineBreakCheck(1);
-        delay = -delayRate;
-        VerticalLineBreakCheck(-1);
+            delay = -delayRate;
+            HorizontalLineBreakCheck(1);
+            delay = -delayRate;
+            HorizontalLineBreakCheck(-1);
+
+        }
+        else
+        {
+            delay = -delayRate;
+            VerticalLineBreakCheck(1);
+            delay = -delayRate;
+            VerticalLineBreakCheck(-1);
+
+        }
         color = (color + 1) % 2;
 
-        level += score / 10;
+
         DataManager.Instance.SaveGameData();
     }
 

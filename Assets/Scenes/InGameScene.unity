@@ -1716,10 +1716,6 @@ MonoBehaviour:
   bestScoreTxt: {fileID: 0}
   ballNumber: 30
   ballNumberTxt: {fileID: 181421031}
-  life: 5
-  lifeTxt: {fileID: 0}
-  durability: 30
-  durabilityTxt: {fileID: 0}
   ballSpeed: 10
   isPlayerTurn: 0
   playerPlayPointX: 0.5
@@ -2320,12 +2316,10 @@ MonoBehaviour:
   bluePrefabs:
   - {fileID: 2109431959267786189, guid: b214b5e8a17ff438e8e321c12e52e4f1, type: 3}
   - {fileID: 2644026209455633022, guid: f2a7c60827f4e4702bb272c6b1c963a0, type: 3}
-  - {fileID: 1023161147810572421, guid: b4f33a4e76b9f4c2f8af10146622162b, type: 3}
   - {fileID: 5879897486446599329, guid: b35b035be763049078f996d80eed4934, type: 3}
   redPrefabs:
   - {fileID: 2109431959267786189, guid: cafdac9ccf50a4c8292835dc0c1851c2, type: 3}
   - {fileID: 2644026209455633022, guid: 020fd0e1c00f84f7ab0394b375946b3d, type: 3}
-  - {fileID: 1023161147810572421, guid: 5a25661f05e134e40ac638c75a69a3d3, type: 3}
   - {fileID: 5879897486446599329, guid: f9b44963fbfb1452eb078593e6c6e49e, type: 3}
   xSize: 10
   ySize: 10
