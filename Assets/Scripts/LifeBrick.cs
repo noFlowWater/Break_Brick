@@ -10,7 +10,6 @@ public class LifeBrick : Brick
     }
     protected override void Break()
     {
-        ++GameManager.instance.life;
         base.Break();
     }
 }

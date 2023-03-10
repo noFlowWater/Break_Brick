@@ -37,10 +37,6 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI bestScoreTxt;
     public int ballNumber;
     public TextMeshProUGUI ballNumberTxt;
-    public int life;
-    public TextMeshProUGUI lifeTxt;
-    public int durability;
-    public TextMeshProUGUI durabilityTxt;
 
     public float ballSpeed;
 
@@ -133,9 +129,7 @@ public class GameManager : MonoBehaviour
         if (!inTitle)
         {
             scoreTxt.text = string.Format("{0:#,###0}", score);
-            lifeTxt.text = string.Format("{0:#,###0}", life);
             ballNumberTxt.text = string.Format("{0:#,###0}", ballNumber);
-            durabilityTxt.text = string.Format("{0:#,###0}", durability);
         }
         else
         {
@@ -172,7 +166,6 @@ public class GameManager : MonoBehaviour
         color = (color + 1) % 2;
 
         level += score / 10;
-        durability = (int)(ballNumber / 2);
         DataManager.Instance.SaveGameData();
     }
 
