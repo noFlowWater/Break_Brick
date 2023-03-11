@@ -37,7 +37,7 @@ public class Ball_Controller : MonoBehaviour
         {
             spr.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
         }
-
+        transform.name = "Ball";
     }
 
 
@@ -128,9 +128,14 @@ public class Ball_Controller : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("BallDestroyZone") && ball_first_bounce)
         {
-            --GameManager.instance.ballNum;
-            gameObject.SetActive(false);
+            BallDestroy();
         }
+    }
+
+    public void BallDestroy()
+    {
+        --GameManager.instance.ballNum;
+        gameObject.SetActive(false);
     }
 
 }
