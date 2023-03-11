@@ -57,7 +57,7 @@ public class Ball_Gen_Controller : MonoBehaviour
                 GameObject ball = null;
                 ball = GameObject.FindWithTag("Ball");
                 if (ball == null && !onFire && GameManager.instance.isPlayerTurn != true &&
-                !GameManager.instance.loading)
+                !GameManager.instance.loading && !GameManager.instance.isGameOver)
                 {
                     GameManager.instance.LineBreakCheck();
                     GameManager.instance.isPlayerTurn = true;

@@ -13,7 +13,7 @@ public class NotBreakableBrick : Brick
     {
 
     }
-    protected override void OnDamaged(int damage)
+    public override void OnDamaged(int damage)
     {
         StartCoroutine(Shake());
     }

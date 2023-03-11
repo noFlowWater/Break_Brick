@@ -5,6 +5,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
 
+    
     // 생성 포인트
     public GameObject[] upPoint;
     public GameObject[] rightPoint;
@@ -14,13 +15,12 @@ public class Spawner : MonoBehaviour
     public GameObject[] bluePrefabs;
     public GameObject[] redPrefabs;
 
-
     public int xSize;
     public int ySize;
 
     private void Awake()
     {
-
+        
     }
 
     public void InitSpawn()

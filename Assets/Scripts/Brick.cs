@@ -63,7 +63,7 @@ public class Brick : MonoBehaviour
     }
 
 
-    protected virtual void OnDamaged(int damage)
+    public virtual void OnDamaged(int damage)
     {
         life = life - damage;
 
@@ -77,13 +77,16 @@ public class Brick : MonoBehaviour
     protected virtual void Break()
     {
         isBroken = true;
-
-        if (GameManager.instance.score > GameManager.instance.data.bestScore)
+        if (!GameManager.instance.isGameOver)
         {
-            GameManager.instance.data.bestScore = GameManager.instance.score;
-            GameManager.instance.bestScore = GameManager.instance.data.bestScore;
-            // Debug.Log(GameManager.instance.data.bestScore);
-            GameManager.instance.SaveUserData();
+            ++GameManager.instance.score;
+            if (GameManager.instance.score > GameManager.instance.data.bestScore)
+            {
+                GameManager.instance.data.bestScore = GameManager.instance.score;
+                GameManager.instance.bestScore = GameManager.instance.data.bestScore;
+                // Debug.Log(GameManager.instance.data.bestScore);
+                GameManager.instance.SaveUserData();
+            }
         }
         GameManager.CreateParticleEffect(2, transform.position, transform.localRotation, color);
         Destroy(this.gameObject);

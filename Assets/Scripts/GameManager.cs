@@ -29,17 +29,21 @@ public class GameManager : MonoBehaviour
 
     public GameObject pausePanel;
     public GameObject playPanel;
+    public GameObject gameOverPanel;
 
     public int score;
     public TextMeshProUGUI scoreTxt;
+    public TextMeshProUGUI gameOver_scoreTxt;
     public int bestScore;
     public TextMeshProUGUI bestScoreTxt;
+    public TextMeshProUGUI gameOver_bestScoreTxt;
     public int ballNumber;
     public TextMeshProUGUI ballNumberTxt;
 
     public float ballSpeed;
 
     public bool isPlayerTurn;
+    public bool isGameOver;
 
     public float playerPlayPointX;
     public float playerPlayPointY;
@@ -67,7 +71,8 @@ public class GameManager : MonoBehaviour
     float ballBreakAllCount;
 
     public Toggle muteToggle;
-    public bool isMute;
+    public Toggle titleMuteToggle;
+
 
     public Color redColor;
     public Color blueColor;
@@ -88,18 +93,24 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         LoadUserData();
+        if (data.isMuted) { AudioListener.volume = 0f; }
+        else { AudioListener.volume = 1f; }
         if (!inTitle)
         {
             DataManager.Instance.LoadGameData();
             spawner.InitSpawn();
         }
+        else
+        {
+            titleMuteToggle.isOn = !data.isMuted;
+        }
         bestScore = data.bestScore;
-        isMute = data.isMuted;
         remainBallNum = ballNumber;
     }
 
     void Update()
     {
+        print(data.isMuted);
         if (inTitle)
         {
             Time.timeScale = timeScale;
@@ -158,7 +169,7 @@ public class GameManager : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        if (isPlayerTurn)
+        if (isPlayerTurn && !isGameOver)
         {
             DataManager.Instance.SaveGameData();
             // DataManager.Instance.DataDelete();
@@ -189,8 +200,9 @@ public class GameManager : MonoBehaviour
 
         }
         color = (color + 1) % 2;
-        ++score;
+
         DataManager.Instance.SaveGameData();
+        if (!isGameOver) { ++score; }
     }
 
     void HorizontalLineBreakCheck(int dir)
@@ -203,7 +215,12 @@ public class GameManager : MonoBehaviour
         for (float x = startXPos; dir * x <= dir * endXpos; x += dir)
         {
             GameObject brick = GameObject.Find("(" + x + ", " + startYPos + ")");
-            if (brick != null) { print("GameOver!"); return; }
+            if (brick != null)
+            {
+                print("GameOver!");
+                GameOver();
+                return;
+            }
         }
 
         for (float y = startYPos; dir * y <= dir * endYPos; y += dir)
@@ -256,7 +273,12 @@ public class GameManager : MonoBehaviour
         for (float y = startYPos; dir * y >= dir * endYPos; y -= dir)
         {
             GameObject brick = GameObject.Find("(" + startXPos + ", " + y + ")");
-            if (brick != null) { print("GameOver!!"); return; }
+            if (brick != null)
+            {
+                print("GameOver!!");
+                GameOver();
+                return;
+            }
         }
 
 
@@ -309,15 +331,17 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(.1f * delay);
         // Vector3 target = new Vector3(x, y, 0);
         // brick.transform.position = target;
+        if (brick != null)
+        {
+            brick.GetComponent<Brick>().isMove = true;
+            brick.GetComponent<Brick>().posX = x;
+            brick.GetComponent<Brick>().posY = y;
 
-        brick.GetComponent<Brick>().isMove = true;
-        brick.GetComponent<Brick>().posX = x;
-        brick.GetComponent<Brick>().posY = y;
+            // GameObject mold = GameObject.Find("(" + x + ", " + y + ")Mold");
+            // mold.GetComponent<Mold>().needReturn = true;
 
-        // GameObject mold = GameObject.Find("(" + x + ", " + y + ")Mold");
-        // mold.GetComponent<Mold>().needReturn = true;
-
-        --funcCount;
+            --funcCount;
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -346,7 +370,6 @@ public class GameManager : MonoBehaviour
         particle.SetActive(false);
     }
     //////////////////////////////////////////////////////////////////////////////////
-
     public void SaveUserData()
     {
         string filePath = Application.persistentDataPath + "/userdata.json";
@@ -377,35 +400,45 @@ public class GameManager : MonoBehaviour
         }
     }
     //////////////////////////////////////////////////////////////////////////////////
-
     public void LoadInGameScene()
     {
         SceneManager.LoadScene("InGameScene");
-        if (isMute) { AudioListener.volume = 0f; }
-        else { AudioListener.volume = 1f; }
     }
-
     public void GameQuit()
     {
         SaveUserData();
-        //게임 데이터 삭제//
+        DataManager.Instance.DataDelete();
         SceneManager.LoadScene("Title");
-        LoadUserData();
-        isMute = data.isMuted;
     }
 
     public void ToggleMute()
     {
         if (!muteToggle.isOn)
         {
-            isMute = true;
             data.isMuted = true;
+            AudioListener.volume = 0f;
         }
         else
         {
-            isMute = false;
             data.isMuted = false;
+            AudioListener.volume = 1f;
         }
+        SaveUserData();
+    }
+
+    public void TitleToggleMute()
+    {
+        if (!titleMuteToggle.isOn)
+        {
+            data.isMuted = true;
+            AudioListener.volume = 0f;
+        }
+        else
+        {
+            data.isMuted = false;
+            AudioListener.volume = 1f;
+        }
+        SaveUserData();
     }
 
     public void PauseButtonClick()
@@ -413,7 +446,7 @@ public class GameManager : MonoBehaviour
 
         if (this.playPanel.activeSelf)
         {// 일시정지 할 때.
-            if (isMute) { muteToggle.isOn = false; }
+            if (data.isMuted) { muteToggle.isOn = false; }
             else { muteToggle.isOn = true; }
             this.beforeTimeScale = this.timeScale;
             this.timeScale = 0;
@@ -423,8 +456,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {// 일시정지를 풀 때.
-            if (isMute) { AudioListener.volume = 0f; }
-            else { AudioListener.volume = 1f; }
             this.timeScale = this.beforeTimeScale;
             //this.ballGenController.SetActive(true);
             this.playPanel.SetActive(true);
@@ -434,7 +465,7 @@ public class GameManager : MonoBehaviour
     }
     public void TimeScaleButton()
     {
-        if (this.timeScale > 3)
+        if (this.timeScale > 1)
         {
             this.timeScale = 1;
             this.timeScaleTxt.text = string.Format("x{0:#,###0}", timeScale);
@@ -445,6 +476,73 @@ public class GameManager : MonoBehaviour
             this.timeScaleTxt.text = string.Format("x{0:#,###0}", timeScale);
         }
     }
+
+    void GameOver()
+    {
+        isGameOver = true;
+
+        VerticalBreak(1);
+        VerticalBreak(-1);
+        HorizontalBreak(1);
+        HorizontalBreak(-1);
+
+        this.playPanel.SetActive(false);
+        this.gameOverPanel.SetActive(true);
+
+        if (score > data.bestScore)
+        {
+            data.bestScore = score;
+            bestScore = data.bestScore;
+            SaveUserData();
+        }
+        gameOver_bestScoreTxt.text = string.Format("Best : {0:#,###0}", bestScore);
+        gameOver_scoreTxt.text = string.Format("Score : {0:#,###0}", score);
+        DataManager.Instance.DataDelete();
+    }
+    void HorizontalBreak(int dir)
+    {
+        float startXPos = dir * spawner.upPoint[0].transform.position.x;
+        float endXpos = dir * spawner.upPoint[spawner.upPoint.Length - 1].transform.position.x;
+        float startYPos = dir * (playerPlayPointY + 1);
+        float endYPos = dir * (spawner.upPoint[0].transform.position.y - 2 - 1);
+
+        for (float y = startYPos; dir * y <= dir * endYPos; y += dir)
+        {
+            delay = -delayRate;
+            for (float x = startXPos; dir * x <= dir * endXpos; x += dir)
+            {
+                delay += delayRate;
+                StartCoroutine(SmoothBreak(x, y));
+            }
+        }
+    }
+    void VerticalBreak(int dir)
+    {
+        float startXPos = dir * (playerPlayPointX + 1);
+        float endXPos = dir * (spawner.rightPoint[0].transform.position.x - 2 - 1);
+        float startYPos = dir * spawner.rightPoint[0].transform.position.y;
+        float endYPos = dir * spawner.rightPoint[spawner.rightPoint.Length - 1].transform.position.y;
+
+        for (float y = startYPos; dir * y >= dir * endYPos; y -= dir)
+        {
+            delay = -delayRate;
+            for (float x = startXPos; dir * x <= dir * endXPos; x += dir)
+            {
+                delay += delayRate;
+                StartCoroutine(SmoothBreak(x, y));
+            }
+        }
+    }
+
+    IEnumerator SmoothBreak(float x, float y)
+    {
+
+        yield return new WaitForSeconds(0.1f * delay);
+        GameObject brick_ = GameObject.Find("(" + x + ", " + y + ")");
+        if (brick_) { brick_.GetComponent<Brick>().OnDamaged(99999); }
+
+    }
+
 }
 
 [Serializable]

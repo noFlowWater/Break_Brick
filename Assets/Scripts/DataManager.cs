@@ -139,6 +139,8 @@ public class DataManager : MonoBehaviour
         // print(filePath);
 
         // 이미 저장된 파일이 있다면 덮어쓰고, 없다면 새로 만들어서 저장
+        if(GameManager.instance.isGameOver)
+            return;
         File.WriteAllText(filePath, ToJsonData);
 
         print("저장완료");
