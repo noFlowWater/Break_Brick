@@ -145,6 +145,7 @@ public class GameManager : MonoBehaviour
                     Time.timeScale = timeScale * (3f - 2f * ((float)(ballNum) / (float)(ballNumber)));
                     fastForwardCount -= Time.deltaTime;
                 }
+                print(fastForwardCount + ", " + ballBreakAllCount);
             }
             // Debug.Log(Time.timeScale);}
             else
