@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 
 
     public float level;
-
+    float levelAdd;
 
     public GameObject pausePanel;
     public GameObject playPanel;
@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour
     public int whereBNB;
     float fastForwardCount;
 
+    public Toggle muteToggle;
+    public bool isMute;
 
     private void Awake()
     {
@@ -78,14 +80,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         LoadUserData();
-        // Debug.Log("우왕 ㅋㅋ : " + data.bestScore);
-
         if (!inTitle)
         {
             DataManager.Instance.LoadGameData();
             spawner.InitSpawn();
         }
         bestScore = data.bestScore;
+        isMute = data.isMuted;
     }
 
     void Update()
@@ -367,6 +368,32 @@ public class GameManager : MonoBehaviour
     public void LoadInGameScene()
     {
         SceneManager.LoadScene("InGameScene");
+        if (isMute) { AudioListener.volume = 0f; }
+        else { AudioListener.volume = 1f; }
+    }
+
+    public void GameQuit()
+    {
+        bool lastMute;
+        SaveUserData();
+        //게임 데이터 삭제//
+        SceneManager.LoadScene("Title");
+        LoadUserData();
+        isMute = data.isMuted;
+    }
+
+    public void ToggleMute()
+    {
+        if (!muteToggle.isOn)
+        {
+            isMute = true;
+            data.isMuted = true;
+        }
+        else
+        {
+            isMute = false;
+            data.isMuted = false;
+        }
     }
 
     public void PauseButtonClick()
@@ -374,6 +401,8 @@ public class GameManager : MonoBehaviour
 
         if (this.playPanel.activeSelf)
         {// 일시정지 할 때.
+            if (isMute) { muteToggle.isOn = false; }
+            else { muteToggle.isOn = true; }
             this.beforeTimeScale = this.timeScale;
             this.timeScale = 0;
             //this.ballGenController.SetActive(false);
@@ -382,6 +411,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {// 일시정지를 풀 때.
+            if (isMute) { AudioListener.volume = 0f; }
+            else { AudioListener.volume = 1f; }
             this.timeScale = this.beforeTimeScale;
             //this.ballGenController.SetActive(true);
             this.playPanel.SetActive(true);
@@ -408,4 +439,5 @@ public class GameManager : MonoBehaviour
 public class UserData
 {
     public int bestScore;
+    public bool isMuted;
 }

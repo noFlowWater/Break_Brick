@@ -82,7 +82,7 @@ public class Brick : MonoBehaviour
         {
             GameManager.instance.data.bestScore = GameManager.instance.score;
             GameManager.instance.bestScore = GameManager.instance.data.bestScore;
-            Debug.Log(GameManager.instance.data.bestScore);
+            // Debug.Log(GameManager.instance.data.bestScore);
             GameManager.instance.SaveUserData();
         }
         GameManager.CreateParticleEffect(2, transform.position, transform.localRotation, color);
