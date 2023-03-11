@@ -79,7 +79,7 @@ public class Brick : MonoBehaviour
         isBroken = true;
         if (!GameManager.instance.isGameOver)
         {
-            ++GameManager.instance.score;
+
             if (GameManager.instance.score > GameManager.instance.data.bestScore)
             {
                 GameManager.instance.data.bestScore = GameManager.instance.score;
