@@ -18,7 +18,7 @@ public class NormalBrick : Brick
         spriteRenderer.sprite = sprites[0];
     }
 
-    protected override void OnDamaged(int damage)
+    public override void OnDamaged(int damage)
     {
         base.OnDamaged(damage);
         if (life <= maxLife / 2 && !(life <= maxLife / 5)) { spriteRenderer.sprite = sprites[randomInt]; }

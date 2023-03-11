@@ -46,9 +46,10 @@ public class DataManager : MonoBehaviour
 
             GameManager.instance.level = data.level;
             GameManager.instance.score = data.score;
-
             GameManager.instance.ballNumber = data.ballNumber;
             GameManager.instance.color = data.color;
+
+
 
             // for (int i = 0; i < data.bricks.Count; ++i)
             if (data.bricks != null)
@@ -68,6 +69,7 @@ public class DataManager : MonoBehaviour
                     brick.name = "(" + brickData.posX + ", " + brickData.posY + ")";
                 }
             }
+            GameManager.instance.isPlayerTurn = true;
             print("불러오기 완료");
 
         }
@@ -104,13 +106,9 @@ public class DataManager : MonoBehaviour
                         brickData.type = 1;
                         brickData.maxLife = brick.GetComponent<NormalBrick>().maxLife;
                     }
-                    else if (brick.GetComponent<Brick>() is LifeBrick)
-                    {
-                        brickData.type = 2;
-                    }
                     else if (brick.GetComponent<Brick>() is BallNumberIncreaseBrick)
                     {
-                        brickData.type = 3;
+                        brickData.type = 2;
                     }
                     //red
                     if (brick.layer == 6)
@@ -141,8 +139,20 @@ public class DataManager : MonoBehaviour
         // print(filePath);
 
         // 이미 저장된 파일이 있다면 덮어쓰고, 없다면 새로 만들어서 저장
+        if(GameManager.instance.isGameOver)
+            return;
         File.WriteAllText(filePath, ToJsonData);
 
         print("저장완료");
+    }
+
+    public void DataDelete()
+    {
+        string filePath = Application.persistentDataPath + "/" + GameDataFileName;
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+            print("데이터 삭제");
+        }
     }
 }

@@ -57,7 +57,7 @@ public class Ball_Gen_Controller : MonoBehaviour
                 GameObject ball = null;
                 ball = GameObject.FindWithTag("Ball");
                 if (ball == null && !onFire && GameManager.instance.isPlayerTurn != true &&
-                !GameManager.instance.loading)
+                !GameManager.instance.loading && !GameManager.instance.isGameOver)
                 {
                     GameManager.instance.LineBreakCheck();
                     GameManager.instance.isPlayerTurn = true;
@@ -102,12 +102,14 @@ public class Ball_Gen_Controller : MonoBehaviour
                 // Debug.Log(" -- Mouse DOWN -- ");
                 isMouseDownFirst = true;
                 // spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
-                if (GameManager.instance.color == 1)
+                if (GameManager.instance.color == 0)
                 {
+                    //Blue
                     spriteRenderer.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
                 }
                 else
                 {
+                    //Red
                     spriteRenderer.color = new Color(255 / 255f, 180 / 255f, 180 / 255f);
                 }
 

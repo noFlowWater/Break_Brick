@@ -9,9 +9,10 @@ public class BallNumberIncreaseBrick : Brick
         life = 1;
     }
 
-    protected override void OnDamaged(int damage)
+    public override void OnDamaged(int damage)
     {
-        base.OnDamaged(damage);
+        base.OnDamaged(damage); // 부모 클래스의 OnDamaged 메소드를 호출
+        // 추가로 수행할 코드 작성
     }
     protected override void Break()
     {

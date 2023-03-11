@@ -5,6 +5,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
 
+    
     // 생성 포인트
     public GameObject[] upPoint;
     public GameObject[] rightPoint;
@@ -14,13 +15,12 @@ public class Spawner : MonoBehaviour
     public GameObject[] bluePrefabs;
     public GameObject[] redPrefabs;
 
-
     public int xSize;
     public int ySize;
 
     private void Awake()
     {
-
+        
     }
 
     public void InitSpawn()
@@ -42,10 +42,13 @@ public class Spawner : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < 4; ++i)
-        {
-            Spawn(i);
-        }
+
+        GameManager.instance.whereBNB = UnityEngine.Random.Range(0, 2);
+        Spawn(0);
+        Spawn(1);
+        GameManager.instance.whereBNB = UnityEngine.Random.Range(2, 4);
+        Spawn(2);
+        Spawn(3);
     }
 
     public void Spawn(int pos)
@@ -85,15 +88,30 @@ public class Spawner : MonoBehaviour
 
         }
         if (points == null) { return; }
-        int[] blankIndex = { Random.Range(-1, size) };
+        int blankIndex = Random.Range(0, size);
+        int bnbIndex = -1;
+        if (pos == GameManager.instance.whereBNB)
+        {
+            bnbIndex = Random.Range(0, size);
+            // print(pos + ", " + GameManager.instance.whereBNB + ", " + bnbIndex);
+        }
         for (int i = 0; i < size; ++i)
         {
-            if (i == blankIndex[0]) { continue; }
+            int typeofBrick = 1;
+            if (i == blankIndex && blankIndex != bnbIndex)
+            {
+                // print(blankIndex + ", " + bnbIndex);
+                continue;
+            }
+            if (i == bnbIndex)
+            {
+                typeofBrick = 2;
+            }
             float x = points[i].transform.position.x;
             float y = points[i].transform.position.y;
             brick = GameObject.Find("(" + x + ", " + y + ")");
             if (brick != null) { continue; }
-            brick = Get_(color, -1);
+            brick = Get_(color, typeofBrick);
             brick.GetComponent<Brick>().posX = x;
             brick.GetComponent<Brick>().posY = y;
             brick.transform.position = new Vector3(x, y, 0);
@@ -127,20 +145,6 @@ public class Spawner : MonoBehaviour
         else
         {
             prefabs = redPrefabs;
-        }
-        if (index == -1)
-        {
-            index = Random.Range(1, 100);
-            if (index < 90)
-            {
-                select = Instantiate(prefabs[1], transform);
-            }
-            else
-            {
-                index = Random.Range(2, prefabs.Length);
-                select = Instantiate(prefabs[index], transform);
-            }
-            return select;
         }
 
         select = Instantiate(prefabs[index], transform);

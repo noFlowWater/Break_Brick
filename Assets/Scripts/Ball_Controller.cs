@@ -37,7 +37,7 @@ public class Ball_Controller : MonoBehaviour
         {
             spr.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
         }
-        
+
     }
 
 
@@ -52,13 +52,13 @@ public class Ball_Controller : MonoBehaviour
         {
             if (GameManager.instance.color == 0)
             {// BLUE
-                this.gameObject.layer = 8; // BlueBall 레이어로 초기화
-                spr.color = new Color(255 / 255f, 180 / 255f, 180 / 255f);
+                this.gameObject.layer = 9; // BlueBall 레이어로 초기화
+                spr.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
             }
             else
             {// RED
-                this.gameObject.layer = 9; // RedBall 레이어로 초기화
-                spr.color = new Color(180 / 255f, 225 / 255f, 255 / 255f);
+                this.gameObject.layer = 8; // RedBall 레이어로 초기화
+                spr.color = new Color(255 / 255f, 180 / 255f, 180 / 255f);
 
             }
             // trail.material.color = spr.color;
@@ -68,6 +68,7 @@ public class Ball_Controller : MonoBehaviour
             first_Dir = new Vector3(Random.Range(0.1f, 1), Random.Range(0.1f, 1), 0).normalized;
         }
         trail.startColor = new Color(spr.color.r, spr.color.g, spr.color.b, 100 / 255f);
+
     }
     void Update()
     {
@@ -95,20 +96,21 @@ public class Ball_Controller : MonoBehaviour
         //     rigid.velocity = rigid.velocity.normalized * 2000 * GameManager.instance.ballSpeed * Time.fixedDeltaTime;
         // }
 
-        if (ball_first_bounce &&
-            Mathf.Abs(transform.position.x) < Mathf.Abs(GameManager.instance.playerPlayPointX) &&
-            Mathf.Abs(transform.position.y) < Mathf.Abs(GameManager.instance.playerPlayPointY))
-        {
-            --GameManager.instance.ballNum;
-            gameObject.SetActive(false);
-        }
+        // if (ball_first_bounce &&
+        //     Mathf.Abs(transform.position.x) < Mathf.Abs(GameManager.instance.playerPlayPointX) &&
+        //     Mathf.Abs(transform.position.y) < Mathf.Abs(GameManager.instance.playerPlayPointY))
+        // {
+        //     --GameManager.instance.ballNum;
+        //     gameObject.SetActive(false);
+        // }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+
         if (collision.gameObject.tag == "Wall")
         {
-            if(!ball_first_bounce)
+            if (!ball_first_bounce)
                 ball_first_bounce = true;
 
             Color tempColor = Color.white;
@@ -121,4 +123,14 @@ public class Ball_Controller : MonoBehaviour
             GameManager.CreateParticleEffect(1, position, rotation, tempColor);
         }
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("BallDestroyZone") && ball_first_bounce)
+        {
+            --GameManager.instance.ballNum;
+            gameObject.SetActive(false);
+        }
+    }
+
 }
