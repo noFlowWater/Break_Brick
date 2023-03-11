@@ -64,17 +64,25 @@ public class GameManager : MonoBehaviour
     public bool loading;
     public int whereBNB;
     float fastForwardCount;
+    float ballBreakAllCount;
 
     public Toggle muteToggle;
     public bool isMute;
 
+    public Color redColor;
+    public Color blueColor;
+
+    public int remainBallNum;
+
     private void Awake()
     {
         instance = this;
-        score = 0;
+        score = -1;
         Time.timeScale = timeScale;
         // LineBreakCheck();
         color = 0;
+        redColor = new Color(255 / 255f, 180 / 255f, 180 / 255f);
+        blueColor = new Color(180 / 255f, 225 / 255f, 255 / 255f);
     }
 
     void Start()
@@ -87,6 +95,7 @@ public class GameManager : MonoBehaviour
         }
         bestScore = data.bestScore;
         isMute = data.isMuted;
+        remainBallNum = ballNumber;
     }
 
     void Update()
@@ -100,27 +109,31 @@ public class GameManager : MonoBehaviour
             if (ballNum == 0)
             {
                 Time.timeScale = timeScale;
-                if (ballNumber > 100)
-                {
-                    fastForwardCount = ballNumber;
-                }
-                else
-                {
-                    fastForwardCount = 100;
-                }
+                fastForwardCount = 100;
+                ballBreakAllCount = 100;
             }
             // else if (ballNum < ballNumber * 0.2 && ballNumber > 10 && !bgc.onFire) { Time.timeScale = timeScale * 2; }
             else if (!bgc.onFire)
             {
                 if (fastForwardCount < 0)
                 {
-                    Time.timeScale = 50;
+                    Time.timeScale = 30;
+                    ballBreakAllCount -= Time.deltaTime;
+                    if (ballBreakAllCount < 0)
+                    {
+                        GameObject ball = GameObject.Find("Ball");
+                        if (ball != null)
+                        {
+                            ball.GetComponent<Ball_Controller>().BallDestroy();
+                        }
+                    }
                 }
                 else
                 {
                     Time.timeScale = timeScale * (3f - 2f * ((float)(ballNum) / (float)(ballNumber)));
                     fastForwardCount -= Time.deltaTime;
                 }
+                print(fastForwardCount + ", " + ballBreakAllCount);
             }
             // Debug.Log(Time.timeScale);}
             else
@@ -135,7 +148,7 @@ public class GameManager : MonoBehaviour
         if (!inTitle)
         {
             scoreTxt.text = string.Format("{0:#,###0}", score);
-            ballNumberTxt.text = string.Format("{0:#,###0}", ballNumber);
+            ballNumberTxt.text = string.Format("{0:#,###0}", remainBallNum);
         }
         else
         {
@@ -156,7 +169,7 @@ public class GameManager : MonoBehaviour
 
     public void LineBreakCheck()
     {
-        ++GameManager.instance.level;
+        GameManager.instance.level += 1.5f;
         if (color == 1) // Red -> BlueBrick 생성
         {
             whereBNB = UnityEngine.Random.Range(0, 2);
@@ -176,7 +189,7 @@ public class GameManager : MonoBehaviour
 
         }
         color = (color + 1) % 2;
-
+        ++score;
         DataManager.Instance.SaveGameData();
     }
 
@@ -374,7 +387,6 @@ public class GameManager : MonoBehaviour
 
     public void GameQuit()
     {
-        bool lastMute;
         SaveUserData();
         //게임 데이터 삭제//
         SceneManager.LoadScene("Title");

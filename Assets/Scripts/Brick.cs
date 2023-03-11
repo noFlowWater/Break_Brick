@@ -77,7 +77,7 @@ public class Brick : MonoBehaviour
     protected virtual void Break()
     {
         isBroken = true;
-        ++GameManager.instance.score;
+
         if (GameManager.instance.score > GameManager.instance.data.bestScore)
         {
             GameManager.instance.data.bestScore = GameManager.instance.score;

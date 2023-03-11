@@ -61,6 +61,7 @@ public class Ball_Gen_Controller : MonoBehaviour
                 {
                     GameManager.instance.LineBreakCheck();
                     GameManager.instance.isPlayerTurn = true;
+                    GameManager.instance.remainBallNum = GameManager.instance.ballNumber;
                 }
             }
 
@@ -70,6 +71,7 @@ public class Ball_Gen_Controller : MonoBehaviour
 
                 if (timer > waitingTime)
                 {
+                    --GameManager.instance.remainBallNum;
                     CreatBall(dirc, start_Pos);
                     timer = 0;
                 }
@@ -163,6 +165,7 @@ public class Ball_Gen_Controller : MonoBehaviour
 
                 if (dirc != Vector3.zero && GameManager.instance.funcCount == 0)
                 {
+
                     Fire();
                 }
             }
@@ -172,6 +175,7 @@ public class Ball_Gen_Controller : MonoBehaviour
     {
         onFire = true;
         GameManager.instance.isPlayerTurn = false;
+
         // GameManager.instance.startGame = false;
     }
     void CreatBall(Vector3 dirc, Vector3 position)
