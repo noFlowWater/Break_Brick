@@ -77,17 +77,6 @@ public class Brick : MonoBehaviour
     protected virtual void Break()
     {
         isBroken = true;
-        if (!GameManager.instance.isGameOver)
-        {
-
-            if (GameManager.instance.score > GameManager.instance.data.bestScore)
-            {
-                GameManager.instance.data.bestScore = GameManager.instance.score;
-                GameManager.instance.bestScore = GameManager.instance.data.bestScore;
-                // Debug.Log(GameManager.instance.data.bestScore);
-                GameManager.instance.SaveUserData();
-            }
-        }
         GameManager.CreateParticleEffect(2, transform.position, transform.localRotation, color);
         Destroy(this.gameObject);
     }
