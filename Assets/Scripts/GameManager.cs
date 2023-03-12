@@ -121,7 +121,7 @@ public class GameManager : MonoBehaviour
             {
                 Time.timeScale = timeScale;
                 fastForwardCount = 100;
-                ballBreakAllCount = 100;
+                ballBreakAllCount = 300;
             }
             // else if (ballNum < ballNumber * 0.2 && ballNumber > 10 && !bgc.onFire) { Time.timeScale = timeScale * 2; }
             else if (!bgc.onFire)
@@ -144,7 +144,7 @@ public class GameManager : MonoBehaviour
                     Time.timeScale = timeScale * (3f - 2f * ((float)(ballNum) / (float)(ballNumber)));
                     fastForwardCount -= Time.deltaTime;
                 }
-                print(fastForwardCount + ", " + ballBreakAllCount);
+                // print(fastForwardCount + ", " + ballBreakAllCount);
             }
             // Debug.Log(Time.timeScale);}
             else
