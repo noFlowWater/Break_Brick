@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     public GameObject pausePanel;
     public GameObject playPanel;
     public GameObject gameOverPanel;
+    public GameObject titlePanel;
+    public GameObject helpPanel;
 
     public int score;
     public TextMeshProUGUI scoreTxt;
@@ -79,6 +81,7 @@ public class GameManager : MonoBehaviour
     public Color yellowColor;
 
     public int remainBallNum;
+    public static AudioSource ballNumberIncreaseBrickAudioSource;
 
     private void Awake()
     {
@@ -89,7 +92,8 @@ public class GameManager : MonoBehaviour
         color = 0;
         redColor = new Color(255 / 255f, 180 / 255f, 180 / 255f);
         blueColor = new Color(180 / 255f, 225 / 255f, 255 / 255f);
-        yellowColor = new Color(131 / 255f, 255 / 255f, 0 / 255f);
+        yellowColor = new Color(255 / 255f, 255 / 255f, 0 / 255f);
+        ballNumberIncreaseBrickAudioSource = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -99,6 +103,7 @@ public class GameManager : MonoBehaviour
         else { AudioListener.volume = 1f; }
         if (!inTitle)
         {
+            if (score > data.bestScore) {scoreTxt.color = yellowColor;}
             DataManager.Instance.LoadGameData();
             spawner.InitSpawn();
         }
@@ -145,7 +150,6 @@ public class GameManager : MonoBehaviour
                     Time.timeScale = timeScale * (3f - 2f * ((float)(ballNum) / (float)(ballNumber)));
                     fastForwardCount -= Time.deltaTime;
                 }
-                print(fastForwardCount + ", " + ballBreakAllCount);
             }
             // Debug.Log(Time.timeScale);}
             else
@@ -160,9 +164,8 @@ public class GameManager : MonoBehaviour
         if (!inTitle)
         {
             scoreTxt.text = string.Format("{0:#,###0}", score);
-            if(remainBallNum != 0){
-                ballNumberTxt.text = string.Format("x{0:#,###0}", remainBallNum);
-            }else{ ballNumberTxt.text = null;}
+            if(remainBallNum != 0){ballNumberTxt.text = string.Format("x{0:#,###0}", remainBallNum);}
+            else{ballNumberTxt.text = null;}
         }
         else
         {
@@ -206,7 +209,7 @@ public class GameManager : MonoBehaviour
 
         DataManager.Instance.SaveGameData();
         if (!isGameOver) { ++score; }
-        if (score > data.bestScore){ scoreTxt.color = yellowColor; }
+        if (score > data.bestScore) {scoreTxt.color = yellowColor;}
     }
 
     void HorizontalLineBreakCheck(int dir)
@@ -465,7 +468,15 @@ public class GameManager : MonoBehaviour
             this.playPanel.SetActive(true);
             this.pausePanel.SetActive(false);
         }
+    }
 
+    public void HelpButtonClick(){
+        this.helpPanel.SetActive(true);
+        this.titlePanel.SetActive(false);
+    }
+    public void HelpPanelOutClick(){
+        this.helpPanel.SetActive(false);
+        this.titlePanel.SetActive(true);
     }
     public void TimeScaleButton()
     {
@@ -502,7 +513,6 @@ public class GameManager : MonoBehaviour
             gameOver_bestScoreTxt.color = yellowColor;
             gameOver_scoreTxt.color = yellowColor;
         }
-        
         gameOver_bestScoreTxt.text = string.Format("Best : {0:#,###0}", bestScore);
         gameOver_scoreTxt.text = string.Format("Score : {0:#,###0}", score);
         DataManager.Instance.DataDelete();

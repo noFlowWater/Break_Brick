@@ -16,7 +16,7 @@ public class BallNumberIncreaseBrick : Brick
     }
     protected override void Break()
     {
-
+        GameManager.ballNumberIncreaseBrickAudioSource.Play();
         GameManager.instance.ballNumber += 1;
         base.Break();
         // Debug.Log("Break");

@@ -19,6 +19,7 @@ public class ZogagSound : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name != "InGameScene")
         {
+            Debug.Log("타이틀 : " + audioSource.panStereo);
             audioSource.Play();
             return;
         }
