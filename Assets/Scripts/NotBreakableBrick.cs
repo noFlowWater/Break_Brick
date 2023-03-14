@@ -28,7 +28,7 @@ public class NotBreakableBrick : Brick
             TextMeshPro tmp = transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshInBrick>().tmp;
             print("!");
             tmp.text = "!";
-            StartCoroutine(SetTextBlank(1, tmp));
+            StartCoroutine(SetTextBlank(0.2f, tmp));
         }
     }
 

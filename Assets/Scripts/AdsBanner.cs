@@ -4,7 +4,7 @@ using UnityEngine;
 using GoogleMobileAds.Api;
 using System;
 
-public class AdsManager : MonoBehaviour
+public class AdsBanner : MonoBehaviour
 {
     private BannerView bannerView;
     private InterstitialAd interstitial;
@@ -12,20 +12,20 @@ public class AdsManager : MonoBehaviour
     void Start()
     {
 #if UNITY_ANDROID
-        string appId = "ca-app-pub-3940256099942544/6300978111";
+        string bannerId = "ca-app-pub-3940256099942544/6300978111";
 
 #else
-            string appId = "unexpected_platform";
+            string bannerId = "unexpected_platform";
 #endif
         MobileAds.Initialize((InitializationStatus initStatus) =>
         {
             //
         });
 
-        LoadAd(appId);
+        LoadBannerAd(bannerId);
     }
 
-    public void CreateBannerView(string appId)
+    public void CreateBannerView(string bannerId)
     {
 
         // 배너가 존재할시 배너 삭제
@@ -35,16 +35,16 @@ public class AdsManager : MonoBehaviour
         }
 
         // 320 * 50배너 생성
-        bannerView = new BannerView(appId, AdSize.Banner, AdPosition.Bottom);
+        bannerView = new BannerView(bannerId, AdSize.Banner, AdPosition.Bottom);
 
     }
 
-    public void LoadAd(string appId)
+    public void LoadBannerAd(string bannerId)
     {
         // create an instance of a banner view first.
         if (bannerView == null)
         {
-            CreateBannerView(appId);
+            CreateBannerView(bannerId);
         }
         // create our request used to load the ad.
         var adRequest = new AdRequest.Builder()
