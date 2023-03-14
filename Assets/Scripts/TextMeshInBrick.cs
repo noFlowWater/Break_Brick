@@ -9,7 +9,7 @@ public class TextMeshInBrick : MonoBehaviour
     public int sortingOrder;
     public Brick brickObj;
 
-    TextMeshPro tmp;
+    public TextMeshPro tmp;
 
     void Awake()
     {
@@ -18,15 +18,15 @@ public class TextMeshInBrick : MonoBehaviour
         mesh.sortingOrder = sortingOrder;
 
         tmp = GetComponent<TextMeshPro>();
+        tmp.text = "";
     }
 
     private void Update()
     {
-        if (brickObj.life == -999)
+        if (brickObj.life != -999)
         {
-            tmp.text = "!";
+            { tmp.text = brickObj.life.ToString(); }
         }
-        else
-        { tmp.text = brickObj.life.ToString(); }
     }
+
 }
