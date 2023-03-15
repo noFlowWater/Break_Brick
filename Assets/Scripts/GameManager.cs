@@ -83,6 +83,8 @@ public class GameManager : MonoBehaviour
     public int remainBallNum;
     public static AudioSource ballNumberIncreaseBrickAudioSource;
 
+    public AdsFullScrean aFS;
+
     private void Awake()
     {
         instance = this;
@@ -103,8 +105,8 @@ public class GameManager : MonoBehaviour
         else { AudioListener.volume = 1f; }
         if (!inTitle)
         {
-            if (score > data.bestScore) {scoreTxt.color = yellowColor;}
             DataManager.Instance.LoadGameData();
+            if (score >= data.bestScore) { scoreTxt.color = yellowColor; }
             spawner.InitSpawn();
         }
         else
@@ -164,8 +166,8 @@ public class GameManager : MonoBehaviour
         if (!inTitle)
         {
             scoreTxt.text = string.Format("{0:#,###0}", score);
-            if(remainBallNum != 0){ballNumberTxt.text = string.Format("x{0:#,###0}", remainBallNum);}
-            else{ballNumberTxt.text = null;}
+            if (remainBallNum != 0) { ballNumberTxt.text = string.Format("x{0:#,###0}", remainBallNum); }
+            else { ballNumberTxt.text = null; }
         }
         else
         {
@@ -186,7 +188,7 @@ public class GameManager : MonoBehaviour
 
     public void LineBreakCheck()
     {
-        GameManager.instance.level += 1.5f;
+        GameManager.instance.level += 2f;
         if (color == 1) // Red -> BlueBrick 생성
         {
             whereBNB = UnityEngine.Random.Range(0, 2);
@@ -209,7 +211,7 @@ public class GameManager : MonoBehaviour
 
         DataManager.Instance.SaveGameData();
         if (!isGameOver) { ++score; }
-        if (score > data.bestScore) {scoreTxt.color = yellowColor;}
+        if (score > data.bestScore) { scoreTxt.color = yellowColor; }
     }
 
     void HorizontalLineBreakCheck(int dir)
@@ -219,12 +221,14 @@ public class GameManager : MonoBehaviour
         float startYPos = dir * (playerPlayPointY + 1);
         float endYPos = dir * (spawner.upPoint[0].transform.position.y - 2 - 1);
 
+        if (isGameOver) { return; }
         for (float x = startXPos; dir * x <= dir * endXpos; x += dir)
         {
             GameObject brick = GameObject.Find("(" + x + ", " + startYPos + ")");
             if (brick != null)
             {
                 print("GameOver!");
+
                 GameOver();
                 return;
             }
@@ -244,6 +248,7 @@ public class GameManager : MonoBehaviour
         float y;
 
         GameObject brick = null;
+
 
         if (needY == ((spawner.ySize / 2) - 0.5f) * dir)
         {
@@ -277,6 +282,7 @@ public class GameManager : MonoBehaviour
         float startYPos = dir * spawner.rightPoint[0].transform.position.y;
         float endYPos = dir * spawner.rightPoint[spawner.rightPoint.Length - 1].transform.position.y;
 
+        if (isGameOver) { return; }
         for (float y = startYPos; dir * y >= dir * endYPos; y -= dir)
         {
             GameObject brick = GameObject.Find("(" + startXPos + ", " + y + ")");
@@ -303,7 +309,6 @@ public class GameManager : MonoBehaviour
         float y;
 
         GameObject brick = null;
-
         if (needX == ((spawner.xSize / 2) - 0.5f) * dir)
         {
             x = needX + (3 * dir);
@@ -470,11 +475,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void HelpButtonClick(){
+    public void HelpButtonClick()
+    {
         this.helpPanel.SetActive(true);
         this.titlePanel.SetActive(false);
     }
-    public void HelpPanelOutClick(){
+    public void HelpPanelOutClick()
+    {
         this.helpPanel.SetActive(false);
         this.titlePanel.SetActive(true);
     }
@@ -516,6 +523,7 @@ public class GameManager : MonoBehaviour
         gameOver_bestScoreTxt.text = string.Format("Best : {0:#,###0}", bestScore);
         gameOver_scoreTxt.text = string.Format("Score : {0:#,###0}", score);
         DataManager.Instance.DataDelete();
+        aFS.ShowAd();
     }
     void HorizontalBreak(int dir)
     {

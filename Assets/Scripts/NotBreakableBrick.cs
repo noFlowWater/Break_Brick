@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class NotBreakableBrick : Brick
 {
+
     protected override void Awake()
     {
         // base.Awake();
@@ -17,5 +19,24 @@ public class NotBreakableBrick : Brick
     {
         StartCoroutine(Shake());
     }
+
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Ball"))
+        {
+            TextMeshPro tmp = transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshInBrick>().tmp;
+            print("!");
+            tmp.text = "!";
+            StartCoroutine(SetTextBlank(0.2f, tmp));
+        }
+    }
+
+    IEnumerator SetTextBlank(float delay, TextMeshPro tmp)
+    {
+        yield return new WaitForSeconds(delay);
+        tmp.text = "";
+    }
+
 
 }

@@ -138,7 +138,7 @@ public class Ball_Gen_Controller : MonoBehaviour
 
                 linePoints[0] = start_Pos;
                 linePoints[1] = myPos;
-                print(start_Pos);
+                // print(start_Pos);
                 // lr.enabled = true;
                 // lr.SetPositions(linePoints);
                 DottedLine.Instance.DrawDottedLine(start_Pos, myPos);
