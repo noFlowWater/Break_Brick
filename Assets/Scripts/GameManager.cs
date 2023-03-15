@@ -188,7 +188,7 @@ public class GameManager : MonoBehaviour
 
     public void LineBreakCheck()
     {
-        GameManager.instance.level += 1.5f;
+        GameManager.instance.level += 2f;
         if (color == 1) // Red -> BlueBrick 생성
         {
             whereBNB = UnityEngine.Random.Range(0, 2);

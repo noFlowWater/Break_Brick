@@ -121,6 +121,9 @@ public class Ball_Controller : MonoBehaviour
             Vector3 position = contact.point;
             Quaternion rotation = Quaternion.LookRotation(contact.normal);
             GameManager.CreateParticleEffect(1, position, rotation, tempColor);
+        }else if(collision.gameObject.tag == "NoBrickWall"){
+            if (!ball_first_bounce)
+                ball_first_bounce = true;
         }
     }
 
