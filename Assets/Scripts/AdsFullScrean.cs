@@ -19,7 +19,10 @@ public class AdsFullScrean : MonoBehaviour
 
     // These ad units are configured to always serve test ads.
 #if UNITY_ANDROID
+    // Test
     private string _adUnitId = "ca-app-pub-3940256099942544/1033173712";
+    // 출시
+    // private string _adUnitId = "ca-app-pub-2128363078502034/2980604091";
 #elif UNITY_IPHONE
   private string _adUnitId = "ca-app-pub-3940256099942544/4411468910";
 #else

@@ -12,7 +12,11 @@ public class AdsBanner : MonoBehaviour
     void Start()
     {
 #if UNITY_ANDROID
+
+        // Test용
         string bannerId = "ca-app-pub-3940256099942544/6300978111";
+        // 출시용
+        // string bannerId = "ca-app-pub-2128363078502034/2953803498";
 
 #else
             string bannerId = "unexpected_platform";
